@@ -100,7 +100,7 @@ ZINNIA_MARKUP_LANGUAGE
 String determining the markup language used for writing the entries.
 You can use one of these values: ::
 
-    ['html', 'markdown', 'restructuredtext']
+    ['html', 'markdown']
 
 .. setting:: ZINNIA_MARKDOWN_EXTENSIONS
 
@@ -113,17 +113,6 @@ rendering the entries in MarkDown. Example: ::
 
   ZINNIA_MARKDOWN_EXTENSIONS =  ['markdown.extensions.nl2br',
                                  MyExtension(mysetting="foo")]
-
-.. setting:: ZINNIA_RESTRUCTUREDTEXT_SETTINGS
-
-ZINNIA_RESTRUCTUREDTEXT_SETTINGS
---------------------------------
-**Default value:** ``{}`` (Empty dict)
-
-A dictionary containing settings for the RestructuredText markup
-processing. See the Docutils restructuredtext `writer settings docs
-<http://docutils.sourceforge.net/docs/user/config.html#html4css1-writer>`_
-for details.
 
 .. _settings-preview:
 

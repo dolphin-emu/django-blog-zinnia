@@ -421,21 +421,6 @@ class EntryHtmlContentTestCase(TestCase):
             '<p>This is an inline HTML paragraph</p>'
         )
 
-    @skip_if_lib_not_available('docutils')
-    def test_html_content_restructuredtext(self):
-        markups.MARKUP_LANGUAGE = 'restructuredtext'
-        self.entry.content = 'Hello world !\n\n' \
-                             'this is my content :\n\n' \
-                             '* Item 1\n* Item 2'
-        html_content = self.entry.html_content
-        self.assertHTMLEqual(
-            html_content,
-            '<p>Hello world !</p>\n'
-            '<p>this is my content :</p>'
-            '\n<ul class="simple">\n<li>Item 1</li>\n'
-            '<li>Item 2</li>\n</ul>\n'
-        )
-
     def test_html_preview(self):
         markups.MARKUP_LANGUAGE = None
         preview = self.entry.html_preview
@@ -495,21 +480,6 @@ class EntryHtmlLeadTestCase(TestCase):
             html_lead,
             '<p>Hello <em>World</em> !</p>\n'
             '<p>This is an inline HTML paragraph</p>'
-        )
-
-    @skip_if_lib_not_available('docutils')
-    def test_html_lead_restructuredtext(self):
-        markups.MARKUP_LANGUAGE = 'restructuredtext'
-        self.entry.lead = 'Hello world !\n\n' \
-                          'this is my lead :\n\n' \
-                          '* Item 1\n* Item 2'
-        html_lead = self.entry.html_lead
-        self.assertHTMLEqual(
-            html_lead,
-            '<p>Hello world !</p>\n'
-            '<p>this is my lead :</p>'
-            '\n<ul class="simple">\n<li>Item 1</li>\n'
-            '<li>Item 2</li>\n</ul>\n'
         )
 
 

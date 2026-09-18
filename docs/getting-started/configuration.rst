@@ -124,18 +124,16 @@ If you doesn't want to write your entries in HTML, because you are
 an über coder knowing more than 42 programming languages, you have the
 possibility to use a custom markup language for editing the entries.
 
-Currently **MarkDown** and **reStructuredText** are supported,
-so if you want to use one of these languages, first set this
+Currently **MarkDown** is supported, so if you want to use it, first set this
 setting as appropriate in your project's settings. ::
 
-  ZINNIA_MARKUP_LANGUAGE = 'restructuredtext'
+  ZINNIA_MARKUP_LANGUAGE = 'markdown'
 
 Note that the name of the language must be in lowercase.
 
 Then install the corresponding library to your needs:
 
 * ``markdown`` -- requires `Markdown`_ >= 2.3.1
-* ``restructuredtext`` -- requires `Docutils`_ >= 0.10
 
 .. _zinnia-cache:
 
@@ -183,6 +181,5 @@ Insert something like this in your project's urls.py: ::
           More information at http://hixie.ch/specs/pingback/pingback-1.0#TOC2
 
 .. _`Markdown`: http://pypi.python.org/pypi/Markdown
-.. _`Docutils`: http://docutils.sf.net/
 .. _`django-xmlrpc`: http://pypi.python.org/pypi/django-xmlrpc/
 .. _`MetaWeblog API`: http://www.xmlrpc.com/metaWeblogApi

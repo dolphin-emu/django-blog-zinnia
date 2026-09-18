@@ -33,9 +33,6 @@ MARKUP_LANGUAGE = getattr(settings, 'ZINNIA_MARKUP_LANGUAGE', 'html')
 
 MARKDOWN_EXTENSIONS = getattr(settings, 'ZINNIA_MARKDOWN_EXTENSIONS', [])
 
-RESTRUCTUREDTEXT_SETTINGS = getattr(
-    settings, 'ZINNIA_RESTRUCTUREDTEXT_SETTINGS', {})
-
 PREVIEW_SPLITTERS = getattr(settings, 'ZINNIA_PREVIEW_SPLITTERS',
                             ['<!-- more -->', '<!--more-->'])
 

@@ -4,13 +4,11 @@ Code originally provided by django.contrib.markups
 """
 import warnings
 
-from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.utils.html import linebreaks
 
 from zinnia.settings import MARKDOWN_EXTENSIONS
 from zinnia.settings import MARKUP_LANGUAGE
-from zinnia.settings import RESTRUCTUREDTEXT_SETTINGS
 
 
 def markdown(value, extensions=MARKDOWN_EXTENSIONS):
@@ -30,23 +28,6 @@ def markdown(value, extensions=MARKDOWN_EXTENSIONS):
     return markdown.markdown(force_str(value), extensions=extensions)
 
 
-def restructuredtext(value, settings=RESTRUCTUREDTEXT_SETTINGS):
-    """
-    RestructuredText processing with optionnally custom settings.
-    """
-    try:
-        from docutils.core import publish_parts
-    except ImportError:
-        warnings.warn("The Python docutils library isn't installed.",
-                      RuntimeWarning)
-        return value
-
-    parts = publish_parts(source=force_bytes(value),
-                          writer_name='html4css1',
-                          settings_overrides=settings)
-    return force_str(parts['fragment'])
-
-
 def html_format(value):
     """
     Returns the value formatted in HTML,
@@ -56,8 +37,6 @@ def html_format(value):
         return ''
     elif MARKUP_LANGUAGE == 'markdown':
         return markdown(value)
-    elif MARKUP_LANGUAGE == 'restructuredtext':
-        return restructuredtext(value)
     elif '</p>' not in value:
         return linebreaks(value)
     return value

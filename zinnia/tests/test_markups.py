@@ -7,7 +7,6 @@ from django.test import TestCase
 from zinnia import markups
 from zinnia.markups import html_format
 from zinnia.markups import markdown
-from zinnia.markups import restructuredtext
 from zinnia.tests.utils import skip_if_lib_not_available
 
 
@@ -49,32 +48,9 @@ class MarkupsTestCase(TestCase):
             'title="Permanent link">PL</a></h2>'
         )
 
-    @skip_if_lib_not_available('docutils')
-    def test_restructuredtext(self):
-        self.assertHTMLEqual(
-            restructuredtext(self.text).strip(),
-            '<p>Hello <em>World</em> !</p>'
-        )
-
-    @skip_if_lib_not_available('docutils')
-    def test_restructuredtext_settings_override(self):
-        text = 'My email is toto@example.com'
-        self.assertHTMLEqual(
-            restructuredtext(text).strip(),
-            '<p>My email is <a class="reference external" '
-            'href="mailto:toto&#64;example.com">'
-            'toto&#64;example.com</a></p>'
-        )
-        self.assertHTMLEqual(
-            restructuredtext(text, {'cloak_email_addresses': True}).strip(),
-            '<p>My email is <a class="reference external" '
-            'href="mailto:toto&#37;&#52;&#48;example&#46;com">'
-            'toto<span>&#64;</span>example<span>&#46;</span>com</a></p>'
-        )
-
 
 class MarkupFailImportTestCase(TestCase):
-    exclude_list = ['markdown', 'docutils']
+    exclude_list = ['markdown']
 
     def setUp(self):
         self.original_import = builtins.__import__
@@ -98,16 +74,6 @@ class MarkupFailImportTestCase(TestCase):
         self.assertEqual(
             str(w[-1].message),
             "The Python markdown library isn't installed.")
-
-    def test_restructuredtext(self):
-        with warnings.catch_warnings(record=True) as w:
-            result = restructuredtext('My *text*')
-        self.tearDown()
-        self.assertEqual(result, 'My *text*')
-        self.assertTrue(issubclass(w[-1].category, RuntimeWarning))
-        self.assertEqual(
-            str(w[-1].message),
-            "The Python docutils library isn't installed.")
 
 
 class HtmlFormatTestCase(TestCase):
@@ -140,18 +106,4 @@ class HtmlFormatTestCase(TestCase):
             '<p>this is my content :</p>'
             '\n<ul>\n<li>Item 1</li>\n'
             '<li>Item 2</li>\n</ul>'
-        )
-
-    @skip_if_lib_not_available('docutils')
-    def test_html_content_restructuredtext(self):
-        markups.MARKUP_LANGUAGE = 'restructuredtext'
-        value = 'Hello world !\n\n' \
-                'this is my content :\n\n' \
-                '* Item 1\n* Item 2'
-        self.assertHTMLEqual(
-            html_format(value),
-            '<p>Hello world !</p>\n'
-            '<p>this is my content :</p>'
-            '\n<ul class="simple">\n<li>Item 1</li>\n'
-            '<li>Item 2</li>\n</ul>\n'
         )

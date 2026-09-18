@@ -792,7 +792,7 @@ class ViewsTestCase(ViewsBaseCase):
 
     def test_quick_entry_markup_language_issue_270(self):
         original_markup_language = quick_entry.MARKUP_LANGUAGE
-        quick_entry.MARKUP_LANGUAGE = 'restructuredtext'
+        quick_entry.MARKUP_LANGUAGE = 'markdown'
         Author.objects.create_superuser(
             'root', 'root@example.com', 'password')
         self.client.login(username='root', password='password')
