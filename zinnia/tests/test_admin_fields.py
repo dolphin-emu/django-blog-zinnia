@@ -16,7 +16,7 @@ class MPTTModelChoiceIteratorTestCase(TestCase):
             title='Category 2', slug='cat-2',
             parent=category_1)
 
-        class FakeField(object):
+        class FakeField:
             queryset = Category.objects.all()
 
             def prepare_value(self, value):

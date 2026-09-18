@@ -39,7 +39,7 @@ class QuickEntry(View):
         """
         Decorate the view dispatcher with permission_required.
         """
-        return super(QuickEntry, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         """

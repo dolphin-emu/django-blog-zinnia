@@ -41,7 +41,7 @@ class URLShortenerTestCase(TestCase):
         self.assertEqual(get_url_shortener(), default.backend)
 
 
-class FakeEntry(object):
+class FakeEntry:
     """Fake entry with only 'pk' as attribute"""
     def __init__(self, pk):
         self.pk = pk

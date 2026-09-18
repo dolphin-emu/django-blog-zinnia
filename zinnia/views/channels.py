@@ -6,7 +6,7 @@ from zinnia.settings import PAGINATION
 from zinnia.views.mixins.prefetch_related import PrefetchCategoriesAuthorsMixin
 
 
-class BaseEntryChannel(object):
+class BaseEntryChannel:
     """
     Mixin for displaying a custom selection of entries
     based on a search query, useful to build SEO/SMO pages
@@ -26,7 +26,7 @@ class BaseEntryChannel(object):
         """
         Add query in context.
         """
-        context = super(BaseEntryChannel, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({'query': self.query})
         return context
 

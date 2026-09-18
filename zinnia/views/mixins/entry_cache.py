@@ -1,7 +1,7 @@
 """Cache mixins for Zinnia views"""
 
 
-class EntryCacheMixin(object):
+class EntryCacheMixin:
     """
     Mixin implementing cache on ``get_object`` method.
     """
@@ -13,6 +13,6 @@ class EntryCacheMixin(object):
         avoid repetitive calls, in POST.
         """
         if self._cached_object is None:
-            self._cached_object = super(EntryCacheMixin, self).get_object(
+            self._cached_object = super().get_object(
                 queryset)
         return self._cached_object

@@ -11,7 +11,7 @@ from zinnia.settings import PREVIEW_MORE_STRING
 from zinnia.settings import PREVIEW_SPLITTERS
 
 
-class HTMLPreview(object):
+class HTMLPreview:
     """
     Build an HTML preview of an HTML content.
     """

@@ -24,7 +24,7 @@ class AuthorList(ListView):
             count_entries_published=Count('entries'))
 
 
-class BaseAuthorDetail(object):
+class BaseAuthorDetail:
     """
     Mixin providing the behavior of the author detail view,
     by returning in the context the current author and a
@@ -44,7 +44,7 @@ class BaseAuthorDetail(object):
         """
         Add the current author in context.
         """
-        context = super(BaseAuthorDetail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['author'] = self.author
         return context
 

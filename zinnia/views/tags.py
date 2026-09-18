@@ -31,7 +31,7 @@ class TagList(ListView):
             Entry.published.all(), counts=True)
 
 
-class BaseTagDetail(object):
+class BaseTagDetail:
     """
     Mixin providing the behavior of the tag detail view,
     by returning in the context the current tag and a
@@ -54,7 +54,7 @@ class BaseTagDetail(object):
         """
         Add the current tag in context.
         """
-        context = super(BaseTagDetail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['tag'] = self.tag
         return context
 

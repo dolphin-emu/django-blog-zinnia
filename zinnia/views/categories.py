@@ -32,7 +32,7 @@ class CategoryList(ListView):
             count_entries_published=Count('entries'))
 
 
-class BaseCategoryDetail(object):
+class BaseCategoryDetail:
     """
     Mixin providing the behavior of the category detail view,
     by returning in the context the current category and a
@@ -51,7 +51,7 @@ class BaseCategoryDetail(object):
         """
         Add the current category in context.
         """
-        context = super(BaseCategoryDetail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['category'] = self.category
         return context
 

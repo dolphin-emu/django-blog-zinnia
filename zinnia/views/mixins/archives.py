@@ -7,7 +7,7 @@ from zinnia.settings import ALLOW_FUTURE
 from zinnia.settings import PAGINATION
 
 
-class ArchiveMixin(object):
+class ArchiveMixin:
     """
     Mixin centralizing the configuration of the archives views.
     """
@@ -19,7 +19,7 @@ class ArchiveMixin(object):
     week_format = '%W'
 
 
-class PreviousNextPublishedMixin(object):
+class PreviousNextPublishedMixin:
     """
     Mixin for correcting the previous/next
     context variable to return dates with published datas.

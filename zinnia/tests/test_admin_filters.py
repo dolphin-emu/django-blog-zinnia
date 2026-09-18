@@ -81,7 +81,7 @@ class AuthorListFilterTestCase(BaseListFilterTestCase):
     """Test case for AuthorListFilter"""
 
     def setUp(self):
-        super(AuthorListFilterTestCase, self).setUp()
+        super().setUp()
         self.authors = [
             Author.objects.create_user(username='webmaster',
                                        email='webmaster@example.com'),
@@ -125,7 +125,7 @@ class CategoryListFilterTestCase(BaseListFilterTestCase):
     """Test case for CategoryListFilter"""
 
     def setUp(self):
-        super(CategoryListFilterTestCase, self).setUp()
+        super().setUp()
         self.categories = [
             Category.objects.create(title='Category 1',
                                     slug='cat-1'),

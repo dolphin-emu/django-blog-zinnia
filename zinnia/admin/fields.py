@@ -15,8 +15,7 @@ class MPTTModelChoiceIterator(forms.models.ModelChoiceIterator):
         """
         tree_id = getattr(obj, self.queryset.model._mptt_meta.tree_id_attr, 0)
         left = getattr(obj, self.queryset.model._mptt_meta.left_attr, 0)
-        return super(MPTTModelChoiceIterator,
-                     self).choice(obj) + ((tree_id, left),)
+        return super().choice(obj) + ((tree_id, left),)
 
 
 class MPTTModelMultipleChoiceField(forms.ModelMultipleChoiceField):
@@ -26,7 +25,7 @@ class MPTTModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
     def __init__(self, level_indicator='|--', *args, **kwargs):
         self.level_indicator = level_indicator
-        super(MPTTModelMultipleChoiceField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def label_from_instance(self, obj):
         """

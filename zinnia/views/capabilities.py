@@ -17,7 +17,7 @@ class CapabilityView(TemplateView):
         Populate the context of the template
         with technical informations for building urls.
         """
-        context = super(CapabilityView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({'protocol': PROTOCOL,
                         'copyright': COPYRIGHT,
                         'feeds_format': FEEDS_FORMAT,

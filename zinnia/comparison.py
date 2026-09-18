@@ -36,7 +36,7 @@ def pearson_score(list1, list2):
     return num / den
 
 
-class ModelVectorBuilder(object):
+class ModelVectorBuilder:
     """
     Build a list of vectors based on a Queryset.
     """
@@ -201,8 +201,7 @@ class CachedModelVectorBuilder(ModelVectorBuilder):
         cache = self.cache
         cache_key = '%s:%s' % (instance.pk, number)
         if cache_key not in cache:
-            related_objects = super(CachedModelVectorBuilder,
-                                    self).get_related(instance, number)
+            related_objects = super().get_related(instance, number)
             cache[cache_key] = related_objects
             self.cache = cache
         return cache[cache_key]
@@ -215,8 +214,7 @@ class CachedModelVectorBuilder(ModelVectorBuilder):
         cache = self.cache
         cache_key = 'columns_dataset'
         if cache_key not in cache:
-            columns_dataset = super(CachedModelVectorBuilder, self
-                                    ).columns_dataset
+            columns_dataset = super().columns_dataset
             cache[cache_key] = columns_dataset
             self.cache = cache
         return cache[cache_key]
@@ -235,5 +233,5 @@ class EntryPublishedVectorBuilder(CachedModelVectorBuilder):
         """
         Key for the cache handling current site.
         """
-        return '%s:%s' % (super(EntryPublishedVectorBuilder, self).cache_key,
+        return '%s:%s' % (super().cache_key,
                           Site.objects.get_current().pk)

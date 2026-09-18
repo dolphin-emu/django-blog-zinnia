@@ -44,7 +44,7 @@ class Author(safe_get_user_model(),
         Builds and returns the author's URL based on his username.
         """
         try:
-            return super(Author, self).get_absolute_url()
+            return super().get_absolute_url()
         except AttributeError:
             return reverse('zinnia:author_detail', args=[self.get_username()])
 

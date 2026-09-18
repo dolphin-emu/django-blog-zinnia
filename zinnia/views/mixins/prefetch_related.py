@@ -2,7 +2,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
 
-class PrefetchRelatedMixin(object):
+class PrefetchRelatedMixin:
     """
     Mixin allow you to provides list of relation names
     to be prefetching when the queryset is build.
@@ -22,8 +22,7 @@ class PrefetchRelatedMixin(object):
             raise ImproperlyConfigured(
                 "%s's relation_names property must be a tuple or list." %
                 self.__class__.__name__)
-        return super(PrefetchRelatedMixin, self
-                     ).get_queryset().prefetch_related(*self.relation_names)
+        return super().get_queryset().prefetch_related(*self.relation_names)
 
 
 class PrefetchCategoriesAuthorsMixin(PrefetchRelatedMixin):

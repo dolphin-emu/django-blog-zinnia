@@ -7,7 +7,7 @@ from zinnia.settings import PAGINATION
 from zinnia.views.mixins.prefetch_related import PrefetchCategoriesAuthorsMixin
 
 
-class BaseEntrySearch(object):
+class BaseEntrySearch:
     """
     Mixin providing the behavior of the entry search view,
     by returning in the context the pattern searched, the
@@ -38,7 +38,7 @@ class BaseEntrySearch(object):
         """
         Add error and pattern in context.
         """
-        context = super(BaseEntrySearch, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({'error': self.error, 'pattern': self.pattern})
         return context
 

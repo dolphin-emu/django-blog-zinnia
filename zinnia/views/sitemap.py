@@ -17,7 +17,7 @@ class Sitemap(TemplateView):
         Populate the context of the template
         with all published entries and all the categories.
         """
-        context = super(Sitemap, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update(
             {'entries': Entry.published.all(),
              'categories': Category.published.all(),

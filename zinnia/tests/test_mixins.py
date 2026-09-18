@@ -145,7 +145,7 @@ class MixinTestCase(TestCase):
              'entry_archive.html'])
 
     def test_entry_archive_template_response_mixin(self):
-        class FakeEntry(object):
+        class FakeEntry:
             detail_template = 'entry_detail.html'
             slug = 'my-fake-entry'
 
@@ -348,7 +348,7 @@ class MixinTestCase(TestCase):
             entry.authors.add(author)
             entry.categories.add(category)
 
-        class View(object):
+        class View:
             def get_queryset(self):
                 return Entry.objects.all()
 

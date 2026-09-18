@@ -2,7 +2,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
 
-class CallableQuerysetMixin(object):
+class CallableQuerysetMixin:
     """
     Mixin for handling a callable queryset,
     which will force the update of the queryset.

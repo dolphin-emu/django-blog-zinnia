@@ -23,7 +23,7 @@ class MPTTFilteredSelectMultiple(widgets.FilteredSelectMultiple):
         """
         Initializes the widget directly not stacked.
         """
-        super(MPTTFilteredSelectMultiple, self).__init__(
+        super().__init__(
             verbose_name, is_stacked, attrs, choices)
 
     def optgroups(self, name, value, attrs=None):
@@ -86,7 +86,7 @@ class TagAutoComplete(widgets.AdminTextInputWidget):
         """
         Render the default widget and initialize select2.
         """
-        output = [super(TagAutoComplete, self).render(name, value, attrs)]
+        output = [super().render(name, value, attrs)]
         output.append('<script type="text/javascript">')
         output.append('(function($) {')
         output.append('  $(document).ready(function() {')
@@ -122,5 +122,5 @@ class MiniTextarea(widgets.AdminTextareaWidget):
     rows = 2
 
     def __init__(self, attrs=None):
-        super(MiniTextarea, self).__init__(
+        super().__init__(
             {'rows': self.rows})

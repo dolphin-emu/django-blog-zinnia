@@ -42,7 +42,7 @@ class Calendar(HTMLCalendar):
                    'class="archives">%d</a></td>' % (
                        self.cssclasses[weekday], archive_day_url, day)
 
-        return super(Calendar, self).formatday(day, weekday)
+        return super().formatday(day, weekday)
 
     def formatweekday(self, day):
         """
@@ -55,7 +55,7 @@ class Calendar(HTMLCalendar):
         """
         Return a header for a week as a table row.
         """
-        return '<thead>%s</thead>' % super(Calendar, self).formatweekheader()
+        return '<thead>%s</thead>' % super().formatweekheader()
 
     def formatfooter(self, previous_month, next_month):
         """

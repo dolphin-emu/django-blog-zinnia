@@ -24,7 +24,7 @@ class CategoryAdminForm(forms.ModelForm):
         queryset=Category.objects.all())
 
     def __init__(self, *args, **kwargs):
-        super(CategoryAdminForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['parent'].widget = RelatedFieldWidgetWrapper(
             self.fields['parent'].widget,
             Category.parent.field.remote_field,
@@ -59,7 +59,7 @@ class EntryAdminForm(forms.ModelForm):
         widget=MPTTFilteredSelectMultiple(_('categories')))
 
     def __init__(self, *args, **kwargs):
-        super(EntryAdminForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['categories'].widget = RelatedFieldWidgetWrapper(
             self.fields['categories'].widget,
             Entry.categories.field.remote_field,

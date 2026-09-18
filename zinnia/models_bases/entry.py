@@ -154,7 +154,7 @@ class CoreEntry(models.Model):
         the last_update field.
         """
         self.last_update = timezone.now()
-        super(CoreEntry, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         """
@@ -280,7 +280,7 @@ class ExcerptEntry(models.Model):
         if not self.excerpt and self.status == PUBLISHED:
             self.excerpt = Truncator(strip_tags(
                 getattr(self, 'content', ''))).words(50)
-        super(ExcerptEntry, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True

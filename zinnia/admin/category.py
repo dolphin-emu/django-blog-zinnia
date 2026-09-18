@@ -21,7 +21,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
     def __init__(self, model, admin_site):
         self.form.admin_site = admin_site
-        super(CategoryAdmin, self).__init__(model, admin_site)
+        super().__init__(model, admin_site)
 
     def get_tree_path(self, category):
         """

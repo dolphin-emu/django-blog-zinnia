@@ -45,13 +45,13 @@ class EntryPublishedManager(models.Manager):
         Return published entries.
         """
         return entries_published(
-            super(EntryPublishedManager, self).get_queryset())
+            super().get_queryset())
 
     def on_site(self):
         """
         Return entries published on current site.
         """
-        return super(EntryPublishedManager, self).get_queryset().filter(
+        return super().get_queryset().filter(
             sites=Site.objects.get_current())
 
     def search(self, pattern):

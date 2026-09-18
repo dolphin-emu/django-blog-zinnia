@@ -8,7 +8,7 @@ from zinnia.views.categories import CategoryDetail
 from zinnia.views.tags import TagDetail
 
 
-class CustomModelDetailMixin(object):
+class CustomModelDetailMixin:
     """
     Mixin for changing the template_name
     and overriding the context.
@@ -16,8 +16,7 @@ class CustomModelDetailMixin(object):
     template_name = 'zinnia/entry_custom_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CustomModelDetailMixin,
-                        self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({'extra': 'context'})
         return context
 

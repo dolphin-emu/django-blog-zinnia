@@ -50,7 +50,7 @@ class BaseAdminTestCase(TestCase):
             self.assertEqual(func(*args), result_poor)
 
 
-class TestMessageBackend(object):
+class TestMessageBackend:
     """Message backend for testing"""
     def __init__(self, *ka, **kw):
         self.messages = []
@@ -66,7 +66,7 @@ class EntryAdminTestCase(BaseAdminTestCase):
     admin_class = EntryAdmin
 
     def setUp(self):
-        super(EntryAdminTestCase, self).setUp()
+        super().setUp()
         params = {'title': 'My title',
                   'content': 'My content',
                   'slug': 'my-title'}

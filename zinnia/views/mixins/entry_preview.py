@@ -3,7 +3,7 @@ from django.http import Http404
 from django.utils.translation import gettext as _
 
 
-class EntryPreviewMixin(object):
+class EntryPreviewMixin:
     """
     Mixin implementing the preview of Entries.
     """
@@ -15,7 +15,7 @@ class EntryPreviewMixin(object):
         has the 'zinnia.can_view_all' permission or if
         it's an author of the entry.
         """
-        obj = super(EntryPreviewMixin, self).get_object(queryset)
+        obj = super().get_object(queryset)
         if obj.is_visible:
             return obj
         if (self.request.user.has_perm('zinnia.can_view_all') or

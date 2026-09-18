@@ -10,7 +10,7 @@ from django.utils.timezone import localtime
 from django.utils.translation import gettext as _
 
 
-class Crumb(object):
+class Crumb:
     """
     Part of the breadcrumbs.
     """

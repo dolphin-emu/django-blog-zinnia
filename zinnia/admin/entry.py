@@ -66,7 +66,7 @@ class EntryAdmin(admin.ModelAdmin):
 
     def __init__(self, model, admin_site):
         self.form.admin_site = admin_site
-        super(EntryAdmin, self).__init__(model, admin_site)
+        super().__init__(model, admin_site)
 
     # Custom Display
     def get_title(self, entry):
@@ -163,14 +163,14 @@ class EntryAdmin(admin.ModelAdmin):
         if not request.user.has_perm('zinnia.can_view_all'):
             queryset = self.model.objects.filter(authors__pk=request.user.pk)
         else:
-            queryset = super(EntryAdmin, self).get_queryset(request)
+            queryset = super().get_queryset(request)
         return queryset.prefetch_related('categories', 'authors', 'sites')
 
     def get_changeform_initial_data(self, request):
         """
         Provide initial datas when creating an entry.
         """
-        get_data = super(EntryAdmin, self).get_changeform_initial_data(request)
+        get_data = super().get_changeform_initial_data(request)
         return get_data or {
             'sites': [Site.objects.get_current().pk],
             'authors': [request.user.pk]
@@ -185,14 +185,14 @@ class EntryAdmin(admin.ModelAdmin):
                 Q(is_staff=True) | Q(entries__isnull=False)
                 ).distinct()
 
-        return super(EntryAdmin, self).formfield_for_manytomany(
+        return super().formfield_for_manytomany(
             db_field, request, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         """
         Return readonly fields by user's permissions.
         """
-        readonly_fields = list(super(EntryAdmin, self).get_readonly_fields(
+        readonly_fields = list(super().get_readonly_fields(
             request, obj))
 
         if not request.user.has_perm('zinnia.can_change_status'):
@@ -207,7 +207,7 @@ class EntryAdmin(admin.ModelAdmin):
         """
         Define actions by user's permissions.
         """
-        actions = super(EntryAdmin, self).get_actions(request)
+        actions = super().get_actions(request)
         if not actions:
             return actions
         if (not request.user.has_perm('zinnia.can_change_author') or
