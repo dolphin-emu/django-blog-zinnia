@@ -79,14 +79,10 @@ h2.entry-title {
   @include strong-icon("shorturl.png");
 }
 
-.entry-discussions {
-  @include strong-icon("comments.png");
-}
-
 .entry-widgets {
   p, ul { padding-left: 1.5em; }
 }
 
-.entry-widgets, #comments, #pingbacks, #trackbacks {
+.entry-widgets {
   padding-top: 1em;
 }

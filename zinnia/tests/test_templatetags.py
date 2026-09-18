@@ -13,22 +13,16 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
-import django_comments as comments
-from django_comments.models import CommentFlag
-
 from tagging.models import Tag
 
-from zinnia.flags import PINGBACK, TRACKBACK
 from zinnia.managers import DRAFT
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_discussion_signals
 from zinnia.signals import disconnect_entry_signals
 from zinnia.signals import flush_similar_cache_handler
 from zinnia.templatetags import zinnia as ztemplatetags
-from zinnia.templatetags.zinnia import comment_admin_urlname
 from zinnia.templatetags.zinnia import get_archives_entries
 from zinnia.templatetags.zinnia import get_archives_entries_tree
 from zinnia.templatetags.zinnia import get_authors
@@ -38,11 +32,8 @@ from zinnia.templatetags.zinnia import get_categories_tree
 from zinnia.templatetags.zinnia import get_draft_entries
 from zinnia.templatetags.zinnia import get_featured_entries
 from zinnia.templatetags.zinnia import get_gravatar
-from zinnia.templatetags.zinnia import get_popular_entries
 from zinnia.templatetags.zinnia import get_random_entries
-from zinnia.templatetags.zinnia import get_recent_comments
 from zinnia.templatetags.zinnia import get_recent_entries
-from zinnia.templatetags.zinnia import get_recent_linkbacks
 from zinnia.templatetags.zinnia import get_similar_entries
 from zinnia.templatetags.zinnia import get_tag_cloud
 from zinnia.templatetags.zinnia import user_admin_urlname
@@ -62,7 +53,6 @@ class TemplateTagsTestCase(TestCase):
 
     def setUp(self):
         disconnect_entry_signals()
-        disconnect_discussion_signals()
         params = {'title': 'My entry',
                   'content': 'My content',
                   'tags': 'zinnia, test',
@@ -209,51 +199,6 @@ class TemplateTagsTestCase(TestCase):
         with self.assertNumQueries(0):
             context = get_random_entries(0)
         self.assertEqual(len(context['entries']), 0)
-
-    def test_get_popular_entries(self):
-        with self.assertNumQueries(0):
-            context = get_popular_entries()
-        self.assertEqual(len(context['entries']), 0)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/entries_popular.html')
-
-        self.publish_entry()
-        with self.assertNumQueries(0):
-            context = get_popular_entries(3, 'custom_template.html')
-        self.assertEqual(len(context['entries']), 0)
-        self.assertEqual(context['template'], 'custom_template.html')
-
-        params = {'title': 'My second entry',
-                  'content': 'My second content',
-                  'tags': 'zinnia, test',
-                  'status': PUBLISHED,
-                  'comment_count': 2,
-                  'slug': 'my-second-entry'}
-        second_entry = Entry.objects.create(**params)
-        second_entry.sites.add(self.site)
-        self.entry.comment_count = 1
-        self.entry.save()
-        with self.assertNumQueries(0):
-            context = get_popular_entries(3)
-        self.assertEqual(list(context['entries']), [second_entry, self.entry])
-
-        self.entry.comment_count = 2
-        self.entry.save()
-        with self.assertNumQueries(0):
-            context = get_popular_entries(3)
-        self.assertEqual(list(context['entries']), [second_entry, self.entry])
-
-        self.entry.comment_count = 3
-        self.entry.save()
-        with self.assertNumQueries(0):
-            context = get_popular_entries(3)
-        self.assertEqual(list(context['entries']), [self.entry, second_entry])
-
-        self.entry.status = DRAFT
-        self.entry.save()
-        with self.assertNumQueries(0):
-            context = get_popular_entries(3)
-        self.assertEqual(list(context['entries']), [second_entry])
 
     def test_get_similar_entries(self):
         post_save.connect(
@@ -536,84 +481,6 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(
             context['next_month'],
             self.make_local(self.entry.publication_date).date().replace(day=1))
-
-    @skip_if_custom_user
-    def test_get_recent_comments(self):
-        with self.assertNumQueries(1):
-            context = get_recent_comments()
-        self.assertEqual(len(context['comments']), 0)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/comments_recent.html')
-
-        comment_1 = comments.get_model().objects.create(
-            comment='My Comment 1', site=self.site,
-            content_object=self.entry, submit_date=timezone.now())
-        with self.assertNumQueries(1):
-            context = get_recent_comments(3, 'custom_template.html')
-        self.assertEqual(len(context['comments']), 0)
-        self.assertEqual(context['template'], 'custom_template.html')
-
-        self.publish_entry()
-        with self.assertNumQueries(3):
-            context = get_recent_comments()
-            self.assertEqual(len(context['comments']), 1)
-            self.assertEqual(context['comments'][0].content_object,
-                             self.entry)
-
-        author = Author.objects.create_user(username='webmaster',
-                                            email='webmaster@example.com')
-        comment_2 = comments.get_model().objects.create(
-            comment='My Comment 2', site=self.site,
-            content_object=self.entry, submit_date=timezone.now())
-        comment_2.flags.create(user=author,
-                               flag=CommentFlag.MODERATOR_APPROVAL)
-        with self.assertNumQueries(3):
-            context = get_recent_comments()
-            self.assertEqual(list(context['comments']),
-                             [comment_2, comment_1])
-            self.assertEqual(context['comments'][0].content_object,
-                             self.entry)
-            self.assertEqual(context['comments'][1].content_object,
-                             self.entry)
-
-    @skip_if_custom_user
-    def test_get_recent_linkbacks(self):
-        user = Author.objects.create_user(username='webmaster',
-                                          email='webmaster@example.com')
-        with self.assertNumQueries(1):
-            context = get_recent_linkbacks()
-        self.assertEqual(len(context['linkbacks']), 0)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/linkbacks_recent.html')
-
-        linkback_1 = comments.get_model().objects.create(
-            comment='My Linkback 1', site=self.site,
-            content_object=self.entry, submit_date=timezone.now())
-        linkback_1.flags.create(user=user, flag=PINGBACK)
-        with self.assertNumQueries(1):
-            context = get_recent_linkbacks(3, 'custom_template.html')
-        self.assertEqual(len(context['linkbacks']), 0)
-        self.assertEqual(context['template'], 'custom_template.html')
-
-        self.publish_entry()
-        with self.assertNumQueries(3):
-            context = get_recent_linkbacks()
-            self.assertEqual(len(context['linkbacks']), 1)
-            self.assertEqual(context['linkbacks'][0].content_object,
-                             self.entry)
-
-        linkback_2 = comments.get_model().objects.create(
-            comment='My Linkback 2', site=self.site,
-            content_object=self.entry, submit_date=timezone.now())
-        linkback_2.flags.create(user=user, flag=TRACKBACK)
-        with self.assertNumQueries(3):
-            context = get_recent_linkbacks()
-            self.assertEqual(list(context['linkbacks']),
-                             [linkback_2, linkback_1])
-            self.assertEqual(context['linkbacks'][0].content_object,
-                             self.entry)
-            self.assertEqual(context['linkbacks'][1].content_object,
-                             self.entry)
 
     def test_zinnia_pagination(self):
         class FakeRequest(object):
@@ -1150,11 +1017,6 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(week_number(datetime(2013, 1, 1)), '0')
         self.assertEqual(week_number(datetime(2013, 12, 21)), '50')
 
-    def test_comment_admin_urlname(self):
-        comment_admin_url = comment_admin_urlname('action')
-        self.assertTrue(comment_admin_url.startswith('admin:'))
-        self.assertTrue(comment_admin_url.endswith('_action'))
-
     @skip_if_custom_user
     def test_user_admin_urlname(self):
         user_admin_url = user_admin_urlname('action')
@@ -1162,49 +1024,29 @@ class TemplateTagsTestCase(TestCase):
 
     @skip_if_custom_user
     def test_zinnia_statistics(self):
-        with self.assertNumQueries(8):
-            context = zinnia_statistics()
+        context = zinnia_statistics()
         self.assertEqual(context['template'], 'zinnia/tags/statistics.html')
         self.assertEqual(context['entries'], 0)
         self.assertEqual(context['categories'], 0)
         self.assertEqual(context['tags'], 0)
         self.assertEqual(context['authors'], 0)
-        self.assertEqual(context['comments'], 0)
-        self.assertEqual(context['pingbacks'], 0)
-        self.assertEqual(context['trackbacks'], 0)
-        self.assertEqual(context['rejects'], 0)
         self.assertEqual(context['words_per_entry'], 0)
-        self.assertEqual(context['words_per_comment'], 0)
         self.assertEqual(context['entries_per_month'], 0)
-        self.assertEqual(context['comments_per_entry'], 0)
-        self.assertEqual(context['linkbacks_per_entry'], 0)
 
         Category.objects.create(title='Category 1', slug='category-1')
         author = Author.objects.create_user(username='webmaster',
                                             email='webmaster@example.com')
-        comments.get_model().objects.create(
-            comment='My Comment 1', site=self.site,
-            content_object=self.entry,
-            submit_date=timezone.now())
         self.entry.authors.add(author)
         self.publish_entry()
 
-        with self.assertNumQueries(13):
-            context = zinnia_statistics('custom_template.html')
+        context = zinnia_statistics('custom_template.html')
         self.assertEqual(context['template'], 'custom_template.html')
         self.assertEqual(context['entries'], 1)
         self.assertEqual(context['categories'], 1)
         self.assertEqual(context['tags'], 2)
         self.assertEqual(context['authors'], 1)
-        self.assertEqual(context['comments'], 1)
-        self.assertEqual(context['pingbacks'], 0)
-        self.assertEqual(context['trackbacks'], 0)
-        self.assertEqual(context['rejects'], 0)
         self.assertEqual(context['words_per_entry'], 2)
-        self.assertEqual(context['words_per_comment'], 3)
         self.assertEqual(context['entries_per_month'], 1)
-        self.assertEqual(context['comments_per_entry'], 1)
-        self.assertEqual(context['linkbacks_per_entry'], 0)
 
 
 class TemplateTagsTimezoneTestCase(TestCase):

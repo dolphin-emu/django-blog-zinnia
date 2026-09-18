@@ -451,33 +451,11 @@ table {
   padding-left: 1.5em;
   background: transparent url("../img/shorturl.png") no-repeat scroll; }
 
-.zinnia .entry-discussions strong {
-  padding-left: 1.5em;
-  background: transparent url("../img/comments.png") no-repeat scroll; }
-
 .zinnia .entry-widgets p, .zinnia .entry-widgets ul {
   padding-left: 1.5em; }
 
-.zinnia .entry-widgets, .zinnia #comments, .zinnia #pingbacks, .zinnia #trackbacks {
+.zinnia .entry-widgets {
   padding-top: 1em; }
-
-.zinnia #comment-list li, .zinnia #pingback-list li, .zinnia #trackback-list li {
-  list-style: none;
-  padding: 1em 1em 0 1em;
-  margin-bottom: 1em; }
-
-.zinnia #comment-list li {
-  min-height: 90px; }
-
-.zinnia #comment-list img {
-  float: left;
-  margin-right: 1em;
-  padding: 0.5em; }
-
-.zinnia p.comment-info, .zinnia p.trackback-info, .zinnia p.pingback-info {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 0.5em; }
 
 .zinnia .anchor-link {
   font-weight: normal;
@@ -603,14 +581,8 @@ table {
     border: 1px solid #ddd; }
   .zinnia.default .entry-footer strong {
     color: #666; }
-  .zinnia.default .entry-widgets, .zinnia.default #comments, .zinnia.default #pingbacks, .zinnia.default #trackbacks, .zinnia.default #footer {
+  .zinnia.default .entry-widgets, .zinnia.default #footer {
     border-top: 1px solid #ddd; }
-  .zinnia.default li.comment, .zinnia.default li.pingback, .zinnia.default li.trackback {
-    border: 1px solid #ddd; }
-    .zinnia.default li.comment img, .zinnia.default li.pingback img, .zinnia.default li.trackback img {
-      border: 1px solid #ddd; }
-  .zinnia.default .superuser-comment img {
-    background-color: #ddd; }
   .zinnia.default #header {
     border-bottom: 1px solid #ddd; }
     .zinnia.default #header h1 {
@@ -692,14 +664,8 @@ table {
     border: 1px solid #93a1a1; }
   .zinnia.light .entry-footer strong {
     color: #586e75; }
-  .zinnia.light .entry-widgets, .zinnia.light #comments, .zinnia.light #pingbacks, .zinnia.light #trackbacks, .zinnia.light #footer {
+  .zinnia.light .entry-widgets, .zinnia.light #footer {
     border-top: 1px solid #93a1a1; }
-  .zinnia.light li.comment, .zinnia.light li.pingback, .zinnia.light li.trackback {
-    border: 1px solid #93a1a1; }
-    .zinnia.light li.comment img, .zinnia.light li.pingback img, .zinnia.light li.trackback img {
-      border: 1px solid #93a1a1; }
-  .zinnia.light .superuser-comment img {
-    background-color: #93a1a1; }
   .zinnia.light #header {
     border-bottom: 1px solid #93a1a1; }
     .zinnia.light #header h1 {
@@ -781,14 +747,8 @@ table {
     border: 1px solid #586e75; }
   .zinnia.dark .entry-footer strong {
     color: #93a1a1; }
-  .zinnia.dark .entry-widgets, .zinnia.dark #comments, .zinnia.dark #pingbacks, .zinnia.dark #trackbacks, .zinnia.dark #footer {
+  .zinnia.dark .entry-widgets, .zinnia.dark #footer {
     border-top: 1px solid #586e75; }
-  .zinnia.dark li.comment, .zinnia.dark li.pingback, .zinnia.dark li.trackback {
-    border: 1px solid #586e75; }
-    .zinnia.dark li.comment img, .zinnia.dark li.pingback img, .zinnia.dark li.trackback img {
-      border: 1px solid #586e75; }
-  .zinnia.dark .superuser-comment img {
-    background-color: #586e75; }
   .zinnia.dark #header {
     border-bottom: 1px solid #586e75; }
     .zinnia.dark #header h1 {

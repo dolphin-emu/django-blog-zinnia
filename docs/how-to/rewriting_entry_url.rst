@@ -170,12 +170,5 @@ the text parameters. ::
       EntryDetail.as_view(),
       name='entry_detail')
 
-.. warning::
-   If you use the pingback XML-RPC service, you will also need change
-   to :func:`~zinnia.xmlrpc.pingback.pingback_ping` function for retrieving
-   the :class:`Entry` instance, accordingly to the new text parameters
-   captured in the URL.
-
-
 Actually you should consider Zinnia like a ready to use Weblog application
 and also like a framework to make customized Weblog engines.

@@ -96,11 +96,3 @@ urls Package
     :members:
     :undoc-members:
     :show-inheritance:
-
-:mod:`trackback` Module
------------------------
-
-.. automodule:: zinnia.urls.trackback
-    :members:
-    :undoc-members:
-    :show-inheritance:

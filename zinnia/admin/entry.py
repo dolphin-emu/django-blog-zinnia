@@ -11,7 +11,6 @@ from django.utils.html import conditional_escape
 from django.utils.html import format_html
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext_lazy
 
 from zinnia import settings
 from zinnia.admin.filters import AuthorListFilter
@@ -39,9 +38,6 @@ class EntryAdmin(admin.ModelAdmin):
             'fields': ('publication_date', 'sites',
                        ('start_publication', 'end_publication')),
             'classes': ('collapse', 'collapse-closed')}),
-        (_('Discussions'), {
-            'fields': ('pingback_enabled', 'trackback_enabled'),
-            'classes': ('collapse', 'collapse-closed')}),
         (_('Privacy'), {
             'fields': ('login_required', 'password'),
             'classes': ('collapse', 'collapse-closed')}),
@@ -64,7 +60,6 @@ class EntryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
     search_fields = ('title', 'excerpt', 'content', 'tags')
     actions = ['make_mine', 'make_published', 'make_hidden',
-               'close_pingbacks', 'close_trackbacks',
                'put_on_top',
                'mark_featured', 'unmark_featured']
     actions_on_top = True
@@ -77,18 +72,10 @@ class EntryAdmin(admin.ModelAdmin):
     # Custom Display
     def get_title(self, entry):
         """
-        Return the title with word count and number of reactions.
+        Return the title with its word count.
         """
         title = _('%(title)s (%(word_count)i words)') % \
             {'title': entry.title, 'word_count': entry.word_count}
-        reaction_count = int(entry.pingback_count +
-                             entry.trackback_count)
-        if reaction_count:
-            return ngettext_lazy(
-                '%(title)s (%(reactions)i reaction)',
-                '%(title)s (%(reactions)i reactions)', reaction_count) % \
-                {'title': title,
-                 'reactions': reaction_count}
         return title
     get_title.short_description = _('title')
 
@@ -264,26 +251,6 @@ class EntryAdmin(admin.ModelAdmin):
         self.message_user(
             request, _('The selected entries are now marked as hidden.'))
     make_hidden.short_description = _('Set entries selected as hidden')
-
-    def close_pingbacks(self, request, queryset):
-        """
-        Close the pingbacks for selected entries.
-        """
-        queryset.update(pingback_enabled=False)
-        self.message_user(
-            request, _('Pingbacks are now closed for selected entries.'))
-    close_pingbacks.short_description = _(
-        'Close the pingbacks for selected entries')
-
-    def close_trackbacks(self, request, queryset):
-        """
-        Close the trackbacks for selected entries.
-        """
-        queryset.update(trackback_enabled=False)
-        self.message_user(
-            request, _('Trackbacks are now closed for selected entries.'))
-    close_trackbacks.short_description = _(
-        'Close the trackbacks for selected entries')
 
     def put_on_top(self, request, queryset):
         """

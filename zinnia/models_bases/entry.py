@@ -10,20 +10,14 @@ from django.utils.html import strip_tags
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
-import django_comments as comments
-
 from tagging.fields import TagField
 from tagging.utils import parse_tag_input
 
-from zinnia.flags import PINGBACK
-from zinnia.flags import TRACKBACK
 from zinnia.managers import DRAFT, HIDDEN, PUBLISHED
 from zinnia.managers import EntryPublishedManager
 from zinnia.managers import entries_published
 from zinnia.markups import html_format
 from zinnia.preview import HTMLPreview
-from zinnia.settings import AUTO_CLOSE_PINGBACKS_AFTER
-from zinnia.settings import AUTO_CLOSE_TRACKBACKS_AFTER
 from zinnia.settings import ENTRY_CONTENT_TEMPLATES
 from zinnia.settings import ENTRY_DETAIL_TEMPLATES
 from zinnia.settings import UPLOAD_TO
@@ -225,81 +219,6 @@ class ContentEntry(models.Model):
         Counts the number of words used in the content.
         """
         return len(strip_tags(self.html_content).split())
-
-    class Meta:
-        abstract = True
-
-
-class DiscussionsEntry(models.Model):
-    """
-    Abstract discussion model class providing
-    the fields and methods to manage the discussions
-    (pingbacks and trackbacks).
-    """
-    pingback_enabled = models.BooleanField(
-        _('pingbacks enabled'), default=True,
-        help_text=_('Allows pingbacks if checked.'))
-    trackback_enabled = models.BooleanField(
-        _('trackbacks enabled'), default=True,
-        help_text=_('Allows trackbacks if checked.'))
-
-    pingback_count = models.IntegerField(
-        _('pingback count'), default=0)
-    trackback_count = models.IntegerField(
-        _('trackback count'), default=0)
-
-    @property
-    def discussions(self):
-        """
-        Returns a queryset of the published discussions.
-        """
-        return comments.get_model().objects.for_model(
-            self).filter(is_public=True, is_removed=False)
-
-    @property
-    def pingbacks(self):
-        """
-        Returns a queryset of the published pingbacks.
-        """
-        return self.discussions.filter(flags__flag=PINGBACK)
-
-    @property
-    def trackbacks(self):
-        """
-        Return a queryset of the published trackbacks.
-        """
-        return self.discussions.filter(flags__flag=TRACKBACK)
-
-    def discussion_is_still_open(self, discussion_type, auto_close_after):
-        """
-        Checks if a type of discussion is still open
-        are a certain number of days.
-        """
-        discussion_enabled = getattr(self, discussion_type)
-        if (discussion_enabled and isinstance(auto_close_after, int) and
-                auto_close_after >= 0):
-            return (timezone.now() - (
-                self.start_publication or self.publication_date)).days < \
-                auto_close_after
-        return discussion_enabled
-
-    @property
-    def pingbacks_are_open(self):
-        """
-        Checks if the pingbacks are open with the
-        AUTO_CLOSE_PINGBACKS_AFTER setting.
-        """
-        return self.discussion_is_still_open(
-            'pingback_enabled', AUTO_CLOSE_PINGBACKS_AFTER)
-
-    @property
-    def trackbacks_are_open(self):
-        """
-        Checks if the trackbacks are open with the
-        AUTO_CLOSE_TRACKBACKS_AFTER setting.
-        """
-        return self.discussion_is_still_open(
-            'trackback_enabled', AUTO_CLOSE_TRACKBACKS_AFTER)
 
     class Meta:
         abstract = True
@@ -526,7 +445,6 @@ class DetailTemplateEntry(models.Model):
 class AbstractEntry(
         CoreEntry,
         ContentEntry,
-        DiscussionsEntry,
         RelatedEntry,
         LeadEntry,
         ExcerptEntry,

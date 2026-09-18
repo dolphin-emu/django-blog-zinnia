@@ -227,22 +227,6 @@ Usage examples: ::
   {% get_tag_cloud 9 3 "custom_template.html" %}
   {% get_tag_cloud template="custom_template.html" %}
 
-.. templatetag:: get_recent_linkbacks
-
-get_recent_linkbacks
-====================
-
-Display the latest linkbacks.
-
-.. autofunction:: get_recent_linkbacks
-
-Usage examples: ::
-
-  {% get_recent_linkbacks %}
-  {% get_recent_linkbacks 3 %}
-  {% get_recent_linkbacks 3 "custom_template.html" %}
-  {% get_recent_linkbacks template="custom_template.html" %}
-
 .. templatetag:: zinnia_pagination
 
 zinnia_pagination

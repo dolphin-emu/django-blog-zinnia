@@ -158,4 +158,3 @@ Subpackages
     zinnia.url_shortener
     zinnia.urls
     zinnia.views
-    zinnia.xmlrpc

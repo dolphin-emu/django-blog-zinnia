@@ -40,7 +40,6 @@ More than a long speech, here the list of the main features:
 * Collaborative work
 * Tags autocompletion
 * `Entry model extendable`_
-* Pingback/Trackback support
 * `Blogger conversion utility`_
 * `WordPress conversion utility`_
 * `WYMeditor`_, `TinyMCE`_ , `CKEditor`_ and `MarkItUp`_ support

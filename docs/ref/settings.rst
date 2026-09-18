@@ -238,51 +238,6 @@ ZINNIA_PROTOCOL
 String representing the protocol of the site. If your Web site uses HTTPS,
 set this setting to ``https``.
 
-.. setting:: ZINNIA_DEFAULT_USER_ID
-
-ZINNIA_COMMENT_FLAG_USER_ID
----------------------------
-**Default value:** ``1``
-
-The ID of the user to be used when flagging pingbacks or trackbacks.
-
-.. _settings-linkbacks:
-
-Linkbacks
-=========
-
-.. setting:: ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER
-
-ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER
----------------------------------
-**Default value:** ``None`` (forever)
-
-Determine the number of days where pingbacks are open. If you set this
-setting to ``10`` the pingbacks will be closed automaticaly 10 days after
-the publication date of your entries.
-
-``0`` means disabling pingbacks completely.
-
-.. setting:: ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER
-
-ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER
-----------------------------------
-**Default value:** ``None`` (forever)
-
-Determine the number of days where trackbacks are open. If you set this
-setting to ``10`` the trackbacks will be closed automaticaly 10 days after
-the publication date of your entries.
-
-``0`` means disabling trackbacks completely.
-
-.. setting:: ZINNIA_PINGBACK_CONTENT_LENGTH
-
-ZINNIA_PINGBACK_CONTENT_LENGTH
-------------------------------
-**Default value:** ``300``
-
-Size of the excerpt generated on pingback.
-
 .. _settings-misc:
 
 Miscellaneous

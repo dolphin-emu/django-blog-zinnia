@@ -23,17 +23,9 @@
     .entry-image figcaption { color: $rebase1; }
     .entry-content img { border: 1px solid $rebase01; }
     .entry-footer strong { color: $rebase1; }
-    .entry-widgets, #comments, #pingbacks, #trackbacks, #footer {
+    .entry-widgets, #footer {
       border-top: 1px solid $rebase01;
     }
-    // Linkbacks
-    li {
-      &.comment, &.pingback, &.trackback {
-        border: 1px solid $rebase01;
-        img { border: 1px solid $rebase01; }
-      }
-    }
-    .superuser-comment img { background-color: $rebase01; }
     // Header
     #header {
       border-bottom: 1px solid $rebase01;

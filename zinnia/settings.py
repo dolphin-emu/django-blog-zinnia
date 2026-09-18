@@ -34,23 +34,12 @@ PREVIEW_MAX_WORDS = getattr(settings, 'ZINNIA_PREVIEW_MAX_WORDS', 55)
 
 PREVIEW_MORE_STRING = getattr(settings, 'ZINNIA_PREVIEW_MORE_STRING', ' ...')
 
-AUTO_CLOSE_PINGBACKS_AFTER = getattr(
-    settings, 'ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER', None)
-
-AUTO_CLOSE_TRACKBACKS_AFTER = getattr(
-    settings, 'ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER', None)
-
-COMMENT_FLAG_USER_ID = getattr(settings, 'ZINNIA_COMMENT_FLAG_USER_ID', 1)
-
 UPLOAD_TO = getattr(settings, 'ZINNIA_UPLOAD_TO', 'uploads/zinnia')
 
 PROTOCOL = getattr(settings, 'ZINNIA_PROTOCOL', 'http')
 
 FEEDS_FORMAT = getattr(settings, 'ZINNIA_FEEDS_FORMAT', 'rss')
 FEEDS_MAX_ITEMS = getattr(settings, 'ZINNIA_FEEDS_MAX_ITEMS', 15)
-
-PINGBACK_CONTENT_LENGTH = getattr(settings,
-                                  'ZINNIA_PINGBACK_CONTENT_LENGTH', 300)
 
 SEARCH_FIELDS = getattr(settings, 'ZINNIA_SEARCH_FIELDS',
                         ['title', 'lead', 'content',

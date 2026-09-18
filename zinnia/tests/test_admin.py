@@ -262,9 +262,7 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.request.user = user
         self.assertEqual(
             list(self.admin.get_actions(self.request).keys()),
-            ['close_pingbacks',
-             'close_trackbacks',
-             'put_on_top',
+            ['put_on_top',
              'mark_featured',
              'unmark_featured'])
         self.request.user = root
@@ -274,8 +272,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
              'make_mine',
              'make_published',
              'make_hidden',
-             'close_pingbacks',
-             'close_trackbacks',
              'put_on_top',
              'mark_featured',
              'unmark_featured'])
@@ -315,24 +311,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.assertEqual(Entry.published.count(), 1)
         self.admin.make_hidden(self.request, Entry.objects.all())
         self.assertEqual(Entry.published.count(), 0)
-        self.assertEqual(len(self.request._messages.messages), 1)
-
-    def test_close_pingbacks(self):
-        self.request._messages = TestMessageBackend()
-        self.assertEqual(Entry.objects.filter(
-            pingback_enabled=True).count(), 1)
-        self.admin.close_pingbacks(self.request, Entry.objects.all())
-        self.assertEqual(Entry.objects.filter(
-            pingback_enabled=True).count(), 0)
-        self.assertEqual(len(self.request._messages.messages), 1)
-
-    def test_close_trackbacks(self):
-        self.request._messages = TestMessageBackend()
-        self.assertEqual(Entry.objects.filter(
-            trackback_enabled=True).count(), 1)
-        self.admin.close_trackbacks(self.request, Entry.objects.all())
-        self.assertEqual(Entry.objects.filter(
-            trackback_enabled=True).count(), 0)
         self.assertEqual(len(self.request._messages.messages), 1)
 
     def test_put_on_top(self):

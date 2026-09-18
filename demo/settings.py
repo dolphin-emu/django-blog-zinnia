@@ -94,8 +94,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.staticfiles',
-    'django_comments',
-    'django_xmlrpc',
     'mptt',
     'tagging',
     'zinnia'

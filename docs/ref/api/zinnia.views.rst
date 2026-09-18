@@ -97,14 +97,6 @@ views Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`trackback` Module
------------------------
-
-.. automodule:: zinnia.views.trackback
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Subpackages
 -----------
 

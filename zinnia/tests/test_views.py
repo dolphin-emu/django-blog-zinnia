@@ -10,17 +10,12 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-import django_comments as comments
-
-from zinnia.flags import get_user_flagger
 from zinnia.managers import DRAFT
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
 from zinnia.settings import PAGINATION
-from zinnia.signals import connect_discussion_signals
-from zinnia.signals import disconnect_discussion_signals
 from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
@@ -53,7 +48,6 @@ class ViewsBaseCase(TestCase):
 
     def setUp(self):
         disconnect_entry_signals()
-        disconnect_discussion_signals()
         self.site = Site.objects.get_current()
         self.author = Author.objects.create_user(username='admin',
                                                  email='admin@example.com',
@@ -611,125 +605,12 @@ class ViewsTestCase(ViewsBaseCase):
         self.assertEqual(len(response.context['entries']), 3)
         self.assertEqual(len(response.context['categories']), 2)
 
-    def test_zinnia_trackback(self):
-        # Clear the cache of user flagger to avoid error on MySQL
-        get_user_flagger.cache_clear()
-        # Disable spam-checkers
-        import zinnia.spam_checker
-        original_scb = zinnia.spam_checker.SPAM_CHECKER_BACKENDS
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = []
-
-        response = self.client.post('/trackback/404/')
-        trackback_url = '/trackback/%s/' % self.first_entry.pk
-        self.assertEqual(response.status_code, 404)
-        self.assertEqual(self.client.post(trackback_url).status_code, 301)
-        self.first_entry.trackback_enabled = False
-        self.first_entry.save()
-        self.assertEqual(self.first_entry.trackback_count, 0)
-        response = self.client.post(trackback_url,
-                                    {'url': 'http://example.com'})
-        self.assertEqual(response['Content-Type'], 'text/xml')
-        self.assertEqual(response.context['error'],
-                         'Trackback is not enabled for Test 1')
-        self.first_entry.trackback_enabled = True
-        self.first_entry.save()
-        connect_discussion_signals()
-        get_user_flagger()  # Memoize user flagger for stable query number
-        if comments.get_comment_app_name() == comments.DEFAULT_COMMENTS_APP:
-            # If we are using the default comment app,
-            # we can count the database queries executed.
-            with self.assertNumQueries(8):
-                response = self.client.post(trackback_url,
-                                            {'url': 'http://example.com'})
-        else:
-            response = self.client.post(trackback_url,
-                                        {'url': 'http://example.com'})
-        self.assertEqual(response['Content-Type'], 'text/xml')
-        self.assertEqual('error' in response.context, False)
-        disconnect_discussion_signals()
-        entry = Entry.objects.get(pk=self.first_entry.pk)
-        self.assertEqual(entry.trackback_count, 1)
-        response = self.client.post(trackback_url,
-                                    {'url': 'http://example.com'})
-        self.assertEqual(response.context['error'],
-                         'Trackback is already registered')
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = original_scb
-
-    def test_zinnia_trackback_on_entry_without_author(self):
-        # Clear the cache of user flagger to avoid error on MySQL
-        get_user_flagger.cache_clear()
-        # Disable spam-checkers
-        import zinnia.spam_checker
-        original_scb = zinnia.spam_checker.SPAM_CHECKER_BACKENDS
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = []
-
-        self.first_entry.authors.clear()
-        response = self.client.post('/trackback/%s/' % self.first_entry.pk,
-                                    {'url': 'http://example.com'})
-        self.assertEqual(response['Content-Type'], 'text/xml')
-        self.assertEqual('error' in response.context, False)
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = original_scb
-
-    def test_zinnia_trackback_spam_check(self):
-        # Clear the cache of user flagger to avoid error on MySQL
-        get_user_flagger.cache_clear()
-        import zinnia.spam_checker
-        original_scb = zinnia.spam_checker.SPAM_CHECKER_BACKENDS
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = (
-            'zinnia.spam_checker.backends.all_is_spam',
-        )
-        response = self.client.post('/trackback/%s/' % self.first_entry.pk,
-                                    {'url': 'http://example.com',
-                                     'excerpt': 'Spam'})
-        self.assertEqual(response['Content-Type'], 'text/xml')
-        self.assertEqual(response.context['error'],
-                         'Trackback considered like spam')
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = []
-        response = self.client.post('/trackback/%s/' % self.first_entry.pk,
-                                    {'url': 'http://example.com',
-                                     'excerpt': 'Spam'})
-        self.assertEqual(response['Content-Type'], 'text/xml')
-        self.assertEqual('error' in response.context, False)
-        zinnia.spam_checker.SPAM_CHECKER_BACKENDS = original_scb
-
     def test_capabilities(self):
         self.check_capabilities('/humans.txt', 'text/plain', 0)
         self.check_capabilities('/wlwmanifest.xml',
                                 'application/wlwmanifest+xml', 0)
         self.check_capabilities('/opensearch.xml',
                                 'application/opensearchdescription+xml', 0)
-
-    def test_comment_success(self):
-        with self.assertNumQueries(0):
-            response = self.client.get('/comments/success/')
-        self.assertTemplateUsed(response, 'comments/zinnia/entry/posted.html')
-        self.assertEqual(response.context['comment'], None)
-
-        with self.assertNumQueries(1):
-            response = self.client.get('/comments/success/?c=404')
-        self.assertEqual(response.context['comment'], None)
-
-        comment = comments.get_model().objects.create(
-            submit_date=timezone.now(),
-            comment='My Comment 1', content_object=self.category,
-            site=self.site, is_public=False)
-        success_url = '/comments/success/?c=%s' % comment.pk
-        with self.assertNumQueries(1):
-            response = self.client.get(success_url)
-        self.assertEqual(response.context['comment'], comment)
-        comment.is_public = True
-        comment.save()
-        with self.assertNumQueries(5):
-            response = self.client.get(success_url, follow=True)
-        self.assertEqual(
-            response.redirect_chain[1],
-            ('http://example.com/categories/tests/', 302))
-
-    def test_comment_success_invalid_pk_issue_292(self):
-        with self.assertNumQueries(0):
-            response = self.client.get('/comments/success/?c=file.php')
-        self.assertTemplateUsed(response, 'comments/zinnia/entry/posted.html')
-        self.assertEqual(response.context['comment'], None)
 
     def test_quick_entry(self):
         Author.objects.create_superuser(

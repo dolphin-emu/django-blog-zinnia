@@ -131,7 +131,6 @@ take advantage of all the abstracts classes provided to build the
   class EntryGallery(
             entry.CoreEntry,
             entry.ContentEntry,
-            entry.DiscussionsEntry,
             entry.RelatedEntry,
             entry.ExcerptEntry,
             entry.FeaturedEntry,

@@ -20,12 +20,6 @@ Make sure to install these packages prior to installation :
 * `mots-vides`_ >= 2015.5.11
 * `pyparsing`_ >= 2.4.6
 * `regex`_ >= 2020.2.20
-* `django-contrib-comments`_ >= 1.9.2
-
-The packages below are optionnal but needed for run the full test suite or
-migrate the database.
-
-* `django-xmlrpc`_ >= 0.1.8
 
 Note that all the needed dependencies will be resolved if you install
 Zinnia with :program:`pip` or :program:`easy_install`, excepting Django.
@@ -76,7 +70,6 @@ Assuming that you have an already existing Django project, register
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
-    'django_comments',
     'mptt',
     'tagging',
     'zinnia',
@@ -131,7 +124,6 @@ want. Here's a custom implementation of the URLs provided by Zinnia: ::
       url(r'^', include('zinnia.urls.capabilities')),
       url(r'^search/', include('zinnia.urls.search')),
       url(r'^sitemap/', include('zinnia.urls.sitemap')),
-      url(r'^trackback/', include('zinnia.urls.trackback')),
       url(r'^blog/tags/', include('zinnia.urls.tags')),
       url(r'^blog/feeds/', include('zinnia.urls.feeds')),
       url(r'^blog/random/', include('zinnia.urls.random')),
@@ -192,10 +184,8 @@ project directory to sync the models with the database. ::
 .. _`Pillow`: http://python-imaging.github.io/Pillow/
 .. _`django-mptt`: https://github.com/django-mptt/django-mptt/
 .. _`django-tagging`: https://code.google.com/p/django-tagging/
-.. _`django-contrib-comments`: https://github.com/django/django-contrib-comments
 .. _`mots-vides`: https://github.com/Fantomas42/mots-vides
 .. _`regex`: https://pypi.python.org/pypi/regex
 .. _`beautifulsoup4`: http://www.crummy.com/software/BeautifulSoup/
 .. _`pytz`: http://pytz.sourceforge.net/
 .. _`pyparsing`: http://pyparsing.wikispaces.com/
-.. _`django-xmlrpc`: https://github.com/Fantomas42/django-xmlrpc

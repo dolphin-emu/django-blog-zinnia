@@ -138,27 +138,4 @@ otherwise the ``'default'`` value will be used.
      }
   }
 
-.. _zinnia-xmlrpc:
-
-XML-RPC
-=======
-
-.. module:: zinnia.xmlrpc
-
-Zinnia provides few Webservices via XML-RPC, but before using it,
-you need to install `django-xmlrpc`_.
-
-Then register :mod:`django_xmlrpc` in your :setting:`INSTALLED_APPS`
-section of your project's settings.
-
-Finally we need to register the URL of the XML-RPC server.
-Insert something like this in your project's urls.py: ::
-
-  url(r'^xmlrpc/$', 'django_xmlrpc.views.handle_xmlrpc'),
-
-.. note:: For the Pingback service check if your site is enabled for
-          pingback detection.
-          More information at http://hixie.ch/specs/pingback/pingback-1.0#TOC2
-
 .. _`Markdown`: http://pypi.python.org/pypi/Markdown
-.. _`django-xmlrpc`: http://pypi.python.org/pypi/django-xmlrpc/

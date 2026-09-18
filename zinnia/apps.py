@@ -13,7 +13,5 @@ class ZinniaConfig(AppConfig):
 
     def ready(self):
         from zinnia.signals import connect_entry_signals
-        from zinnia.signals import connect_discussion_signals
         # Connect the signals
         connect_entry_signals()
-        connect_discussion_signals()

@@ -1,6 +1,4 @@
 """Test cases for Zinnia's Entry"""
-from datetime import timedelta
-
 from django.contrib.sites.models import Site
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -9,18 +7,12 @@ from django.utils import timezone
 from django.utils.translation import activate
 from django.utils.translation import deactivate
 
-import django_comments as comments
-from django_comments.models import CommentFlag
-
 from zinnia import markups
 from zinnia import url_shortener as shortener_settings
-from zinnia.flags import PINGBACK
-from zinnia.flags import TRACKBACK
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.entry import Entry
 from zinnia.models_bases import entry
-from zinnia.signals import disconnect_discussion_signals
 from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
@@ -32,76 +24,10 @@ class EntryTestCase(TestCase):
 
     def setUp(self):
         disconnect_entry_signals()
-        disconnect_discussion_signals()
         params = {'title': 'My entry',
                   'content': 'My content',
                   'slug': 'my-entry'}
         self.entry = Entry.objects.create(**params)
-
-    @skip_if_custom_user
-    def test_discussions(self):
-        site = Site.objects.get_current()
-        self.assertEqual(self.entry.discussions.count(), 0)
-        self.assertEqual(self.entry.comments.count(), 0)
-        self.assertEqual(self.entry.pingbacks.count(), 0)
-        self.assertEqual(self.entry.trackbacks.count(), 0)
-
-        comments.get_model().objects.create(
-            comment='My Comment 1',
-            content_object=self.entry,
-            submit_date=timezone.now(),
-            site=site)
-        self.assertEqual(self.entry.discussions.count(), 1)
-        self.assertEqual(self.entry.comments.count(), 1)
-        self.assertEqual(self.entry.pingbacks.count(), 0)
-        self.assertEqual(self.entry.trackbacks.count(), 0)
-
-        comments.get_model().objects.create(
-            comment='My Comment 2',
-            content_object=self.entry,
-            submit_date=timezone.now(),
-            site=site, is_public=False)
-        self.assertEqual(self.entry.discussions.count(), 1)
-        self.assertEqual(self.entry.comments.count(), 1)
-        self.assertEqual(self.entry.pingbacks.count(), 0)
-        self.assertEqual(self.entry.trackbacks.count(), 0)
-
-        author = Author.objects.create_user(username='webmaster',
-                                            email='webmaster@example.com')
-
-        comment = comments.get_model().objects.create(
-            comment='My Comment 3',
-            content_object=self.entry,
-            submit_date=timezone.now(),
-            site=Site.objects.create(domain='http://toto.com',
-                                     name='Toto.com'))
-        comment.flags.create(user=author, flag=CommentFlag.MODERATOR_APPROVAL)
-        self.assertEqual(self.entry.discussions.count(), 2)
-        self.assertEqual(self.entry.comments.count(), 2)
-        self.assertEqual(self.entry.pingbacks.count(), 0)
-        self.assertEqual(self.entry.trackbacks.count(), 0)
-
-        comment = comments.get_model().objects.create(
-            comment='My Pingback 1',
-            content_object=self.entry,
-            submit_date=timezone.now(),
-            site=site)
-        comment.flags.create(user=author, flag=PINGBACK)
-        self.assertEqual(self.entry.discussions.count(), 3)
-        self.assertEqual(self.entry.comments.count(), 2)
-        self.assertEqual(self.entry.pingbacks.count(), 1)
-        self.assertEqual(self.entry.trackbacks.count(), 0)
-
-        comment = comments.get_model().objects.create(
-            comment='My Trackback 1',
-            content_object=self.entry,
-            submit_date=timezone.now(),
-            site=site)
-        comment.flags.create(user=author, flag=TRACKBACK)
-        self.assertEqual(self.entry.discussions.count(), 4)
-        self.assertEqual(self.entry.comments.count(), 2)
-        self.assertEqual(self.entry.pingbacks.count(), 1)
-        self.assertEqual(self.entry.trackbacks.count(), 1)
 
     def test_str(self):
         activate('en')
@@ -110,51 +36,6 @@ class EntryTestCase(TestCase):
 
     def test_word_count(self):
         self.assertEqual(self.entry.word_count, 2)
-
-    def test_comments_are_open(self):
-        original_auto_close = entry.AUTO_CLOSE_COMMENTS_AFTER
-        entry.AUTO_CLOSE_COMMENTS_AFTER = None
-        self.assertEqual(self.entry.comments_are_open, True)
-        entry.AUTO_CLOSE_COMMENTS_AFTER = -1
-        self.assertEqual(self.entry.comments_are_open, True)
-        entry.AUTO_CLOSE_COMMENTS_AFTER = 0
-        self.assertEqual(self.entry.comments_are_open, False)
-        entry.AUTO_CLOSE_COMMENTS_AFTER = 5
-        self.assertEqual(self.entry.comments_are_open, True)
-        self.entry.start_publication = timezone.now() - timedelta(days=7)
-        self.entry.save()
-        self.assertEqual(self.entry.comments_are_open, False)
-        entry.AUTO_CLOSE_COMMENTS_AFTER = original_auto_close
-
-    def test_pingbacks_are_open(self):
-        original_auto_close = entry.AUTO_CLOSE_PINGBACKS_AFTER
-        entry.AUTO_CLOSE_PINGBACKS_AFTER = None
-        self.assertEqual(self.entry.pingbacks_are_open, True)
-        entry.AUTO_CLOSE_PINGBACKS_AFTER = -1
-        self.assertEqual(self.entry.pingbacks_are_open, True)
-        entry.AUTO_CLOSE_PINGBACKS_AFTER = 0
-        self.assertEqual(self.entry.pingbacks_are_open, False)
-        entry.AUTO_CLOSE_PINGBACKS_AFTER = 5
-        self.assertEqual(self.entry.pingbacks_are_open, True)
-        self.entry.start_publication = timezone.now() - timedelta(days=7)
-        self.entry.save()
-        self.assertEqual(self.entry.pingbacks_are_open, False)
-        entry.AUTO_CLOSE_PINGBACKS_AFTER = original_auto_close
-
-    def test_trackbacks_are_open(self):
-        original_auto_close = entry.AUTO_CLOSE_TRACKBACKS_AFTER
-        entry.AUTO_CLOSE_TRACKBACKS_AFTER = None
-        self.assertEqual(self.entry.trackbacks_are_open, True)
-        entry.AUTO_CLOSE_TRACKBACKS_AFTER = -1
-        self.assertEqual(self.entry.trackbacks_are_open, True)
-        entry.AUTO_CLOSE_TRACKBACKS_AFTER = 0
-        self.assertEqual(self.entry.trackbacks_are_open, False)
-        entry.AUTO_CLOSE_TRACKBACKS_AFTER = 5
-        self.assertEqual(self.entry.trackbacks_are_open, True)
-        self.entry.start_publication = timezone.now() - timedelta(days=7)
-        self.entry.save()
-        self.assertEqual(self.entry.trackbacks_are_open, False)
-        entry.AUTO_CLOSE_TRACKBACKS_AFTER = original_auto_close
 
     def test_is_actual(self):
         self.assertTrue(self.entry.is_actual)

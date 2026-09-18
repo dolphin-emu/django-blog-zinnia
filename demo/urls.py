@@ -14,7 +14,6 @@ from django.views.defaults import server_error
 from django.views.generic.base import RedirectView
 from django.views.static import serve
 
-from django_xmlrpc.views import handle_xmlrpc
 
 from zinnia.sitemaps import AuthorSitemap
 from zinnia.sitemaps import CategorySitemap
@@ -25,7 +24,6 @@ from zinnia.sitemaps import TagSitemap
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/blog/', permanent=True)),
     url(r'^blog/', include('zinnia.urls')),
-    url(r'^xmlrpc/$', handle_xmlrpc),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),

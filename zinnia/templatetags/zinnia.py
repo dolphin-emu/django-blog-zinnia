@@ -6,7 +6,6 @@ from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.template import Library
 from django.template.defaultfilters import stringfilter
@@ -15,8 +14,6 @@ from django.utils import timezone
 from django.utils.encoding import smart_str
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
-
-from django_comments import get_model as get_comment_model
 
 from tagging.models import Tag
 from tagging.utils import calculate_cloud
@@ -27,7 +24,6 @@ from ..comparison import EntryPublishedVectorBuilder
 from ..context import get_context_first_matching_object
 from ..context import get_context_first_object
 from ..context import get_context_loop_positions
-from ..flags import PINGBACK, TRACKBACK
 from ..managers import DRAFT
 from ..managers import tags_published
 from ..models.author import Author
@@ -207,28 +203,6 @@ def get_calendar_entries(context, year=None, month=None,
                 next_month=next_month)}
 
 
-@register.inclusion_tag('zinnia/tags/dummy.html')
-def get_recent_linkbacks(number=5,
-                         template='zinnia/tags/linkbacks_recent.html'):
-    """
-    Return the most recent linkbacks.
-    """
-    entry_published_pks = map(smart_str,
-                              Entry.published.values_list('id', flat=True))
-    content_type = ContentType.objects.get_for_model(Entry)
-
-    linkbacks = get_comment_model().objects.filter(
-        content_type=content_type,
-        object_pk__in=entry_published_pks,
-        flags__flag__in=[PINGBACK, TRACKBACK],
-        is_public=True).order_by('-pk')[:number]
-
-    linkbacks = linkbacks.prefetch_related('content_object')
-
-    return {'template': template,
-            'linkbacks': linkbacks}
-
-
 @register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
 def zinnia_pagination(context, page, begin_pages=1, end_pages=1,
                       before_pages=2, after_pages=2,
@@ -387,17 +361,6 @@ def week_number(date):
 
 
 @register.filter
-def comment_admin_urlname(action):
-    """
-    Return the admin URLs for the comment app used.
-    """
-    comment = get_comment_model()
-    return 'admin:%s_%s_%s' % (
-        comment._meta.app_label, comment._meta.model_name,
-        action)
-
-
-@register.filter
 def user_admin_urlname(action):
     """
     Return the admin URLs for the user app used.
@@ -413,22 +376,12 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
     """
     Return statistics on the content of Zinnia.
     """
-    content_type = ContentType.objects.get_for_model(Entry)
-    discussions = get_comment_model().objects.filter(
-        content_type=content_type)
-
     entries = Entry.published
     categories = Category.objects
     tags = tags_published()
     authors = Author.published
-    pingbacks = discussions.filter(
-        flags__flag=PINGBACK, is_public=True)
-    trackbacks = discussions.filter(
-        flags__flag=TRACKBACK, is_public=True)
 
     entries_count = entries.count()
-    pingbacks_count = pingbacks.count()
-    trackbacks_count = trackbacks.count()
 
     if entries_count:
         first_entry = entries.order_by('publication_date')[0]
@@ -437,24 +390,18 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
                         first_entry.publication_date).days / 31.0
         entries_per_month = entries_count / (months_count or 1.0)
 
-        linkbacks_per_entry = float(pingbacks_count + trackbacks_count) / \
-            entries_count
-
         total_words_entry = 0
         for e in entries.all():
             total_words_entry += e.word_count
         words_per_entry = float(total_words_entry) / entries_count
 
     else:
-        words_per_entry = entries_per_month = linkbacks_per_entry = 0.0
+        words_per_entry = entries_per_month = 0.0
 
     return {'template': template,
             'entries': entries_count,
             'categories': categories.count(),
             'tags': tags.count(),
             'authors': authors.count(),
-            'pingbacks': pingbacks_count,
-            'trackbacks': trackbacks_count,
             'words_per_entry': words_per_entry,
-            'entries_per_month': entries_per_month,
-            'linkbacks_per_entry': linkbacks_per_entry}
+            'entries_per_month': entries_per_month}
