@@ -37,7 +37,6 @@ More than a long speech, here the list of the main features:
 * Collaborative work
 * Tags autocompletion
 * `Entry model extendable`_
-* `WYMeditor`_, `TinyMCE`_ , `CKEditor`_ and `MarkItUp`_ support
 * Efficient database queries
 * Ready to use and extendable templates
 * `Compass`_ and `Sass3`_ integration
@@ -90,10 +89,6 @@ More information and help available at these URLs:
 .. _`Markdown`: http://daringfireball.net/projects/markdown/
 .. _`Django-CMS`: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html#django-cms
 .. _`Entry model extendable`: http://django-blog-zinnia.rtfd.org/extending-entry
-.. _`WYMeditor`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-wymeditor
-.. _`TinyMCE`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-tinymce
-.. _`CKEditor`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-ckeditor
-.. _`MarkItUp`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-markitup
 .. _`Compass`: http://compass-style.org/
 .. _`Sass3`: http://sass-lang.com/
 .. _`Windows Live Writer`: http://explore.live.com/windows-live-writer

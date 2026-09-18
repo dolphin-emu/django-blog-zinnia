@@ -85,9 +85,7 @@ class QuickEntry(View):
 
     def htmlize(self, content):
         """
-        Convert to HTML the content if the MARKUP_LANGUAGE
-        is set to HTML to optimize the rendering and avoid
-        ugly effect in WYMEditor.
+        Convert the content to HTML when MARKUP_LANGUAGE is HTML.
         """
         if MARKUP_LANGUAGE == 'html':
             return linebreaks(content)

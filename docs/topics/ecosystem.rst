@@ -83,38 +83,6 @@ Zinnia-theme-foundation is an extension theme for your Weblog based on
 
 URL: https://github.com/django-blog-zinnia/zinnia-theme-foundation
 
-zinnia-wysiwyg-wymeditor
-========================
-
-Zinnia-wysiwyg-wymeditor is an extension for editing your entries in the
-admin with `WYMEditor`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-wysiwyg-wymeditor
-
-zinnia-wysiwyg-tinymce
-======================
-
-Zinnia-wysiwyg-tinymce is an extension for editing your entries in the
-admin with `TinyMCE`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-wysiwyg-tinymce
-
-zinnia-wysiwyg-ckeditor
-=======================
-
-Zinnia-wysiwyg-ckeditor is an extension for editing your entries in the
-admin with `CKeditor`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-wysiwyg-ckeditor
-
-zinnia-wysiwyg-markitup
-=======================
-
-Zinnia-wysiwyg-markitup is an extension for editing your entries in the
-admin with `MarkItUp`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-wysiwyg-markitup
-
 zinnia-url-shortener-hashids
 ============================
 
@@ -151,8 +119,4 @@ URL: https://github.com/azaghal/zinnia-drupal
 .. _`django-admin-tools`: http://django-admin-tools.readthedocs.org/en/latest/index.html
 .. _`Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Zurb Foundation 5`: http://foundation.zurb.com/
-.. _`WYMEditor`: http://www.wymeditor.org/
-.. _`TinyMCE`: http://www.tinymce.com/
-.. _`CKEditor`: http://ckeditor.com/
-.. _`MarkItUp`: http://markitup.jaysalvat.com/
 .. _`Hashids`: http://hashids.org/
