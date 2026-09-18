@@ -69,9 +69,6 @@ COMPARISON_FIELDS = getattr(settings, 'ZINNIA_COMPARISON_FIELDS',
                             ['title', 'lead', 'content',
                              'excerpt', 'image_caption', 'tags'])
 
-SPAM_CHECKER_BACKENDS = getattr(settings, 'ZINNIA_SPAM_CHECKER_BACKENDS',
-                                [])
-
 URL_SHORTENER_BACKEND = getattr(settings, 'ZINNIA_URL_SHORTENER_BACKEND',
                                 'zinnia.url_shortener.backends.default')
 

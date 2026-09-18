@@ -22,7 +22,6 @@ from zinnia.flags import get_user_flagger
 from zinnia.models.entry import Entry
 from zinnia.settings import PINGBACK_CONTENT_LENGTH
 from zinnia.signals import pingback_was_posted
-from zinnia.spam_checker import check_is_spam
 
 UNDEFINED_ERROR = 0
 SOURCE_DOES_NOT_EXIST = 16
@@ -30,11 +29,6 @@ SOURCE_DOES_NOT_LINK = 17
 TARGET_DOES_NOT_EXIST = 32
 TARGET_IS_NOT_PINGABLE = 33
 PINGBACK_ALREADY_REGISTERED = 48
-PINGBACK_IS_SPAM = 51
-
-
-class FakeRequest(object):
-    META = {}
 
 
 def generate_pingback_content(soup, target, max_length, trunc_char='...'):
@@ -125,9 +119,6 @@ def pingback_ping(source, target):
             'comment': description
         }
         pingback = pingback_klass(**pingback_datas)
-        if check_is_spam(pingback, entry, FakeRequest()):
-            return PINGBACK_IS_SPAM
-
         pingback_defaults = {'comment': pingback_datas.pop('comment'),
                              'user_name': pingback_datas.pop('user_name')}
         pingback, created = pingback_klass.objects.get_or_create(

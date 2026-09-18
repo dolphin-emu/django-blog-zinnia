@@ -249,33 +249,13 @@ ZINNIA_PROTOCOL
 String representing the protocol of the site. If your Web site uses HTTPS,
 set this setting to ``https``.
 
-.. setting:: ZINNIA_SPAM_CHECKER_BACKENDS
-
-ZINNIA_SPAM_CHECKER_BACKENDS
-----------------------------
-**Default value:** ``[]`` (Empty list)
-
-List of strings representing the module path to a spam checker backend.
-See :doc:`/topics/spam_checker` for more informations about this setting.
-
-.. setting:: ZINNIA_COMMENT_MIN_WORDS
-
-ZINNIA_COMMENT_MIN_WORDS
-------------------------
-**Default value:** ``4``
-
-Minimal number of words required to post a comment if
-:func:`zinnia.spam_checker.backends.long_enough.backend` is enabled in
-:setting:`ZINNIA_SPAM_CHECKER_BACKENDS`.
-
 .. setting:: ZINNIA_DEFAULT_USER_ID
 
 ZINNIA_COMMENT_FLAG_USER_ID
 ---------------------------
 **Default value:** ``1``
 
-The ID of the User to be used when flagging the comments as spam, pingback
-or trackback.
+The ID of the user to be used when flagging pingbacks or trackbacks.
 
 .. _settings-linkbacks:
 

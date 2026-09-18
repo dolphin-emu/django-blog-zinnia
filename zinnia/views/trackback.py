@@ -13,7 +13,6 @@ from zinnia.flags import TRACKBACK
 from zinnia.flags import get_user_flagger
 from zinnia.models.entry import Entry
 from zinnia.signals import trackback_was_posted
-from zinnia.spam_checker import check_is_spam
 
 
 class EntryTrackback(TemplateView):
@@ -78,10 +77,6 @@ class EntryTrackback(TemplateView):
         }
 
         trackback = trackback_klass(**trackback_datas)
-        if check_is_spam(trackback, entry, request):
-            return self.render_to_response(
-                {'error': 'Trackback considered like spam'})
-
         trackback_defaults = {'comment': trackback_datas.pop('comment')}
         trackback, created = trackback_klass.objects.get_or_create(
             defaults=trackback_defaults,

@@ -155,7 +155,6 @@ Subpackages
     zinnia.admin
     zinnia.models
     zinnia.models_bases
-    zinnia.spam_checker
     zinnia.url_shortener
     zinnia.urls
     zinnia.views

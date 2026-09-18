@@ -28,7 +28,6 @@ Topics
    topics/channels
    topics/search_engines
    topics/url_shortener
-   topics/spam_checker
    topics/permissions
    topics/ecosystem
 
