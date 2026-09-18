@@ -10,7 +10,6 @@ from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from django.urls import NoReverseMatch
 from django.urls import reverse
 from django.utils.encoding import smart_str
@@ -28,7 +27,6 @@ from zinnia.settings import COPYRIGHT
 from zinnia.settings import FEEDS_FORMAT
 from zinnia.settings import FEEDS_MAX_ITEMS
 from zinnia.settings import PROTOCOL
-from zinnia.templatetags.zinnia import get_gravatar
 from zinnia.views.categories import get_category_or_404
 
 
@@ -458,58 +456,6 @@ class EntryDiscussions(DiscussionFeed):
         """
         return _('The last discussions on the entry %(object)s') % {
             'object': obj.title}
-
-
-class EntryComments(EntryDiscussions):
-    """
-    Feed for comments on an entry.
-    """
-    title_template = 'feeds/comment_title.html'
-    description_template = 'feeds/comment_description.html'
-
-    def items(self, obj):
-        """
-        Items are the comments on the entry.
-        """
-        return obj.comments[:self.limit]
-
-    def item_link(self, item):
-        """
-        URL of the comment.
-        """
-        return item.get_absolute_url('#comment-%(id)s-by-'
-                                     ) + slugify(item.user_name)
-
-    def get_title(self, obj):
-        """
-        Title of the feed.
-        """
-        return _('Comments on %(object)s') % {'object': obj.title}
-
-    def description(self, obj):
-        """
-        Description of the feed.
-        """
-        return _('The last comments on the entry %(object)s') % {
-            'object': obj.title}
-
-    def item_enclosure_url(self, item):
-        """
-        Return a gravatar image for enclosure.
-        """
-        return get_gravatar(item.email)
-
-    def item_enclosure_length(self, item):
-        """
-        Hardcoded enclosure length.
-        """
-        return '100000'
-
-    def item_enclosure_mime_type(self, item):
-        """
-        Hardcoded enclosure mimetype.
-        """
-        return 'image/jpeg'
 
 
 class EntryPingbacks(EntryDiscussions):

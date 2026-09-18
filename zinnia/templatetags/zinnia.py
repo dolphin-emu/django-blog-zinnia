@@ -8,7 +8,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
-from django.db.models import Q
 from django.template import Library
 from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
@@ -18,7 +17,6 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 from django_comments import get_model as get_comment_model
-from django_comments.models import CommentFlag
 
 from tagging.models import Tag
 from tagging.utils import calculate_cloud
@@ -121,17 +119,6 @@ def get_random_entries(number=5, template='zinnia/tags/entries_random.html'):
             'entries': Entry.published.order_by('?')[:number]}
 
 
-@register.inclusion_tag('zinnia/tags/dummy.html')
-def get_popular_entries(number=5, template='zinnia/tags/entries_popular.html'):
-    """
-    Return popular entries.
-    """
-    return {'template': template,
-            'entries': Entry.published.filter(
-                comment_count__gt=0).order_by(
-                '-comment_count', '-publication_date')[:number]}
-
-
 @register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
 def get_similar_entries(context, number=5,
                         template='zinnia/tags/entries_similar.html'):
@@ -218,27 +205,6 @@ def get_calendar_entries(context, year=None, month=None,
                 current_month.month,
                 previous_month=previous_month,
                 next_month=next_month)}
-
-
-@register.inclusion_tag('zinnia/tags/dummy.html')
-def get_recent_comments(number=5, template='zinnia/tags/comments_recent.html'):
-    """
-    Return the most recent comments.
-    """
-    # Using map(smart_str... fix bug related to issue #8554
-    entry_published_pks = map(smart_str,
-                              Entry.published.values_list('id', flat=True))
-    content_type = ContentType.objects.get_for_model(Entry)
-
-    comments = get_comment_model().objects.filter(
-        Q(flags=None) | Q(flags__flag=CommentFlag.MODERATOR_APPROVAL),
-        content_type=content_type, object_pk__in=entry_published_pks,
-        is_public=True).order_by('-pk')[:number]
-
-    comments = comments.prefetch_related('content_object')
-
-    return {'template': template,
-            'comments': comments}
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html')
@@ -455,16 +421,12 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
     categories = Category.objects
     tags = tags_published()
     authors = Author.published
-    replies = discussions.filter(
-        flags=None, is_public=True)
     pingbacks = discussions.filter(
         flags__flag=PINGBACK, is_public=True)
     trackbacks = discussions.filter(
         flags__flag=TRACKBACK, is_public=True)
-    rejects = discussions.filter(is_public=False)
 
     entries_count = entries.count()
-    replies_count = replies.count()
     pingbacks_count = pingbacks.count()
     trackbacks_count = trackbacks.count()
 
@@ -475,7 +437,6 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
                         first_entry.publication_date).days / 31.0
         entries_per_month = entries_count / (months_count or 1.0)
 
-        comments_per_entry = float(replies_count) / entries_count
         linkbacks_per_entry = float(pingbacks_count + trackbacks_count) / \
             entries_count
 
@@ -484,27 +445,16 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
             total_words_entry += e.word_count
         words_per_entry = float(total_words_entry) / entries_count
 
-        words_per_comment = 0.0
-        if replies_count:
-            total_words_comment = 0
-            for c in replies.all():
-                total_words_comment += len(c.comment.split())
-            words_per_comment = float(total_words_comment) / replies_count
     else:
-        words_per_entry = words_per_comment = entries_per_month = \
-            comments_per_entry = linkbacks_per_entry = 0.0
+        words_per_entry = entries_per_month = linkbacks_per_entry = 0.0
 
     return {'template': template,
             'entries': entries_count,
             'categories': categories.count(),
             'tags': tags.count(),
             'authors': authors.count(),
-            'comments': replies_count,
             'pingbacks': pingbacks_count,
             'trackbacks': trackbacks_count,
-            'rejects': rejects.count(),
             'words_per_entry': words_per_entry,
-            'words_per_comment': words_per_comment,
             'entries_per_month': entries_per_month,
-            'comments_per_entry': comments_per_entry,
             'linkbacks_per_entry': linkbacks_per_entry}

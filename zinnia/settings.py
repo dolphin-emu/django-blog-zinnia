@@ -49,22 +49,6 @@ AUTO_CLOSE_PINGBACKS_AFTER = getattr(
 AUTO_CLOSE_TRACKBACKS_AFTER = getattr(
     settings, 'ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER', None)
 
-AUTO_CLOSE_COMMENTS_AFTER = getattr(
-    settings, 'ZINNIA_AUTO_CLOSE_COMMENTS_AFTER', None)
-
-AUTO_MODERATE_COMMENTS = getattr(settings, 'ZINNIA_AUTO_MODERATE_COMMENTS',
-                                 False)
-
-MAIL_COMMENT_REPLY = getattr(settings, 'ZINNIA_MAIL_COMMENT_REPLY', False)
-
-MAIL_COMMENT_AUTHORS = getattr(settings, 'ZINNIA_MAIL_COMMENT_AUTHORS', True)
-
-MAIL_COMMENT_NOTIFICATION_RECIPIENTS = getattr(
-    settings, 'ZINNIA_MAIL_COMMENT_NOTIFICATION_RECIPIENTS',
-    [manager_tuple[1] for manager_tuple in settings.MANAGERS])
-
-COMMENT_MIN_WORDS = getattr(settings, 'ZINNIA_COMMENT_MIN_WORDS', 4)
-
 COMMENT_FLAG_USER_ID = getattr(settings, 'ZINNIA_COMMENT_FLAG_USER_ID', 1)
 
 UPLOAD_TO = getattr(settings, 'ZINNIA_UPLOAD_TO', 'uploads/zinnia')

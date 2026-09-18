@@ -26,8 +26,7 @@ class QuickEntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        exclude = ('comment_count',
-                   'pingback_count',
+        exclude = ('pingback_count',
                    'trackback_count')
 
 

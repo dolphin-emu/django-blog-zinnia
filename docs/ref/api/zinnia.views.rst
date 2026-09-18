@@ -49,14 +49,6 @@ views Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`comments` Module
-----------------------
-
-.. automodule:: zinnia.views.comments
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`entries` Module
 ---------------------
 
@@ -119,4 +111,3 @@ Subpackages
 .. toctree::
 
     zinnia.views.mixins
-

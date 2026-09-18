@@ -249,61 +249,6 @@ ZINNIA_PROTOCOL
 String representing the protocol of the site. If your Web site uses HTTPS,
 set this setting to ``https``.
 
-.. _settings-comments:
-
-Comments
-========
-
-.. setting:: ZINNIA_AUTO_MODERATE_COMMENTS
-
-ZINNIA_AUTO_MODERATE_COMMENTS
------------------------------
-**Default value:** ``False``
-
-Determine if a new comment should be marked non-public and await approval.
-Leave as ``False`` to allow comments to show up immediately.
-
-.. setting:: ZINNIA_AUTO_CLOSE_COMMENTS_AFTER
-
-ZINNIA_AUTO_CLOSE_COMMENTS_AFTER
---------------------------------
-**Default value:** ``None`` (forever)
-
-Determine the number of days where comments are open. If you set this
-setting to ``10`` the comments will be closed automaticaly 10 days after
-the publication date of your entries.
-
-``0`` means disabling comments completely.
-
-.. setting:: ZINNIA_MAIL_COMMENT_REPLY
-
-ZINNIA_MAIL_COMMENT_REPLY
--------------------------
-**Default value:** ``False``
-
-Boolean used for sending an email to comment's authors
-when a new comment is posted.
-
-.. setting:: ZINNIA_MAIL_COMMENT_AUTHORS
-
-ZINNIA_MAIL_COMMENT_AUTHORS
----------------------------
-**Default value:** ``True``
-
-Boolean used for sending an email to entry authors
-when a new comment is posted.
-
-.. setting:: ZINNIA_MAIL_COMMENT_NOTIFICATION_RECIPIENTS
-
-ZINNIA_MAIL_COMMENT_NOTIFICATION_RECIPIENTS
--------------------------------------------
-**Default value:** ::
-
-    [manager_tuple[1] for manager_tuple in settings.MANAGERS]
-
-List of emails used for sending a notification when a
-new public comment has been posted.
-
 .. setting:: ZINNIA_SPAM_CHECKER_BACKENDS
 
 ZINNIA_SPAM_CHECKER_BACKENDS

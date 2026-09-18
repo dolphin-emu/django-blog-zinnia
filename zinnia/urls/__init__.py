@@ -28,7 +28,6 @@ urlpatterns = [
     url(_(r'^random/'), include('zinnia.urls.random')),
     url(_(r'^sitemap/'), include('zinnia.urls.sitemap')),
     url(_(r'^trackback/'), include('zinnia.urls.trackback')),
-    url(_(r'^comments/'), include('zinnia.urls.comments')),
     url(r'^', include('zinnia.urls.entries')),
     url(r'^', include('zinnia.urls.archives')),
     url(r'^', include('zinnia.urls.shortlink')),

@@ -3,7 +3,6 @@ import os
 
 from django.contrib.sites.models import Site
 from django.db import models
-from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
@@ -12,7 +11,6 @@ from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 import django_comments as comments
-from django_comments.models import CommentFlag
 
 from tagging.fields import TagField
 from tagging.utils import parse_tag_input
@@ -24,7 +22,6 @@ from zinnia.managers import EntryPublishedManager
 from zinnia.managers import entries_published
 from zinnia.markups import html_format
 from zinnia.preview import HTMLPreview
-from zinnia.settings import AUTO_CLOSE_COMMENTS_AFTER
 from zinnia.settings import AUTO_CLOSE_PINGBACKS_AFTER
 from zinnia.settings import AUTO_CLOSE_TRACKBACKS_AFTER
 from zinnia.settings import ENTRY_CONTENT_TEMPLATES
@@ -237,11 +234,8 @@ class DiscussionsEntry(models.Model):
     """
     Abstract discussion model class providing
     the fields and methods to manage the discussions
-    (comments, pingbacks, trackbacks).
+    (pingbacks and trackbacks).
     """
-    comment_enabled = models.BooleanField(
-        _('comments enabled'), default=True,
-        help_text=_('Allows comments if checked.'))
     pingback_enabled = models.BooleanField(
         _('pingbacks enabled'), default=True,
         help_text=_('Allows pingbacks if checked.'))
@@ -249,8 +243,6 @@ class DiscussionsEntry(models.Model):
         _('trackbacks enabled'), default=True,
         help_text=_('Allows trackbacks if checked.'))
 
-    comment_count = models.IntegerField(
-        _('comment count'), default=0)
     pingback_count = models.IntegerField(
         _('pingback count'), default=0)
     trackback_count = models.IntegerField(
@@ -263,14 +255,6 @@ class DiscussionsEntry(models.Model):
         """
         return comments.get_model().objects.for_model(
             self).filter(is_public=True, is_removed=False)
-
-    @property
-    def comments(self):
-        """
-        Returns a queryset of the published comments.
-        """
-        return self.discussions.filter(Q(flags=None) | Q(
-            flags__flag=CommentFlag.MODERATOR_APPROVAL))
 
     @property
     def pingbacks(self):
@@ -298,15 +282,6 @@ class DiscussionsEntry(models.Model):
                 self.start_publication or self.publication_date)).days < \
                 auto_close_after
         return discussion_enabled
-
-    @property
-    def comments_are_open(self):
-        """
-        Checks if the comments are open with the
-        AUTO_CLOSE_COMMENTS_AFTER setting.
-        """
-        return self.discussion_is_still_open(
-            'comment_enabled', AUTO_CLOSE_COMMENTS_AFTER)
 
     @property
     def pingbacks_are_open(self):

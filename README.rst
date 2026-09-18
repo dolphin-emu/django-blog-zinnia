@@ -21,7 +21,6 @@ Features
 
 More than a long speech, here the list of the main features:
 
-* Comments
 * `Sitemaps`_
 * Archives views
 * Related entries

@@ -119,7 +119,6 @@ display the Weblog. ::
   from django.conf.urls import url
 
   url(r'^weblog/', include('zinnia.urls')),
-  url(r'^comments/', include('django_comments.urls')),
 
 Remember to enable the :mod:`~django.contrib.admin` site in the urls.py of
 your project if you haven't done it yet for having the edition capabilities.
@@ -138,7 +137,6 @@ want. Here's a custom implementation of the URLs provided by Zinnia: ::
       url(r'^blog/random/', include('zinnia.urls.random')),
       url(r'^blog/authors/', include('zinnia.urls.authors')),
       url(r'^blog/categories/', include('zinnia.urls.categories')),
-      url(r'^blog/comments/', include('zinnia.urls.comments')),
       url(r'^blog/', include('zinnia.urls.entries')),
       url(r'^blog/', include('zinnia.urls.archives')),
       url(r'^blog/', include('zinnia.urls.shortlink')),

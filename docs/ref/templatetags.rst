@@ -88,22 +88,6 @@ Usage examples: ::
   {% get_random_entries 3 "custom_template.html" %}
   {% get_random_entries template="custom_template.html" %}
 
-.. templatetag:: get_popular_entries
-
-get_popular_entries
-===================
-
-Display popular entries.
-
-.. autofunction:: get_popular_entries
-
-Usage examples: ::
-
-  {% get_popular_entries %}
-  {% get_popular_entries 3 %}
-  {% get_popular_entries 3 "custom_template.html" %}
-  {% get_popular_entries template="custom_template.html" %}
-
 .. templatetag:: get_similar_entries
 
 get_similar_entries
@@ -242,22 +226,6 @@ Usage examples: ::
   {% get_tag_cloud 9 3 %}
   {% get_tag_cloud 9 3 "custom_template.html" %}
   {% get_tag_cloud template="custom_template.html" %}
-
-.. templatetag:: get_recent_comments
-
-get_recent_comments
-===================
-
-Display the latest comments.
-
-.. autofunction:: get_recent_comments
-
-Usage examples: ::
-
-  {% get_recent_comments %}
-  {% get_recent_comments 3 %}
-  {% get_recent_comments 3 "custom_template.html" %}
-  {% get_recent_comments template="custom_template.html" %}
 
 .. templatetag:: get_recent_linkbacks
 

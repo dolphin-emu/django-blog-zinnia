@@ -3,7 +3,6 @@ from django.conf.urls import url
 
 from zinnia.feeds import AuthorEntries
 from zinnia.feeds import CategoryEntries
-from zinnia.feeds import EntryComments
 from zinnia.feeds import EntryDiscussions
 from zinnia.feeds import EntryPingbacks
 from zinnia.feeds import EntryTrackbacks
@@ -37,10 +36,6 @@ urlpatterns = [
           r'(?P<day>\d{2})/(?P<slug>[-\w]+)/$'),
         EntryDiscussions(),
         name='entry_discussion_feed'),
-    url(_(r'^comments/(?P<year>\d{4})/(?P<month>\d{2})/'
-          r'(?P<day>\d{2})/(?P<slug>[-\w]+)/$'),
-        EntryComments(),
-        name='entry_comment_feed'),
     url(_(r'^pingbacks/(?P<year>\d{4})/(?P<month>\d{2})/'
           r'(?P<day>\d{2})/(?P<slug>[-\w]+)/$'),
         EntryPingbacks(),

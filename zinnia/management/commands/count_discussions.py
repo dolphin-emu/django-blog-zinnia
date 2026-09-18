@@ -31,15 +31,8 @@ class Command(BaseCommand):
         for entry in Entry.objects.all():
             self.write_out('Processing %s\n' % entry.title)
             changed = False
-            comment_count = entry.comments.count()
             pingback_count = entry.pingbacks.count()
             trackback_count = entry.trackbacks.count()
-
-            if entry.comment_count != comment_count:
-                changed = True
-                self.write_out('- %s comments found, %s before\n' % (
-                    comment_count, entry.comment_count))
-                entry.comment_count = comment_count
 
             if entry.pingback_count != pingback_count:
                 changed = True

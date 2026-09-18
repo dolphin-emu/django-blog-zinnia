@@ -13,7 +13,6 @@
     <supportsNewCategories>Yes</supportsNewCategories>
     <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
     <supportsKeywords>Yes</supportsKeywords>
-    <supportsCommentPolicy>Yes</supportsCommentPolicy>
     <supportsPingPolicy>Yes</supportsPingPolicy>
     <supportsAuthor>Yes</supportsAuthor>
     <supportsSlug>Yes</supportsSlug>
@@ -46,15 +45,5 @@
     ]]></postEditingUrl>
   </weblog>
 
-  <buttons>
-    <button>
-      <id>0</id>
-      <text>{% trans "Manage comments" %}</text>
-      <imageUrl>{% static "zinnia/theme/img/wlw/comments.png" %}</imageUrl>
-      <clickUrl><![CDATA[
-        {blog-homepage-url}{% url 'changelist'|comment_admin_urlname %}
-      ]]></clickUrl>
-    </button>
-  </buttons>-->
   <!-- Add views section -->
 </manifest>

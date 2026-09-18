@@ -41,14 +41,6 @@ urls Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`comments` Module
-----------------------
-
-.. automodule:: zinnia.urls.comments
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`entries` Module
 ---------------------
 
@@ -112,4 +104,3 @@ urls Package
     :members:
     :undoc-members:
     :show-inheritance:
-

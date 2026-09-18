@@ -141,7 +141,6 @@ def post_structure(entry, site):
             'userid': author.get_username(),
             # Useful Movable Type Extensions
             'mt_excerpt': entry.excerpt,
-            'mt_allow_comments': int(entry.comment_enabled),
             'mt_allow_pings': (int(entry.pingback_enabled) or
                                int(entry.trackback_enabled)),
             'mt_keywords': entry.tags,
@@ -290,7 +289,6 @@ def new_post(blog_id, username, password, post, publish):
                   'publication_date': creation_date,
                   'creation_date': creation_date,
                   'last_update': creation_date,
-                  'comment_enabled': post.get('mt_allow_comments', 1) == 1,
                   'pingback_enabled': post.get('mt_allow_pings', 1) == 1,
                   'trackback_enabled': post.get('mt_allow_pings', 1) == 1,
                   'featured': post.get('sticky', 0) == 1,
@@ -343,7 +341,6 @@ def edit_post(post_id, username, password, post, publish):
     entry.publication_date = creation_date
     entry.creation_date = creation_date
     entry.last_update = timezone.now()
-    entry.comment_enabled = post.get('mt_allow_comments', 1) == 1
     entry.pingback_enabled = post.get('mt_allow_pings', 1) == 1
     entry.trackback_enabled = post.get('mt_allow_pings', 1) == 1
     entry.featured = post.get('sticky', 0) == 1
