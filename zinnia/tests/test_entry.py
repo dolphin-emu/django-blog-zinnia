@@ -1,4 +1,5 @@
 """Test cases for Zinnia's Entry"""
+from datetime import timedelta
 from django.contrib.sites.models import Site
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -39,7 +40,7 @@ class EntryTestCase(TestCase):
 
     def test_is_actual(self):
         self.assertTrue(self.entry.is_actual)
-        self.entry.start_publication = datetime(2020, 3, 15)
+        self.entry.start_publication = timezone.now() + timedelta(days=1)
         self.assertFalse(self.entry.is_actual)
         self.entry.start_publication = timezone.now()
         self.assertTrue(self.entry.is_actual)
@@ -50,7 +51,7 @@ class EntryTestCase(TestCase):
         self.assertFalse(self.entry.is_visible)
         self.entry.status = PUBLISHED
         self.assertTrue(self.entry.is_visible)
-        self.entry.start_publication = datetime(2020, 3, 15)
+        self.entry.start_publication = timezone.now() + timedelta(days=1)
         self.assertFalse(self.entry.is_visible)
 
     def test_short_url(self):
