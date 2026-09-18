@@ -123,14 +123,6 @@ entries via `Hashids`_ algorithm.
 
 URL: https://github.com/django-blog-zinnia/zinnia-url-shortener-hashids
 
-zinnia-twitter
-==============
-
-Zinnia-twitter is an admin extension allowing you to post your entries on
-`Twitter`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-twitter
-
 wordpress2zinnia
 ================
 
@@ -178,4 +170,3 @@ URL: https://github.com/azaghal/zinnia-drupal
 .. _`CKEditor`: http://ckeditor.com/
 .. _`MarkItUp`: http://markitup.jaysalvat.com/
 .. _`Hashids`: http://hashids.org/
-.. _`Twitter`: https://twitter.com/
