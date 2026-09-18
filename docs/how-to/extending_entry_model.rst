@@ -217,7 +217,7 @@ In the file :file:`zinnia_gallery/admin.py` we can write these code lines
 for adding the gallery field: ::
 
   from django.contrib import admin
-  from django.utils.translation import ugettext_lazy as _
+  from django.utils.translation import gettext_lazy as _
 
   from zinnia.models.entry import Entry
   from zinnia.admin.entry import EntryAdmin
