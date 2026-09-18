@@ -11,15 +11,16 @@ Dependencies
 
 Make sure to install these packages prior to installation :
 
-* `Python`_ >= 3.5
-* `Django`_ >= 2.2
-* `Pillow`_ >= 7.0.0
-* `django-mptt`_ >= 0.11.0
+* `Python`_ >= 3.8
+* `Django`_ >= 3.2.25, < 3.3
+* `Pillow`_ >= 10.4.0
+* `django-mptt`_ >= 0.14.0
 * `django-tagging`_ >= 0.5.0
-* `beautifulsoup4`_ >= 4.8.2
+* `beautifulsoup4`_ >= 4.15.0
 * `mots-vides`_ >= 2015.5.11
-* `pyparsing`_ >= 2.4.6
-* `regex`_ >= 2020.2.20
+* `pyparsing`_ >= 3.1.4
+* `pytz`_ >= 2026.3.post1
+* `regex`_ >= 2024.11.6
 
 Note that all the needed dependencies will be resolved if you install
 Zinnia with :program:`pip` or :program:`easy_install`, excepting Django.

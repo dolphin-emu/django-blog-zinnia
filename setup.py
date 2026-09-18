@@ -34,13 +34,13 @@ setup(
     include_package_data=True,
     python_requires='>=3.8',
     zip_safe=False,
-    install_requires=['Django>=3.2,<3.3',
-                      'beautifulsoup4>=4.3.2',
-                      'django-mptt>=0.8.6',
-                      'django-tagging>=0.4.5',
+    install_requires=['Django>=3.2.25,<3.3',
+                      'beautifulsoup4>=4.15.0',
+                      'django-mptt>=0.14.0',
+                      'django-tagging>=0.5.0',
                       'mots-vides>=2015.5.11',
-                      'pillow>=2.0.0',
-                      'pyparsing>=2.0.3',
-                      'pytz>=2014.10',
-                      'regex>=2016.3.2']
+                      'pillow>=10.4.0',
+                      'pyparsing>=3.1.4',
+                      'pytz>=2026.3.post1',
+                      'regex>=2024.11.6']
 )

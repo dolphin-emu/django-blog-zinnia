@@ -4,17 +4,17 @@ from django.db.models import Q
 from pyparsing import CaselessLiteral
 from pyparsing import Combine
 from pyparsing import OneOrMore
+from pyparsing import OpAssoc
 from pyparsing import Optional
 from pyparsing import ParseResults
 from pyparsing import StringEnd
 from pyparsing import Word
 from pyparsing import WordEnd
 from pyparsing import alphas
-from pyparsing import opAssoc
-from pyparsing import operatorPrecedence
+from pyparsing import infix_notation
 from pyparsing import printables
-from pyparsing import quotedString
-from pyparsing import removeQuotes
+from pyparsing import quoted_string
+from pyparsing import remove_quotes
 
 from zinnia.models.author import Author
 from zinnia.models.entry import Entry
@@ -114,31 +114,32 @@ def union_q(token):
 
 NO_BRTS = printables.replace('(', '').replace(')', '')
 SINGLE = Word(NO_BRTS.replace('*', ''))
-WILDCARDS = Optional('*') + SINGLE + Optional('*') + WordEnd(wordChars=NO_BRTS)
-QUOTED = quotedString.setParseAction(removeQuotes)
+WILDCARDS = (Optional('*') + SINGLE + Optional('*') +
+             WordEnd(word_chars=NO_BRTS))
+QUOTED = quoted_string.set_parse_action(remove_quotes)
 
 OPER_AND = CaselessLiteral('and')
 OPER_OR = CaselessLiteral('or')
 OPER_NOT = '-'
 
-TERM = Combine(Optional(Word(alphas).setResultsName('meta') + ':') +
-               (QUOTED.setResultsName('query') |
-                WILDCARDS.setResultsName('query')))
-TERM.setParseAction(create_q)
+TERM = Combine(Optional(Word(alphas).set_results_name('meta') + ':') +
+               (QUOTED.set_results_name('query') |
+                WILDCARDS.set_results_name('query')))
+TERM.set_parse_action(create_q)
 
-EXPRESSION = operatorPrecedence(TERM, [
-    (OPER_NOT, 1, opAssoc.RIGHT),
-    (OPER_OR, 2, opAssoc.LEFT),
-    (Optional(OPER_AND, default='and'), 2, opAssoc.LEFT)])
-EXPRESSION.setParseAction(union_q)
+EXPRESSION = infix_notation(TERM, [
+    (OPER_NOT, 1, OpAssoc.RIGHT),
+    (OPER_OR, 2, OpAssoc.LEFT),
+    (Optional(OPER_AND, default='and'), 2, OpAssoc.LEFT)])
+EXPRESSION.set_parse_action(union_q)
 
 QUERY = OneOrMore(EXPRESSION) + StringEnd()
-QUERY.setParseAction(union_q)
+QUERY.set_parse_action(union_q)
 
 
 def advanced_search(pattern):
     """
     Parse the grammar of a pattern and build a queryset with it.
     """
-    query_parsed = QUERY.parseString(pattern)
+    query_parsed = QUERY.parse_string(pattern)
     return Entry.published.filter(query_parsed[0]).distinct()
