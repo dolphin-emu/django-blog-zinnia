@@ -14,7 +14,7 @@ Entries
 I want to write my entries in `MarkDown`_, `RestructuredText`_ or any lightweight markup language, is it possible ?
 -------------------------------------------------------------------------------------------------------------------
 
-Yes of course, Zinnia currently support `MarkDown`_, `Textile`_ and
+Yes of course, Zinnia currently supports `MarkDown`_ and
 `reStructuredText`_ as markup languages, but if you want to write your
 entries in a custom markup language a solution is to disable the WYSIWYG
 editor in the admin site with the :setting:`ZINNIA_WYSIWYG` setting, and
@@ -121,7 +121,6 @@ Another and better solution is to extend the :class:`~zinnia.models.entry.Entry`
 model like described in :doc:`/how-to/extending_entry_model`.
 
 .. _`MarkDown`: http://daringfireball.net/projects/markdown/
-.. _`Textile`: http://redcloth.org/hobix.com/textile/
 .. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
 .. _`convert Zinnia into a multilingual Weblog`: http://www.codeispoetry.me/django-blog-zinnia-multilanguage-support-with-django-modeltranslation/
 .. _`django-modeltranslation`: https://github.com/deschler/django-modeltranslation

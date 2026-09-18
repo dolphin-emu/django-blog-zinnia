@@ -30,7 +30,7 @@ More than a long speech, here the list of the main features:
 * `Advanced search engine`_
 * Prepublication and expiration
 * `Custom templates for various contents`_
-* Editing in `Markdown`_, `Textile`_ or `reStructuredText`_
+* Editing in `Markdown`_ or `reStructuredText`_
 * Widgets (Popular entries, Similar entries, ...)
 * Admin dashboard
 * `MetaWeblog API`_
@@ -97,7 +97,6 @@ More information and help available at these URLs:
 .. _`Advanced search engine`: http://docs.django-blog-zinnia.com/en/latest/topics/search_engines.html
 .. _`Custom templates for various contents`: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html#templates-for-entries
 .. _`Markdown`: http://daringfireball.net/projects/markdown/
-.. _`Textile`: http://redcloth.org/hobix.com/textile/
 .. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
 .. _`MetaWeblog API`: http://www.xmlrpc.com/metaWeblogApi
 .. _`Bit.ly`: https://github.com/Fantomas42/zinnia-url-shortener-bitly

@@ -8,19 +8,11 @@ from zinnia import markups
 from zinnia.markups import html_format
 from zinnia.markups import markdown
 from zinnia.markups import restructuredtext
-from zinnia.markups import textile
 from zinnia.tests.utils import skip_if_lib_not_available
 
 
 class MarkupsTestCase(TestCase):
     text = 'Hello *World* !'
-
-    @skip_if_lib_not_available('textile')
-    def test_textile(self):
-        self.assertHTMLEqual(
-            textile(self.text).strip(),
-            '<p>Hello <strong>World</strong> !</p>'
-        )
 
     @skip_if_lib_not_available('markdown')
     def test_markdown(self):
@@ -82,7 +74,7 @@ class MarkupsTestCase(TestCase):
 
 
 class MarkupFailImportTestCase(TestCase):
-    exclude_list = ['textile', 'markdown', 'docutils']
+    exclude_list = ['markdown', 'docutils']
 
     def setUp(self):
         self.original_import = builtins.__import__
@@ -96,16 +88,6 @@ class MarkupFailImportTestCase(TestCase):
             raise ImportError('%s module has been disabled' % name)
         else:
             self.original_import(name, *args, **kwargs)
-
-    def test_textile(self):
-        with warnings.catch_warnings(record=True) as w:
-            result = textile('My *text*')
-        self.tearDown()
-        self.assertEqual(result, 'My *text*')
-        self.assertTrue(issubclass(w[-1].category, RuntimeWarning))
-        self.assertEqual(
-            str(w[-1].message),
-            "The Python textile library isn't installed.")
 
     def test_markdown(self):
         with warnings.catch_warnings(record=True) as w:
@@ -144,20 +126,6 @@ class HtmlFormatTestCase(TestCase):
         self.assertHTMLEqual(
             html_format('Hello\nworld!'),
             '<p>Hello<br />world!</p>'
-        )
-
-    @skip_if_lib_not_available('textile')
-    def test_html_content_textitle(self):
-        markups.MARKUP_LANGUAGE = 'textile'
-        value = 'Hello world !\n\n' \
-                'this is my content :\n\n' \
-                '* Item 1\n* Item 2'
-        self.assertHTMLEqual(
-            html_format(value),
-            '\t<p>Hello world !</p>\n\n\t'
-            '<p>this is my content :</p>\n\n\t'
-            '<ul>\n\t\t<li>Item 1</li>\n\t\t'
-            '<li>Item 2</li>\n\t</ul>'
         )
 
     @skip_if_lib_not_available('markdown')

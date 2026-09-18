@@ -13,20 +13,6 @@ from zinnia.settings import MARKUP_LANGUAGE
 from zinnia.settings import RESTRUCTUREDTEXT_SETTINGS
 
 
-def textile(value):
-    """
-    Textile processing.
-    """
-    try:
-        import textile
-    except ImportError:
-        warnings.warn("The Python textile library isn't installed.",
-                      RuntimeWarning)
-        return value
-
-    return textile.textile(force_str(value))
-
-
 def markdown(value, extensions=MARKDOWN_EXTENSIONS):
     """
     Markdown processing with optionally using various extensions
@@ -70,8 +56,6 @@ def html_format(value):
         return ''
     elif MARKUP_LANGUAGE == 'markdown':
         return markdown(value)
-    elif MARKUP_LANGUAGE == 'textile':
-        return textile(value)
     elif MARKUP_LANGUAGE == 'restructuredtext':
         return restructuredtext(value)
     elif '</p>' not in value:

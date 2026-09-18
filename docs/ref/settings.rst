@@ -100,7 +100,7 @@ ZINNIA_MARKUP_LANGUAGE
 String determining the markup language used for writing the entries.
 You can use one of these values: ::
 
-    ['html', 'markdown', 'restructuredtext', 'textile']
+    ['html', 'markdown', 'restructuredtext']
 
 .. setting:: ZINNIA_MARKDOWN_EXTENSIONS
 

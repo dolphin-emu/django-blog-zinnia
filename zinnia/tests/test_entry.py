@@ -394,21 +394,6 @@ class EntryHtmlContentTestCase(TestCase):
         self.entry.content = ''
         self.assertEqual(self.entry.html_content, '')
 
-    @skip_if_lib_not_available('textile')
-    def test_html_content_textitle(self):
-        markups.MARKUP_LANGUAGE = 'textile'
-        self.entry.content = 'Hello world !\n\n' \
-                             'this is my content :\n\n' \
-                             '* Item 1\n* Item 2'
-        html_content = self.entry.html_content
-        self.assertHTMLEqual(
-            html_content,
-            '\t<p>Hello world !</p>\n\n\t'
-            '<p>this is my content :</p>\n\n\t'
-            '<ul>\n\t\t<li>Item 1</li>\n\t\t'
-            '<li>Item 2</li>\n\t</ul>'
-        )
-
     @skip_if_lib_not_available('markdown')
     def test_html_content_markdown(self):
         markups.MARKUP_LANGUAGE = 'markdown'
@@ -484,21 +469,6 @@ class EntryHtmlLeadTestCase(TestCase):
                              '<p>Hello world !<br /> this is my lead</p>')
         self.entry.lead = ''
         self.assertEqual(self.entry.html_lead, '')
-
-    @skip_if_lib_not_available('textile')
-    def test_html_lead_textitle(self):
-        markups.MARKUP_LANGUAGE = 'textile'
-        self.entry.lead = 'Hello world !\n\n' \
-                          'this is my lead :\n\n' \
-                          '* Item 1\n* Item 2'
-        html_lead = self.entry.html_lead
-        self.assertHTMLEqual(
-            html_lead,
-            '\t<p>Hello world !</p>\n\n\t'
-            '<p>this is my lead :</p>\n\n\t'
-            '<ul>\n\t\t<li>Item 1</li>\n\t\t'
-            '<li>Item 2</li>\n\t</ul>'
-        )
 
     @skip_if_lib_not_available('markdown')
     def test_html_lead_markdown(self):
