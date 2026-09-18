@@ -123,13 +123,6 @@ entries via `Hashids`_ algorithm.
 
 URL: https://github.com/django-blog-zinnia/zinnia-url-shortener-hashids
 
-wordpress2zinnia
-================
-
-Migrate your Wordpress blog into Zinnia.
-
-URL: https://github.com/django-blog-zinnia/wordpress2zinnia
-
 feed2zinnia
 ===========
 

@@ -37,7 +37,6 @@ More than a long speech, here the list of the main features:
 * Collaborative work
 * Tags autocompletion
 * `Entry model extendable`_
-* `WordPress conversion utility`_
 * `WYMeditor`_, `TinyMCE`_ , `CKEditor`_ and `MarkItUp`_ support
 * Efficient database queries
 * Ready to use and extendable templates
@@ -95,7 +94,6 @@ More information and help available at these URLs:
 .. _`TinyMCE`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-tinymce
 .. _`CKEditor`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-ckeditor
 .. _`MarkItUp`: https://github.com/django-blog-zinnia/zinnia-wysiwyg-markitup
-.. _`WordPress conversion utility`: https://github.com/django-blog-zinnia/wordpress2zinnia
 .. _`Compass`: http://compass-style.org/
 .. _`Sass3`: http://sass-lang.com/
 .. _`Windows Live Writer`: http://explore.live.com/windows-live-writer
