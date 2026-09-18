@@ -20,7 +20,7 @@ setup(
     packages=find_packages(exclude=['demo']),
     classifiers=[
         'Framework :: Django',
-        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3',
@@ -34,7 +34,7 @@ setup(
     include_package_data=True,
     python_requires='>=3.8',
     zip_safe=False,
-    install_requires=['Django>=3.1,<3.2',
+    install_requires=['Django>=3.2,<3.3',
                       'beautifulsoup4>=4.3.2',
                       'django-mptt>=0.8.6',
                       'django-tagging>=0.4.5',
