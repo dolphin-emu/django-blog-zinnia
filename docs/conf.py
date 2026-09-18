@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # django-blog-zinnia documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct 21 17:44:20 2010.

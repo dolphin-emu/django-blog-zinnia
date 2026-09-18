@@ -1,4 +1,3 @@
-# coding=utf-8
 """Test cases for Zinnia's views"""
 from datetime import date
 

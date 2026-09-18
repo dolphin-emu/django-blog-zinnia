@@ -1,4 +1,3 @@
-# coding=utf-8
 """Test cases for Zinnia's preview"""
 from django.test import TestCase
 

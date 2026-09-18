@@ -1,4 +1,3 @@
-# coding=utf-8
 """Test cases for Zinnia's feeds"""
 from urllib.parse import urljoin
 

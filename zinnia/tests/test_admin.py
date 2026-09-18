@@ -1,6 +1,4 @@
-# coding=utf-8
 """Test cases for Zinnia's admin"""
-from __future__ import unicode_literals
 
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
