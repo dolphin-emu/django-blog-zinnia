@@ -4,10 +4,6 @@ from django.conf import settings
 from mots_vides import stop_words
 
 
-PING_DIRECTORIES = getattr(settings, 'ZINNIA_PING_DIRECTORIES',
-                           ('https://django-blog-zinnia.com/xmlrpc/',))
-SAVE_PING_DIRECTORIES = getattr(settings, 'ZINNIA_SAVE_PING_DIRECTORIES',
-                                bool(PING_DIRECTORIES))
 SAVE_PING_EXTERNAL_URLS = getattr(settings, 'ZINNIA_PING_EXTERNAL_URLS', True)
 
 TRANSLATED_URLS = getattr(settings, 'ZINNIA_TRANSLATED_URLS', False)

@@ -280,14 +280,6 @@ the publication date of your entries.
 Pinging
 =======
 
-.. setting:: ZINNIA_PING_DIRECTORIES
-
-ZINNIA_PING_DIRECTORIES
------------------------
-**Default value:** ``('http://django-blog-zinnia.com/xmlrpc/',)``
-
-List of the directories you want to ping.
-
 .. setting:: ZINNIA_PING_EXTERNAL_URLS
 
 ZINNIA_PING_EXTERNAL_URLS
@@ -295,15 +287,6 @@ ZINNIA_PING_EXTERNAL_URLS
 **Default value:** ``True``
 
 Boolean setting for telling if you want to ping external URLs when saving
-an entry.
-
-.. setting:: ZINNIA_SAVE_PING_DIRECTORIES
-
-ZINNIA_SAVE_PING_DIRECTORIES
-----------------------------
-**Default value:** ``bool(ZINNIA_PING_DIRECTORIES)``
-
-Boolean setting for telling if you want to ping directories when saving
 an entry.
 
 .. setting:: ZINNIA_PINGBACK_CONTENT_LENGTH

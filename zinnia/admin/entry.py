@@ -21,7 +21,6 @@ from zinnia.comparison import EntryPublishedVectorBuilder
 from zinnia.managers import HIDDEN
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
-from zinnia.ping import DirectoryPinger
 
 
 class EntryAdmin(admin.ModelAdmin):
@@ -66,7 +65,7 @@ class EntryAdmin(admin.ModelAdmin):
     search_fields = ('title', 'excerpt', 'content', 'tags')
     actions = ['make_mine', 'make_published', 'make_hidden',
                'close_pingbacks', 'close_trackbacks',
-               'ping_directories', 'put_on_top',
+               'put_on_top',
                'mark_featured', 'unmark_featured']
     actions_on_top = True
     actions_on_bottom = True
@@ -231,9 +230,6 @@ class EntryAdmin(admin.ModelAdmin):
         if not request.user.has_perm('zinnia.can_change_status'):
             del actions['make_hidden']
             del actions['make_published']
-        if not settings.PING_DIRECTORIES:
-            del actions['ping_directories']
-
         return actions
 
     # Custom Actions
@@ -255,7 +251,6 @@ class EntryAdmin(admin.ModelAdmin):
         """
         queryset.update(status=PUBLISHED)
         EntryPublishedVectorBuilder().cache_flush()
-        self.ping_directories(request, queryset, messages=False)
         self.message_user(
             request, _('The selected entries are now marked as published.'))
     make_published.short_description = _('Set entries selected as published')
@@ -295,7 +290,6 @@ class EntryAdmin(admin.ModelAdmin):
         Put the selected entries on top at the current date.
         """
         queryset.update(publication_date=timezone.now())
-        self.ping_directories(request, queryset, messages=False)
         self.message_user(request, _(
             'The selected entries are now set at the current date.'))
     put_on_top.short_description = _(
@@ -319,28 +313,3 @@ class EntryAdmin(admin.ModelAdmin):
             request, _('Selected entries are no longer marked as featured.'))
     unmark_featured.short_description = _(
         'Unmark selected entries as featured')
-
-    def ping_directories(self, request, queryset, messages=True):
-        """
-        Ping web directories for selected entries.
-        """
-        for directory in settings.PING_DIRECTORIES:
-            pinger = DirectoryPinger(directory, queryset)
-            pinger.join()
-            if messages:
-                success = 0
-                for result in pinger.results:
-                    if not result.get('flerror', True):
-                        success += 1
-                    else:
-                        self.message_user(request,
-                                          '%s : %s' % (directory,
-                                                       result['message']))
-                if success:
-                    self.message_user(
-                        request,
-                        _('%(directory)s directory succesfully '
-                          'pinged %(success)d entries.') %
-                        {'directory': directory, 'success': success})
-    ping_directories.short_description = _(
-        'Ping Directories for selected entries')

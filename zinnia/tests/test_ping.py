@@ -6,7 +6,6 @@ from urllib.response import addinfourl
 from django.test import TestCase
 
 from zinnia.models.entry import Entry
-from zinnia.ping import DirectoryPinger
 from zinnia.ping import ExternalUrlsPinger
 from zinnia.ping import URLRessources
 from zinnia.signals import disconnect_entry_signals
@@ -15,39 +14,6 @@ from zinnia.signals import disconnect_entry_signals
 class FakeThread(object):
     def start(self):
         pass
-
-
-class DirectoryPingerTestCase(TestCase):
-    """Test cases for DirectoryPinger"""
-
-    def setUp(self):
-        disconnect_entry_signals()
-        params = {'title': 'My entry',
-                  'content': 'My content',
-                  'tags': 'zinnia, test',
-                  'slug': 'my-entry'}
-        self.entry = Entry.objects.create(**params)
-        self.original_thread = DirectoryPinger.__bases__
-        DirectoryPinger.__bases__ = (FakeThread,)
-
-    def tearDown(self):
-        DirectoryPinger.__bases__ = self.original_thread
-
-    def test_ping_entry(self):
-        pinger = DirectoryPinger('http://localhost', [self.entry])
-        self.assertEqual(
-            pinger.ping_entry(self.entry),
-            {'message': 'http://localhost is an invalid directory.',
-             'flerror': True})
-        self.assertEqual(pinger.results, [])
-
-    def test_run(self):
-        pinger = DirectoryPinger('http://localhost', [self.entry])
-        pinger.run()
-        self.assertEqual(
-            pinger.results,
-            [{'flerror': True,
-              'message': 'http://localhost is an invalid directory.'}])
 
 
 class ExternalUrlsPingerTestCase(TestCase):

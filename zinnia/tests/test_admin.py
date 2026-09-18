@@ -13,8 +13,6 @@ from django.utils import timezone
 from django.utils.translation import activate
 from django.utils.translation import deactivate
 
-from zinnia import settings
-from zinnia.admin import entry as entry_admin
 from zinnia.admin.category import CategoryAdmin
 from zinnia.admin.entry import EntryAdmin
 from zinnia.managers import PUBLISHED
@@ -257,27 +255,14 @@ class EntryAdminTestCase(BaseAdminTestCase):
                          [])
 
     def test_get_actions(self):
-        original_ping_directories = settings.PING_DIRECTORIES
         user = User.objects.create_user(
             'user', 'user@exemple.com')
         root = User.objects.create_superuser(
             'root', 'root@exemple.com', 'toor')
         self.request.user = user
-        settings.PING_DIRECTORIES = True
         self.assertEqual(
             list(self.admin.get_actions(self.request).keys()),
-            ['close_comments',
-             'close_pingbacks',
-             'close_trackbacks',
-             'ping_directories',
-             'put_on_top',
-             'mark_featured',
-             'unmark_featured'])
-        settings.PING_DIRECTORIES = False
-        self.assertEqual(
-            list(self.admin.get_actions(self.request).keys()),
-            ['close_comments',
-             'close_pingbacks',
+            ['close_pingbacks',
              'close_trackbacks',
              'put_on_top',
              'mark_featured',
@@ -289,13 +274,11 @@ class EntryAdminTestCase(BaseAdminTestCase):
              'make_mine',
              'make_published',
              'make_hidden',
-             'close_comments',
              'close_pingbacks',
              'close_trackbacks',
              'put_on_top',
              'mark_featured',
              'unmark_featured'])
-        settings.PING_DIRECTORIES = original_ping_directories
 
     def test_get_actions_in_popup_mode_issue_291(self):
         user = User.objects.create_user(
@@ -317,15 +300,12 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.assertEqual(len(self.request._messages.messages), 1)
 
     def test_make_published(self):
-        original_ping_directories = settings.PING_DIRECTORIES
-        settings.PING_DIRECTORIES = []
         self.request._messages = TestMessageBackend()
         self.entry.sites.add(Site.objects.get_current())
         self.assertEqual(Entry.published.count(), 0)
         self.admin.make_published(self.request, Entry.objects.all())
         self.assertEqual(Entry.published.count(), 1)
         self.assertEqual(len(self.request._messages.messages), 1)
-        settings.PING_DIRECTORIES = original_ping_directories
 
     def test_make_hidden(self):
         self.request._messages = TestMessageBackend()
@@ -335,15 +315,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.assertEqual(Entry.published.count(), 1)
         self.admin.make_hidden(self.request, Entry.objects.all())
         self.assertEqual(Entry.published.count(), 0)
-        self.assertEqual(len(self.request._messages.messages), 1)
-
-    def test_close_comments(self):
-        self.request._messages = TestMessageBackend()
-        self.assertEqual(Entry.objects.filter(
-            comment_enabled=True).count(), 1)
-        self.admin.close_comments(self.request, Entry.objects.all())
-        self.assertEqual(Entry.objects.filter(
-            comment_enabled=True).count(), 0)
         self.assertEqual(len(self.request._messages.messages), 1)
 
     def test_close_pingbacks(self):
@@ -365,8 +336,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.assertEqual(len(self.request._messages.messages), 1)
 
     def test_put_on_top(self):
-        original_ping_directories = settings.PING_DIRECTORIES
-        settings.PING_DIRECTORIES = []
         self.request._messages = TestMessageBackend()
         self.entry.publication_date = datetime(2011, 1, 1, 12, 0)
         self.admin.put_on_top(self.request, Entry.objects.all())
@@ -374,7 +343,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
             Entry.objects.get(pk=self.entry.pk).creation_date.date(),
             timezone.now().date())
         self.assertEqual(len(self.request._messages.messages), 1)
-        settings.PING_DIRECTORIES = original_ping_directories
 
     def test_mark_unmark_featured(self):
         self.request._messages = TestMessageBackend()
@@ -386,33 +354,6 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.admin.unmark_featured(self.request, Entry.objects.all())
         self.assertEqual(Entry.objects.filter(featured=True).count(), 0)
         self.assertEqual(len(self.request._messages.messages), 2)
-
-    def test_ping_directories(self):
-        class FakePinger(object):
-            def __init__(self, *ka, **kw):
-                self.results = [{'flerror': False, 'message': 'OK'},
-                                {'flerror': True, 'message': 'KO'}]
-
-            def join(self):
-                pass
-
-        original_pinger = entry_admin.DirectoryPinger
-        entry_admin.DirectoryPinger = FakePinger
-        original_ping_directories = settings.PING_DIRECTORIES
-        settings.PING_DIRECTORIES = ['http://ping.com/ping']
-
-        self.request._messages = TestMessageBackend()
-        self.admin.ping_directories(self.request, Entry.objects.all(), False)
-        self.assertEqual(len(self.request._messages.messages), 0)
-        self.admin.ping_directories(self.request, Entry.objects.all())
-        self.assertEqual(len(self.request._messages.messages), 2)
-        self.assertEqual(self.request._messages.messages,
-                         [(20, 'http://ping.com/ping : KO', ''),
-                          (20, 'http://ping.com/ping directory succesfully '
-                           'pinged 1 entries.', '')])
-        entry_admin.DirectoryPinger = original_pinger
-        settings.PING_DIRECTORIES = original_ping_directories
-
 
 class CategoryAdminTestCase(BaseAdminTestCase):
     """Test cases for Category Admin"""

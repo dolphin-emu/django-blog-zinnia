@@ -10,7 +10,6 @@ from xmlrpc.client import ServerProxy
 from bs4 import BeautifulSoup
 
 from django.contrib.sites.models import Site
-from django.urls import reverse
 
 from zinnia.flags import PINGBACK
 from zinnia.settings import PROTOCOL
@@ -24,64 +23,6 @@ class URLRessources(object):
     def __init__(self):
         self.current_site = Site.objects.get_current()
         self.site_url = '%s://%s' % (PROTOCOL, self.current_site.domain)
-        self.blog_url = '%s%s' % (self.site_url,
-                                  reverse('zinnia:entry_archive_index'))
-        self.blog_feed = '%s%s' % (self.site_url,
-                                   reverse('zinnia:entry_feed'))
-
-
-class DirectoryPinger(Thread):
-    """
-    Threaded web directory pinger.
-    """
-
-    def __init__(self, server_name, entries, timeout=10):
-        self.results = []
-        self.timeout = timeout
-        self.entries = entries
-        self.server_name = server_name
-        self.server = ServerProxy(self.server_name)
-        self.ressources = URLRessources()
-
-        super(DirectoryPinger, self).__init__()
-        self.start()
-
-    def run(self):
-        """
-        Ping entries to a directory in a thread.
-        """
-        logger = getLogger('zinnia.ping.directory')
-        socket.setdefaulttimeout(self.timeout)
-        for entry in self.entries:
-            reply = self.ping_entry(entry)
-            self.results.append(reply)
-            logger.info('%s : %s', self.server_name, reply['message'])
-        socket.setdefaulttimeout(None)
-
-    def ping_entry(self, entry):
-        """
-        Ping an entry to a directory.
-        """
-        entry_url = '%s%s' % (self.ressources.site_url,
-                              entry.get_absolute_url())
-        categories = '|'.join([c.title for c in entry.categories.all()])
-
-        try:
-            reply = self.server.weblogUpdates.extendedPing(
-                self.ressources.current_site.name,
-                self.ressources.blog_url, entry_url,
-                self.ressources.blog_feed, categories)
-        except Exception:
-            try:
-                reply = self.server.weblogUpdates.ping(
-                    self.ressources.current_site.name,
-                    self.ressources.blog_url, entry_url,
-                    categories)
-            except Exception:
-                reply = {'message': '%s is an invalid directory.' %
-                         self.server_name,
-                         'flerror': True}
-        return reply
 
 
 class ExternalUrlsPinger(Thread):

@@ -100,20 +100,13 @@ template with this sample of code:
 Pinging
 =======
 
-By default Zinnia is configured to ping the directories and the external
-urls embedded in your entries when a new entry is published.
+By default Zinnia is configured to ping the external URLs embedded in your
+entries when a new entry is published.
 
-If you want to completly remove these features, simply set these settings
-in your project's configuration: ::
+If you want to disable this feature, set this setting in your project's
+configuration: ::
 
   ZINNIA_PING_EXTERNAL_URLS = False
-  ZINNIA_SAVE_PING_DIRECTORIES = False
-
-You can also edit the list of the directories to be pinged by using this
-setting: ::
-
-  ZINNIA_PING_DIRECTORIES = ('http://ping.directory.com/',
-                             'http://pong.directory.com/')
 
 .. _zinnia-markup-languages:
 
