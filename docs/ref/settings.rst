@@ -275,20 +275,6 @@ the publication date of your entries.
 
 ``0`` means disabling trackbacks completely.
 
-.. _settings-pinging:
-
-Pinging
-=======
-
-.. setting:: ZINNIA_PING_EXTERNAL_URLS
-
-ZINNIA_PING_EXTERNAL_URLS
--------------------------
-**Default value:** ``True``
-
-Boolean setting for telling if you want to ping external URLs when saving
-an entry.
-
 .. setting:: ZINNIA_PINGBACK_CONTENT_LENGTH
 
 ZINNIA_PINGBACK_CONTENT_LENGTH

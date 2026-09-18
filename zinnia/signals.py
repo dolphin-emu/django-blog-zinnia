@@ -10,13 +10,10 @@ from django.dispatch import Signal
 import django_comments as comments
 from django_comments.signals import comment_was_flagged
 
-from zinnia import settings
 from zinnia.comparison import EntryPublishedVectorBuilder
 from zinnia.models.entry import Entry
-from zinnia.ping import ExternalUrlsPinger
 
 comment_model = comments.get_model()
-ENTRY_PS_PING_EXTERNAL_URLS = 'zinnia.entry.post_save.ping_external_urls'
 ENTRY_PS_FLUSH_SIMILAR_CACHE = 'zinnia.entry.post_save.flush_similar_cache'
 ENTRY_PD_FLUSH_SIMILAR_CACHE = 'zinnia.entry.post_delete.flush_similar_cache'
 COMMENT_PS_COUNT_DISCUSSIONS = 'zinnia.comment.post_save.count_discussions'
@@ -43,17 +40,6 @@ def disable_for_loaddata(signal_handler):
         signal_handler(*args, **kwargs)
 
     return wrapper
-
-
-@disable_for_loaddata
-def ping_external_urls_handler(sender, **kwargs):
-    """
-    Ping externals URLS when an entry is saved.
-    """
-    entry = kwargs['instance']
-
-    if entry.is_visible and settings.SAVE_PING_EXTERNAL_URLS:
-        ExternalUrlsPinger(entry)
 
 
 @disable_for_loaddata
@@ -108,9 +94,6 @@ def connect_entry_signals():
     Connect all the signals on Entry model.
     """
     post_save.connect(
-        ping_external_urls_handler, sender=Entry,
-        dispatch_uid=ENTRY_PS_PING_EXTERNAL_URLS)
-    post_save.connect(
         flush_similar_cache_handler, sender=Entry,
         dispatch_uid=ENTRY_PS_FLUSH_SIMILAR_CACHE)
     post_delete.connect(
@@ -122,9 +105,6 @@ def disconnect_entry_signals():
     """
     Disconnect all the signals on Entry model.
     """
-    post_save.disconnect(
-        sender=Entry,
-        dispatch_uid=ENTRY_PS_PING_EXTERNAL_URLS)
     post_save.disconnect(
         sender=Entry,
         dispatch_uid=ENTRY_PS_FLUSH_SIMILAR_CACHE)

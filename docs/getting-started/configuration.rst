@@ -95,19 +95,6 @@ template with this sample of code:
 
   {% block sidebar %}{% endblock %}
 
-.. _zinnia-pinging:
-
-Pinging
-=======
-
-By default Zinnia is configured to ping the external URLs embedded in your
-entries when a new entry is published.
-
-If you want to disable this feature, set this setting in your project's
-configuration: ::
-
-  ZINNIA_PING_EXTERNAL_URLS = False
-
 .. _zinnia-markup-languages:
 
 Markup languages

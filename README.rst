@@ -33,7 +33,6 @@ More than a long speech, here the list of the main features:
 * Editing in `Markdown`_
 * Widgets (Popular entries, Similar entries, ...)
 * Admin dashboard
-* Ping External links
 * `Bit.ly`_ support
 * `Twitter`_ support
 * `Gravatar`_ support

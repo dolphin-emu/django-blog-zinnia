@@ -4,8 +4,6 @@ from django.conf import settings
 from mots_vides import stop_words
 
 
-SAVE_PING_EXTERNAL_URLS = getattr(settings, 'ZINNIA_PING_EXTERNAL_URLS', True)
-
 TRANSLATED_URLS = getattr(settings, 'ZINNIA_TRANSLATED_URLS', False)
 
 COPYRIGHT = getattr(settings, 'ZINNIA_COPYRIGHT', 'Zinnia')
