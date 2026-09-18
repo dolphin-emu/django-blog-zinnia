@@ -130,13 +130,6 @@ Migrate your Wordpress blog into Zinnia.
 
 URL: https://github.com/django-blog-zinnia/wordpress2zinnia
 
-blogger2zinnia
-==============
-
-Migrate your Blogger blog into Zinnia.
-
-URL: https://github.com/django-blog-zinnia/blogger2zinnia
-
 feed2zinnia
 ===========
 
