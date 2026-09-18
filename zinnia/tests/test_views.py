@@ -607,8 +607,6 @@ class ViewsTestCase(ViewsBaseCase):
 
     def test_capabilities(self):
         self.check_capabilities('/humans.txt', 'text/plain', 0)
-        self.check_capabilities('/wlwmanifest.xml',
-                                'application/wlwmanifest+xml', 0)
         self.check_capabilities('/opensearch.xml',
                                 'application/opensearchdescription+xml', 0)
 

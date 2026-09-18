@@ -40,7 +40,6 @@ More than a long speech, here the list of the main features:
 * Efficient database queries
 * Ready to use and extendable templates
 * `Compass`_ and `Sass3`_ integration
-* `Windows Live Writer`_ compatibility
 
 Examples
 ========
@@ -91,7 +90,6 @@ More information and help available at these URLs:
 .. _`Entry model extendable`: http://django-blog-zinnia.rtfd.org/extending-entry
 .. _`Compass`: http://compass-style.org/
 .. _`Sass3`: http://sass-lang.com/
-.. _`Windows Live Writer`: http://explore.live.com/windows-live-writer
 .. _`Fantomas' side`: http://fantomas.site/blog/
 .. _`Vidzor Studio LLC`: http://vidzor.com/blog/
 .. _`Bookshadow`: http://bookshadow.com/weblog/

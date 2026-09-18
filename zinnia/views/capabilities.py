@@ -33,14 +33,6 @@ class HumansTxt(CapabilityView):
     template_name = 'zinnia/humans.txt'
 
 
-class WLWManifestXml(CapabilityView):
-    """
-    http://msdn.microsoft.com/en-us/library/bb463260.aspx
-    """
-    content_type = 'application/wlwmanifest+xml'
-    template_name = 'zinnia/wlwmanifest.xml'
-
-
 class OpenSearchXml(CapabilityView):
     """
     http://www.opensearch.org/
