@@ -9,14 +9,6 @@ xmlrpc Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`metaweblog` Module
-------------------------
-
-.. automodule:: zinnia.xmlrpc.metaweblog
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`pingback` Module
 ----------------------
 
@@ -24,4 +16,3 @@ xmlrpc Package
     :members:
     :undoc-members:
     :show-inheritance:
-

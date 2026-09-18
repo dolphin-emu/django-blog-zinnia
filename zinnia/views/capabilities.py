@@ -33,14 +33,6 @@ class HumansTxt(CapabilityView):
     template_name = 'zinnia/humans.txt'
 
 
-class RsdXml(CapabilityView):
-    """
-    http://en.wikipedia.org/wiki/Really_Simple_Discovery
-    """
-    content_type = 'application/rsd+xml'
-    template_name = 'zinnia/rsd.xml'
-
-
 class WLWManifestXml(CapabilityView):
     """
     http://msdn.microsoft.com/en-us/library/bb463260.aspx

@@ -182,4 +182,3 @@ Insert something like this in your project's urls.py: ::
 
 .. _`Markdown`: http://pypi.python.org/pypi/Markdown
 .. _`django-xmlrpc`: http://pypi.python.org/pypi/django-xmlrpc/
-.. _`MetaWeblog API`: http://www.xmlrpc.com/metaWeblogApi
