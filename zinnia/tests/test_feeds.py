@@ -22,7 +22,6 @@ from zinnia.feeds import LastEntries
 from zinnia.feeds import SearchEntries
 from zinnia.feeds import TagEntries
 from zinnia.feeds import ZinniaFeed
-from zinnia.managers import HIDDEN
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category

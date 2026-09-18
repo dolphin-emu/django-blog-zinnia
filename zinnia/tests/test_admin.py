@@ -331,6 +331,7 @@ class EntryAdminTestCase(BaseAdminTestCase):
         self.assertEqual(Entry.objects.filter(featured=True).count(), 0)
         self.assertEqual(len(self.request._messages.messages), 2)
 
+
 class CategoryAdminTestCase(BaseAdminTestCase):
     """Test cases for Category Admin"""
     model_class = Category

@@ -2,6 +2,7 @@
 import os
 from mimetypes import guess_type
 from urllib.parse import urljoin
+
 from bs4 import BeautifulSoup
 
 from django.contrib.sites.models import Site

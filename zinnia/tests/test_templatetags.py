@@ -15,7 +15,6 @@ from django.utils import timezone
 
 from tagging.models import Tag
 
-from zinnia.managers import DRAFT
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category

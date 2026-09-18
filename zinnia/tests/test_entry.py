@@ -1,5 +1,6 @@
 """Test cases for Zinnia's Entry"""
 from datetime import timedelta
+
 from django.contrib.sites.models import Site
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -11,12 +12,10 @@ from django.utils.translation import deactivate
 from zinnia import markups
 from zinnia import url_shortener as shortener_settings
 from zinnia.managers import PUBLISHED
-from zinnia.models.author import Author
 from zinnia.models.entry import Entry
 from zinnia.models_bases import entry
 from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
-from zinnia.tests.utils import skip_if_custom_user
 from zinnia.tests.utils import skip_if_lib_not_available
 from zinnia.url_shortener.backends.default import base36
 
