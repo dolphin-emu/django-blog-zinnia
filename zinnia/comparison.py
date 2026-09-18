@@ -24,8 +24,8 @@ def pearson_score(list1, list2):
     size = len(list1)
     sum1 = sum(list1)
     sum2 = sum(list2)
-    sum_sq1 = sum([pow(l, 2) for l in list1])
-    sum_sq2 = sum([pow(l, 2) for l in list2])
+    sum_sq1 = sum([pow(value, 2) for value in list1])
+    sum_sq2 = sum([pow(value, 2) for value in list2])
 
     prod_sum = sum([list1[i] * list2[i] for i in range(size)])
 
