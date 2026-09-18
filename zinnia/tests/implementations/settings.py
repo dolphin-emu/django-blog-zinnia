@@ -15,7 +15,8 @@ PASSWORD_HASHERS = [
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware'
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 TEMPLATES = [
@@ -23,7 +24,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'OPTIONS': {
             'context_processors': [
+                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
                 'zinnia.context_processors.version',
             ],
             'loaders': [
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.messages',
     'mptt',
     'tagging',
     'zinnia'
