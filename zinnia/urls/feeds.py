@@ -1,5 +1,5 @@
 """Urls for the Zinnia feeds"""
-from django.conf.urls import url
+from django.urls import re_path
 
 from zinnia.feeds import AuthorEntries
 from zinnia.feeds import CategoryEntries
@@ -10,19 +10,19 @@ from zinnia.urls import _
 
 
 urlpatterns = [
-    url(r'^$',
+    re_path(r'^$',
         LastEntries(),
         name='entry_feed'),
-    url(_(r'^search/$'),
+    re_path(_(r'^search/$'),
         SearchEntries(),
         name='entry_search_feed'),
-    url(_(r'^tags/(?P<tag>[^/]+)/$'),
+    re_path(_(r'^tags/(?P<tag>[^/]+)/$'),
         TagEntries(),
         name='tag_feed'),
-    url(_(r'^authors/(?P<username>[.+-@\w]+)/$'),
+    re_path(_(r'^authors/(?P<username>[.+-@\w]+)/$'),
         AuthorEntries(),
         name='author_feed'),
-    url(_(r'^categories/(?P<path>[-\/\w]+)/$'),
+    re_path(_(r'^categories/(?P<path>[-\/\w]+)/$'),
         CategoryEntries(),
         name='category_feed'),
 ]

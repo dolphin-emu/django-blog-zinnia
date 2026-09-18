@@ -320,17 +320,15 @@ view: ::
 
 or directly in the urls: ::
 
-  from django.conf.urls import url
-  from django.conf.urls import patterns
+  from django.urls import re_path
 
   from zinnia.views.search import EntrySearch
 
-  urlpatterns = patterns(
-      '',
-      url(r'^$', EntrySearch.as_view(
+  urlpatterns = [
+      re_path(r'^$', EntrySearch.as_view(
           template_name='custom/template.html'),
           name='entry_search'),
-      )
+  ]
 
 .. _packaging-theme:
 

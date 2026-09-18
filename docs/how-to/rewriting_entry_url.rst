@@ -93,13 +93,13 @@ To do this override, simply use the method explained in the
 :class:`~zinnia.models_bases.entry.AbstractEntry` with the new
 ``get_absolute_url`` method. ::
 
+  from django.urls import reverse
+
   class EntryWithNewUrl(AbstractEntry):
       """Entry with '/blog/<id>/' URL"""
 
-      @models.permalink
       def get_absolute_url(self):
-          return ('zinnia:entry_detail', (),
-                  {'pk': self.id})
+          return reverse('zinnia:entry_detail', kwargs={'pk': self.id})
 
       class Meta(AbstractEntry.Meta):
           abstract = True
@@ -154,11 +154,14 @@ URLconf containing the new URL code for the canonical URL of your
 entries. Doing a copy of the original module in your own project can save
 you a lot time. ::
 
+  from django.urls import include
+  from django.urls import re_path
+
   ...
-  url(r'^weblog/', include('zinnia_customized.urls', namespace='zinnia')),
+  re_path(r'^weblog/', include('zinnia_customized.urls', namespace='zinnia')),
   ...
 
-Now in :mod:`zinnia_customized.urls` rewrite the :func:`~django.conf.urls.url`
+Now in :mod:`zinnia_customized.urls` rewrite the :func:`~django.urls.re_path`
 named ``'zinnia_entry_detail'`` with your new regular expression handling the
 canonical URL of your entries and the text parameters. Don't forget to also
 change the path to your view retrieving the :class:`Entry` instance from
@@ -166,7 +169,7 @@ the text parameters. ::
 
   from zinnia_customized.views import EntryDetail
 
-  url(r'^(?P<pk>\d+)/$',
+  re_path(r'^(?P<pk>\d+)/$',
       EntryDetail.as_view(),
       name='entry_detail')
 

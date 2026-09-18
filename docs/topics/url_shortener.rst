@@ -60,7 +60,7 @@ possible, you only needs to follows 4 rules.
 Here the source code of the default backend. ::
 
     from django.contrib.sites.models import Site
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
     from zinnia.settings import PROTOCOL
 
     def backend(entry):

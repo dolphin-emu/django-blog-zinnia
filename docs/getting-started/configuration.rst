@@ -18,6 +18,7 @@ these steps.
 
     from django.contrib.sitemaps.views import index
     from django.contrib.sitemaps.views import sitemap
+    from django.urls import re_path
 
     from zinnia.sitemaps import AuthorSitemap
     from zinnia.sitemaps import CategorySitemap
@@ -32,10 +33,10 @@ these steps.
     }
 
     urlpatterns += [
-        url(r'^sitemap.xml$',
+        re_path(r'^sitemap.xml$',
             index,
             {'sitemaps': sitemaps}),
-        url(r'^sitemap-(?P<section>.+)\.xml$',
+        re_path(r'^sitemap-(?P<section>.+)\.xml$',
             sitemap,
             {'sitemaps': sitemaps},
             name='django.contrib.sitemaps.views.sitemap'),

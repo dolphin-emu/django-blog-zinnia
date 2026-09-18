@@ -2,11 +2,11 @@
 from functools import partial
 
 from django.conf import settings
-from django.conf.urls import include
-from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.sitemaps.views import index
 from django.contrib.sitemaps.views import sitemap
+from django.urls import include
+from django.urls import re_path
 from django.views.defaults import bad_request
 from django.views.defaults import page_not_found
 from django.views.defaults import permission_denied
@@ -22,11 +22,11 @@ from zinnia.sitemaps import TagSitemap
 
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/blog/', permanent=True)),
-    url(r'^blog/', include('zinnia.urls')),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', admin.site.urls),
+    re_path(r'^$', RedirectView.as_view(url='/blog/', permanent=True)),
+    re_path(r'^blog/', include('zinnia.urls')),
+    re_path(r'^i18n/', include('django.conf.urls.i18n')),
+    re_path(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    re_path(r'^admin/', admin.site.urls),
 ]
 
 sitemaps = {
@@ -37,23 +37,23 @@ sitemaps = {
 }
 
 urlpatterns += [
-    url(r'^sitemap.xml$',
+    re_path(r'^sitemap.xml$',
         index,
         {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$',
+    re_path(r'^sitemap-(?P<section>.+)\.xml$',
         sitemap,
         {'sitemaps': sitemaps}),
 ]
 
 urlpatterns += [
-    url(r'^400/$', partial(bad_request, exception=None)),
-    url(r'^403/$', partial(permission_denied, exception=None)),
-    url(r'^404/$', partial(page_not_found, exception=None)),
-    url(r'^500/$', server_error),
+    re_path(r'^400/$', partial(bad_request, exception=None)),
+    re_path(r'^403/$', partial(permission_denied, exception=None)),
+    re_path(r'^404/$', partial(page_not_found, exception=None)),
+    re_path(r'^500/$', server_error),
 ]
 
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve,
+        re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT})
     ]

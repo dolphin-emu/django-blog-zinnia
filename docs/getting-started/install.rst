@@ -108,10 +108,10 @@ URLs
 Add at least these following lines to your project's urls.py in order to
 display the Weblog. ::
 
-  from django.conf.urls import include
-  from django.conf.urls import url
+  from django.urls import include
+  from django.urls import re_path
 
-  url(r'^weblog/', include('zinnia.urls')),
+  re_path(r'^weblog/', include('zinnia.urls')),
 
 Remember to enable the :mod:`~django.contrib.admin` site in the urls.py of
 your project if you haven't done it yet for having the edition capabilities.
@@ -121,21 +121,21 @@ convenient usage, but you can customize your Weblog URLs as you
 want. Here's a custom implementation of the URLs provided by Zinnia: ::
 
   blog_urls = ([
-      url(r'^', include('zinnia.urls.capabilities')),
-      url(r'^search/', include('zinnia.urls.search')),
-      url(r'^sitemap/', include('zinnia.urls.sitemap')),
-      url(r'^blog/tags/', include('zinnia.urls.tags')),
-      url(r'^blog/feeds/', include('zinnia.urls.feeds')),
-      url(r'^blog/random/', include('zinnia.urls.random')),
-      url(r'^blog/authors/', include('zinnia.urls.authors')),
-      url(r'^blog/categories/', include('zinnia.urls.categories')),
-      url(r'^blog/', include('zinnia.urls.entries')),
-      url(r'^blog/', include('zinnia.urls.archives')),
-      url(r'^blog/', include('zinnia.urls.shortlink')),
-      url(r'^blog/', include('zinnia.urls.quick_entry'))
+      re_path(r'^', include('zinnia.urls.capabilities')),
+      re_path(r'^search/', include('zinnia.urls.search')),
+      re_path(r'^sitemap/', include('zinnia.urls.sitemap')),
+      re_path(r'^blog/tags/', include('zinnia.urls.tags')),
+      re_path(r'^blog/feeds/', include('zinnia.urls.feeds')),
+      re_path(r'^blog/random/', include('zinnia.urls.random')),
+      re_path(r'^blog/authors/', include('zinnia.urls.authors')),
+      re_path(r'^blog/categories/', include('zinnia.urls.categories')),
+      re_path(r'^blog/', include('zinnia.urls.entries')),
+      re_path(r'^blog/', include('zinnia.urls.archives')),
+      re_path(r'^blog/', include('zinnia.urls.shortlink')),
+      re_path(r'^blog/', include('zinnia.urls.quick_entry'))
   ], 'zinnia')
 
-  url(r'^', include(blog_urls))
+  re_path(r'^', include(blog_urls))
 
 .. _sites:
 
