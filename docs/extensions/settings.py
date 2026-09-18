@@ -5,6 +5,8 @@ DATABASES = {'default': {'NAME': ':memory:',
 
 SITE_ID = 1
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 STATIC_URL = '/static/'
 
 SECRET_KEY = 'secret-key'

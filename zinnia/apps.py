@@ -7,6 +7,7 @@ class ZinniaConfig(AppConfig):
     """
     Config for Zinnia application.
     """
+    default_auto_field = 'django.db.models.AutoField'
     name = 'zinnia'
     label = 'zinnia'
     verbose_name = _('Weblog')

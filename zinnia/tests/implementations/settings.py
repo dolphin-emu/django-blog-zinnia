@@ -1,6 +1,8 @@
 """Settings for testing zinnia"""
 SITE_ID = 1
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 USE_TZ = True
 
 STATIC_URL = '/static/'
