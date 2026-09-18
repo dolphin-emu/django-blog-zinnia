@@ -118,18 +118,10 @@ URL: https://github.com/django-blog-zinnia/zinnia-wysiwyg-markitup
 zinnia-url-shortener-hashids
 ============================
 
-Zinnia-url-shortener-bitly is an extension providing URL shortening for the
+Zinnia-url-shortener-hashids is an extension providing URL shortening for the
 entries via `Hashids`_ algorithm.
 
 URL: https://github.com/django-blog-zinnia/zinnia-url-shortener-hashids
-
-zinnia-url-shortener-bitly
-==========================
-
-Zinnia-url-shortener-bitly is an extension providing URL shortening for the
-entries via `Bit.ly`_.
-
-URL: https://github.com/django-blog-zinnia/zinnia-url-shortener-bitly
 
 zinnia-twitter
 ==============
@@ -186,5 +178,4 @@ URL: https://github.com/azaghal/zinnia-drupal
 .. _`CKEditor`: http://ckeditor.com/
 .. _`MarkItUp`: http://markitup.jaysalvat.com/
 .. _`Hashids`: http://hashids.org/
-.. _`Bit.ly`: https://bitly.com/
 .. _`Twitter`: https://twitter.com/

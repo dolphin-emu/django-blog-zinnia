@@ -8,9 +8,6 @@ SITE_ID = 1
 STATIC_URL = '/static/'
 
 SECRET_KEY = 'secret-key'
-BITLY_LOGIN = 'BITLY_LOGIN'
-BITLY_API_KEY = 'BITLY_API_KEY'
-
 INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.contenttypes',

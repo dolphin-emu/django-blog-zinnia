@@ -33,7 +33,6 @@ More than a long speech, here the list of the main features:
 * Editing in `Markdown`_
 * Widgets (Popular entries, Similar entries, ...)
 * Admin dashboard
-* `Bit.ly`_ support
 * `Twitter`_ support
 * `Gravatar`_ support
 * `Django-CMS`_ plugins
@@ -93,7 +92,6 @@ More information and help available at these URLs:
 .. _`Advanced search engine`: http://docs.django-blog-zinnia.com/en/latest/topics/search_engines.html
 .. _`Custom templates for various contents`: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html#templates-for-entries
 .. _`Markdown`: http://daringfireball.net/projects/markdown/
-.. _`Bit.ly`: https://github.com/Fantomas42/zinnia-url-shortener-bitly
 .. _`Twitter`:  https://github.com/Fantomas42/zinnia-twitter
 .. _`Gravatar`: http://gravatar.com/
 .. _`Django-CMS`: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html#django-cms

@@ -11,12 +11,7 @@ transfering long URLs.
 
 And so many URL shortening services exist, each with his own features.
 
-Originally Zinnia provided a only way to generate short URLs for your
-entries, and you needed to install mod:`django-bitly`.
-
-One way it's not bad, but it's not enough.
-
-Now Zinnia provides his own backend by default for making the URLs of the
+Zinnia provides its own backend by default for making the URLs of the
 entries shorter, example:
 
   http://mydomain.com/blog/2S/
