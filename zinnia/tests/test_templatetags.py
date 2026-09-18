@@ -31,7 +31,6 @@ from zinnia.templatetags.zinnia import get_categories
 from zinnia.templatetags.zinnia import get_categories_tree
 from zinnia.templatetags.zinnia import get_draft_entries
 from zinnia.templatetags.zinnia import get_featured_entries
-from zinnia.templatetags.zinnia import get_gravatar
 from zinnia.templatetags.zinnia import get_random_entries
 from zinnia.templatetags.zinnia import get_recent_entries
 from zinnia.templatetags.zinnia import get_similar_entries
@@ -45,7 +44,6 @@ from zinnia.templatetags.zinnia import zinnia_pagination
 from zinnia.templatetags.zinnia import zinnia_statistics
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
-from zinnia.tests.utils import url_equal
 
 
 class TemplateTagsTestCase(TestCase):
@@ -868,20 +866,6 @@ class TemplateTagsTestCase(TestCase):
                 zinnia_loop_template,
                 context, 'zinnia/_entry_custom.html')
         ztemplatetags.ENTRY_LOOP_TEMPLATES = original_entry_loop_templates
-
-    def test_get_gravatar(self):
-        self.assertTrue(url_equal(
-            get_gravatar('webmaster@example.com'),
-            'http://www.gravatar.com/avatar/86d4fd4a22de452'
-            'a9228298731a0b592?s=80&amp;r=g'))
-        self.assertTrue(url_equal(
-            get_gravatar('  WEBMASTER@example.com  ', 15, 'x', '404'),
-            'http://www.gravatar.com/avatar/86d4fd4a22de452'
-            'a9228298731a0b592?s=15&amp;r=x&amp;d=404'))
-        self.assertTrue(url_equal(
-            get_gravatar('  WEBMASTER@example.com  ', 15, 'x', '404', 'https'),
-            'https://secure.gravatar.com/avatar/86d4fd4a22de452'
-            'a9228298731a0b592?s=15&amp;r=x&amp;d=404'))
 
     def test_get_tags(self):
         Tag.objects.create(name='tag')

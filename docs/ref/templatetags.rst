@@ -291,24 +291,6 @@ Usage examples: ::
   {% zinnia_statistics %}
   {% zinnia_statistics "custom_template.html" %}
 
-.. templatetag:: get_gravatar
-
-get_gravatar
-============
-
-Display the `Gravatar
-<http://gravater.com>`_ image associated to an email, useful for comments.
-
-.. autofunction:: get_gravatar
-
-Usage examples: ::
-
-  {% get_gravatar user.email %}
-  {% get_gravatar user.email 50 %}
-  {% get_gravatar user.email 50 "PG" %}
-  {% get_gravatar user.email 50 "PG" "identicon" "https" %}
-  {% get_gravatar user.email rating="PG" protocol="https" %}
-
 .. templatefilter:: widont
 
 widont

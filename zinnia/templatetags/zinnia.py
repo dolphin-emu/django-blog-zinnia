@@ -1,8 +1,6 @@
 """Template tags and filters for Zinnia"""
 import re
 from datetime import date
-from hashlib import md5
-from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -30,7 +28,6 @@ from ..models.author import Author
 from ..models.category import Category
 from ..models.entry import Entry
 from ..settings import ENTRY_LOOP_TEMPLATES
-from ..settings import PROTOCOL
 from ..templating import loop_template_list
 
 
@@ -284,25 +281,6 @@ def zinnia_loop_template(context, default_template):
         default_template, ENTRY_LOOP_TEMPLATES)
 
     return select_template(templates)
-
-
-@register.simple_tag
-def get_gravatar(email, size=80, rating='g', default=None,
-                 protocol=PROTOCOL):
-    """
-    Return url for a Gravatar.
-    """
-    gravatar_protocols = {'http': 'http://www',
-                          'https': 'https://secure'}
-    url = '%s.gravatar.com/avatar/%s' % (
-        gravatar_protocols[protocol],
-        md5(email.strip().lower().encode('utf-8')).hexdigest())
-    options = {'s': size, 'r': rating}
-    if default:
-        options['d'] = default
-
-    url = '%s?%s' % (url, urlencode(options))
-    return url.replace('&', '&amp;')
 
 
 @register.simple_tag
