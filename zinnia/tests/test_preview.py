@@ -20,7 +20,7 @@ class HTMLPreviewTestCase(TestCase):
         text = '<p>Hello World</p><p>Hello dude</p>'
         preview = HTMLPreview(text, splitters=[],
                               max_words=2, more_string=' ...')
-        self.assertEqual(str(preview), '<p>Hello World ...</p>')
+        self.assertEqual(str(preview), '<p>Hello World</p><p> ...</p>')
 
     def test_has_more(self):
         text = '<p>Hello World</p><p>Hello dude</p>'

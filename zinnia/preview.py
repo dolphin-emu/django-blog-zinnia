@@ -70,6 +70,9 @@ class HTMLPreview:
         """
         Truncate the content with the Truncator object.
         """
+        if len(strip_tags(self.content).split()) <= self.max_words:
+            return self.content
+
         return Truncator(self.content).words(
             self.max_words, self.more_string, html=True)
 
