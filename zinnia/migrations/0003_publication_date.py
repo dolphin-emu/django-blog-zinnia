@@ -58,12 +58,26 @@ class Migration(migrations.Migration):
                 verbose_name='slug',
                 unique_for_date='publication_date'),
         ),
-        migrations.AlterIndexTogether(
-            name='entry',
-            index_together=set([
-                ('slug', 'publication_date'),
-                ('status', 'publication_date',
-                 'start_publication', 'end_publication')]),
+        migrations.RemoveIndex(
+            model_name='entry',
+            name='zinnia_entry_status_cre_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='entry',
+            name='zinnia_entry_slug_cre_idx',
+        ),
+        migrations.AddIndex(
+            model_name='entry',
+            index=models.Index(
+                fields=['slug', 'publication_date'],
+                name='zinnia_entry_slug_pub_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='entry',
+            index=models.Index(
+                fields=['status', 'publication_date',
+                        'start_publication', 'end_publication'],
+                name='zinnia_entry_status_pub_idx'),
         ),
         migrations.RunPython(fill_publication_date, unfill_publication_date)
     ]
