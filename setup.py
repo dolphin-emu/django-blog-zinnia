@@ -24,7 +24,7 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.12',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'License :: OSI Approved :: BSD License',
@@ -32,7 +32,7 @@ setup(
 
     license=zinnia.__license__,
     include_package_data=True,
-    python_requires='>=3.8',
+    python_requires='>=3.12,<3.13',
     zip_safe=False,
     install_requires=['Django>=4.2.30,<4.3',
                       'beautifulsoup4>=4.15.0',
