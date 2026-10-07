@@ -12,7 +12,7 @@ Dependencies
 Make sure to install these packages prior to installation :
 
 * `Python`_ >= 3.8
-* `Django`_ >= 3.2.25, < 3.3
+* `Django`_ >= 4.0.10, < 4.1
 * `Pillow`_ >= 10.4.0
 * `django-mptt`_ >= 0.14.0
 * `django-tagging`_ >= 0.5.0

@@ -20,7 +20,7 @@ setup(
     packages=find_packages(exclude=['demo']),
     classifiers=[
         'Framework :: Django',
-        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4.0',
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3',
@@ -34,7 +34,7 @@ setup(
     include_package_data=True,
     python_requires='>=3.8',
     zip_safe=False,
-    install_requires=['Django>=3.2.25,<3.3',
+    install_requires=['Django>=4.0.10,<4.1',
                       'beautifulsoup4>=4.15.0',
                       'django-mptt>=0.14.0',
                       ('django-tagging @ git+https://github.com/'

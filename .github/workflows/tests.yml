@@ -34,7 +34,7 @@ jobs:
         run: flake8 --extend-ignore=E128 zinnia
 
   test:
-    name: Python 3.8 / Django 3.2
+    name: Python 3.8 / Django 4.0
     runs-on: ubuntu-latest
 
     steps:
