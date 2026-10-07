@@ -37,7 +37,9 @@ setup(
     install_requires=['Django>=3.2.25,<3.3',
                       'beautifulsoup4>=4.15.0',
                       'django-mptt>=0.14.0',
-                      'django-tagging>=0.5.0',
+                      ('django-tagging @ git+https://github.com/'
+                       'dolphin-emu/django-tagging.git@'
+                       '0d282f1203470f8d4f83bfda9a5b1edd878d52ba'),
                       'mots-vides>=2015.5.11',
                       'pillow>=10.4.0',
                       'pyparsing>=3.1.4',
