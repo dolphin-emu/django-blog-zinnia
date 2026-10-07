@@ -42,7 +42,8 @@ urlpatterns += [
         {'sitemaps': sitemaps}),
     re_path(r'^sitemap-(?P<section>.+)\.xml$',
         sitemap,
-        {'sitemaps': sitemaps}),
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 urlpatterns += [
