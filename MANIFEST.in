@@ -4,9 +4,6 @@ include CHANGELOG
 include README.rst
 include gulpfile.js
 include package.json
-include versions.cfg
-include buildout.cfg
-include bootstrap.py
 recursive-include docs *
 recursive-include demo *
 recursive-include zinnia/fixtures *.json

@@ -1,7 +1,9 @@
 # Makefile for Zinnia
 #
 # Aim to simplify development and release process
-# Be sure you have run the buildout, before using this Makefile
+
+PYTHON ?= python
+TEST_SETTINGS = zinnia.tests.implementations.sqlite
 
 NO_COLOR	= \033[0m
 COLOR	 	= \033[32;01m
@@ -11,30 +13,31 @@ all: kwalitee test docs clean package
 
 package:
 	@echo "$(COLOR)* Creating source package for Zinnia$(NO_COLOR)"
-	@python setup.py sdist
+	@$(PYTHON) setup.py sdist
 
 test:
 	@echo "$(COLOR)* Launching the tests suite$(NO_COLOR)"
-	@./bin/test
+	@$(PYTHON) -m django test zinnia.tests --settings=$(TEST_SETTINGS)
 
 coverage:
 	@echo "$(COLOR)* Generating coverage report$(NO_COLOR)"
-	@./bin/cover
+	@$(PYTHON) -m coverage run -m django test zinnia.tests --settings=$(TEST_SETTINGS)
+	@$(PYTHON) -m coverage html -d docs/coverage
 
 sphinx:
 	@echo "$(COLOR)* Generating Sphinx documentation$(NO_COLOR)"
-	@./bin/docs
+	@$(PYTHON) -m sphinx -b html docs docs/build/html
 
 docs: coverage sphinx
 
 kwalitee:
 	@echo "$(COLOR)* Running flake8$(NO_COLOR)"
-	@./bin/flake8 --show-source --statistics zinnia
+	@$(PYTHON) -m flake8 --extend-ignore=E128 zinnia
 	@echo "$(SUCCESS_COLOR)* No kwalitee errors, Congratulations ! :)$(NO_COLOR)"
 
 push-translations:
 	@echo "$(COLOR)* Generating english translation$(NO_COLOR)"
-	@cd zinnia && ../bin/demo makemessages --extension=html,xml,txt,py -l en
+	@cd zinnia && PYTHONPATH=.. $(PYTHON) -m django makemessages --settings=demo.settings --extension=html,xml,txt,py -l en
 	@echo "$(COLOR)* Pushing source translation to Transifex$(NO_COLOR)"
 	@tx push -s
 	@echo "$(COLOR)* Removing source translation$(NO_COLOR)"
@@ -44,7 +47,7 @@ pull-translations:
 	@echo "$(COLOR)* Pulling translations from Transifex$(NO_COLOR)"
 	@tx pull -a -f --minimum-perc=50
 	@echo "$(COLOR)* Compiling translations$(NO_COLOR)"
-	@cd zinnia && ../bin/demo compilemessages
+	@cd zinnia && PYTHONPATH=.. $(PYTHON) -m django compilemessages --settings=demo.settings
 
 2to3:
 	@echo "$(COLOR)* Checking Py3 code$(NO_COLOR)"
