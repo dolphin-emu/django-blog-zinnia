@@ -1,5 +1,5 @@
 beautifulsoup4==4.15.0
-django==5.1.15
+django==5.2.18
 django-mptt==0.18.0
 django-tagging @ git+https://github.com/dolphin-emu/django-tagging.git@0d282f1203470f8d4f83bfda9a5b1edd878d52ba
 mots-vides==2015.5.11
