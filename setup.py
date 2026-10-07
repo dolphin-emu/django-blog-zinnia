@@ -36,7 +36,7 @@ setup(
     zip_safe=False,
     install_requires=['Django>=5.1.15,<5.2',
                       'beautifulsoup4>=4.15.0',
-                      'django-mptt>=0.14.0',
+                      'django-mptt>=0.18.0',
                       ('django-tagging @ git+https://github.com/'
                        'dolphin-emu/django-tagging.git@'
                        '0d282f1203470f8d4f83bfda9a5b1edd878d52ba'),
