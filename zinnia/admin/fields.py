@@ -23,6 +23,8 @@ class MPTTModelMultipleChoiceField(forms.ModelMultipleChoiceField):
     MPTT version of ModelMultipleChoiceField.
     """
 
+    iterator = MPTTModelChoiceIterator
+
     def __init__(self, level_indicator='|--', *args, **kwargs):
         self.level_indicator = level_indicator
         super().__init__(*args, **kwargs)
@@ -37,11 +39,3 @@ class MPTTModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         if prefix:
             return '%s %s' % (prefix, label)
         return label
-
-    def _get_choices(self):
-        """
-        Override the _get_choices method to use MPTTModelChoiceIterator.
-        """
-        return MPTTModelChoiceIterator(self)
-
-    choices = property(_get_choices, forms.ChoiceField._set_choices)
