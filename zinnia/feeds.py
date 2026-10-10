@@ -100,13 +100,6 @@ class EntryFeed(ZinniaFeed):
             self.item_author = item.authors.all()[0]
             return self.item_author.__str__()
 
-    def item_author_email(self, item):
-        """
-        Return the first author's email.
-        Should not be called if self.item_author_name has returned None.
-        """
-        return self.item_author.email
-
     def item_author_link(self, item):
         """
         Return the author's URL.

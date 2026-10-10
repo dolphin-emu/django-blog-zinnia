@@ -73,7 +73,6 @@ class FeedsTestCase(TestCase):
         self.assertEqual(feed.item_categories(entry), [self.category.title])
         self.assertEqual(feed.item_author_name(entry),
                          self.author.__str__())
-        self.assertEqual(feed.item_author_email(entry), self.author.email)
         self.assertEqual(
             feed.item_author_link(entry),
             'http://example.com/authors/%s/' % self.author.username)
