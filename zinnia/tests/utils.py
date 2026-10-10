@@ -2,38 +2,15 @@
 import functools
 from datetime import datetime as original_datetime
 from datetime import timezone as datetime_timezone
-from io import BytesIO
 from unittest import SkipTest
 from unittest import skipIf
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
-from xmlrpc.client import Transport
 
 from django.conf import settings
 from django.template import Origin
 from django.template.loaders.base import Loader
-from django.test.client import Client
 from django.utils import timezone
-
-
-class TestTransport(Transport):
-    """
-    Handles connections to XML-RPC server through Django test client.
-    """
-
-    def __init__(self, *args, **kwargs):
-        Transport.__init__(self, *args, **kwargs)
-        self.client = Client()
-
-    def request(self, host, handler, request_body, verbose=0):
-        self.verbose = verbose
-        response = self.client.post(handler,
-                                    request_body,
-                                    content_type="text/xml")
-        res = BytesIO(response.content)
-        setattr(res, 'getheader', lambda *args: '')  # For Python >= 2.7
-        res.seek(0)
-        return self.parse_response(res)
 
 
 def omniscient_datetime(*args):
