@@ -699,13 +699,11 @@ msgstr ""
 msgid "%(linkbacks_per_entry)s linkbacks per entry"
 msgstr ""
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:6
 #: templates/zinnia/entry_detail_base.html:249
 #: templates/zinnia/entry_detail_base.html:250
 msgid "Edit the entry"
 msgstr "ویرایش نوشته"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:9
 #: templates/comments/zinnia_entry_preview.html:25
 #: templates/feeds/comment_title.html:2
 #: templates/feeds/discussion_title.html:2
@@ -719,20 +717,9 @@ msgctxt "on date"
 msgid "on"
 msgstr ""
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:15
 #: templates/comments/zinnia/entry/form.html:30
 msgid "Preview"
 msgstr "پیش نمایش"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:22
-#: templates/zinnia/tags/entries_draft.html:9
-msgid "No draft entries."
-msgstr "هیچ نوشته چرک نویسی وجود ندارد"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:31
-#: templates/admin/zinnia/widgets/_draft_entries.html:32
-msgid "View all draft entries"
-msgstr "نمایش همه ی چرک نویس ها"
 
 #: templates/admin/zinnia/widgets/_recent_comments.html:10
 #: templates/zinnia/_entry_detail_base.html:36
@@ -792,11 +779,6 @@ msgstr ""
 #: templates/admin/zinnia/widgets/content_stats.html:8
 msgid "Today"
 msgstr "امروز"
-
-#: templates/admin/zinnia/widgets/draft_entries.html:6
-#: templates/admin/zinnia/widgets/draft_entries.html:8
-msgid "Draft entries"
-msgstr "نوشته های چرک نویس"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8

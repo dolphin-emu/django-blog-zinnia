@@ -712,13 +712,11 @@ msgstr ""
 msgid "%(linkbacks_per_entry)s linkbacks per entry"
 msgstr ""
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:6
 #: templates/zinnia/entry_detail_base.html:248
 #: templates/zinnia/entry_detail_base.html:249
 msgid "Edit the entry"
 msgstr "Uredi unos"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:9
 #: templates/comments/zinnia_entry_preview.html:25
 #: templates/feeds/comment_title.html:2
 #: templates/feeds/discussion_title.html:2
@@ -732,20 +730,9 @@ msgctxt "on date"
 msgid "on"
 msgstr ""
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:15
 #: templates/comments/zinnia/entry/form.html:31
 msgid "Preview"
 msgstr "Pregled"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:22
-#: templates/zinnia/tags/entries_draft.html:9
-msgid "No draft entries."
-msgstr "Nema nacrta unosa."
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:31
-#: templates/admin/zinnia/widgets/_draft_entries.html:32
-msgid "View all draft entries"
-msgstr "Vidi sve nacrte unosa"
 
 #: templates/admin/zinnia/widgets/_recent_comments.html:10
 #: templates/zinnia/_entry_detail_base.html:35
@@ -797,11 +784,6 @@ msgstr "Još nema linkbackova."
 #: templates/admin/zinnia/widgets/content_stats.html:8
 msgid "Today"
 msgstr "Danas"
-
-#: templates/admin/zinnia/widgets/draft_entries.html:6
-#: templates/admin/zinnia/widgets/draft_entries.html:8
-msgid "Draft entries"
-msgstr "Nacrt unosa"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8

@@ -707,13 +707,11 @@ msgstr "%(comments_per_entry)s ummæli í færslum"
 msgid "%(linkbacks_per_entry)s linkbacks per entry"
 msgstr "%(linkbacks_per_entry)s tilvísanir á færslu"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:6
 #: templates/zinnia/entry_detail_base.html:249
 #: templates/zinnia/entry_detail_base.html:250
 msgid "Edit the entry"
 msgstr "Breyta færslu"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:9
 #: templates/comments/zinnia_entry_preview.html:25
 #: templates/feeds/comment_title.html:2
 #: templates/feeds/discussion_title.html:2
@@ -727,20 +725,9 @@ msgctxt "on date"
 msgid "on"
 msgstr "á"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:15
 #: templates/comments/zinnia/entry/form.html:30
 msgid "Preview"
 msgstr "Sýnishorn"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:22
-#: templates/zinnia/tags/entries_draft.html:9
-msgid "No draft entries."
-msgstr "Ekkert uppkast fannst."
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:31
-#: templates/admin/zinnia/widgets/_draft_entries.html:32
-msgid "View all draft entries"
-msgstr "Skoða öll uppköst"
 
 #: templates/admin/zinnia/widgets/_recent_comments.html:10
 #: templates/zinnia/_entry_detail_base.html:36
@@ -800,11 +787,6 @@ msgstr "Engin linkbacks til."
 #: templates/admin/zinnia/widgets/content_stats.html:8
 msgid "Today"
 msgstr "Í dag"
-
-#: templates/admin/zinnia/widgets/draft_entries.html:6
-#: templates/admin/zinnia/widgets/draft_entries.html:8
-msgid "Draft entries"
-msgstr "Uppköst að færslum"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8

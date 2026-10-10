@@ -12,16 +12,6 @@ body.dashboard #content {
   }
 }
 
-.managelink {
-  background: url("../img/manage.png") no-repeat scroll 0 0.2em transparent;
-  padding-left: 12px;
-}
-
-.previewlink {
-  background: url("../img/preview.png") no-repeat scroll 0 0.2em transparent;
-  padding-left: 12px;
-}
-
 #contents {
   th {
     width: 50%;
@@ -30,18 +20,6 @@ body.dashboard #content {
     padding-left: 10px;
     a {
       font-weight: bold;
-    }
-  }
-}
-
-#drafts {
-  th {
-    font-weight: normal;
-    a {
-      font-weight: bold;
-    }
-    abbr {
-      color: #666666;
     }
   }
 }

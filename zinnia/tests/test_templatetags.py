@@ -25,7 +25,6 @@ from zinnia.templatetags.zinnia import get_authors
 from zinnia.templatetags.zinnia import get_calendar_entries
 from zinnia.templatetags.zinnia import get_categories
 from zinnia.templatetags.zinnia import get_categories_tree
-from zinnia.templatetags.zinnia import get_draft_entries
 from zinnia.templatetags.zinnia import get_featured_entries
 from zinnia.templatetags.zinnia import get_recent_entries
 from zinnia.templatetags.zinnia import get_tag_cloud
@@ -157,22 +156,6 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(context['template'], 'custom_template.html')
         with self.assertNumQueries(0):
             context = get_featured_entries(0)
-        self.assertEqual(len(context['entries']), 0)
-
-    def test_draft_entries(self):
-        with self.assertNumQueries(0):
-            context = get_draft_entries()
-        self.assertEqual(len(context['entries']), 1)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/entries_draft.html')
-
-        self.publish_entry()
-        with self.assertNumQueries(0):
-            context = get_draft_entries(3, 'custom_template.html')
-        self.assertEqual(len(context['entries']), 0)
-        self.assertEqual(context['template'], 'custom_template.html')
-        with self.assertNumQueries(0):
-            context = get_draft_entries(0)
         self.assertEqual(len(context['entries']), 0)
 
     def test_get_archives_entries(self):

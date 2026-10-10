@@ -718,13 +718,11 @@ msgstr "%(comments_per_entry)s коментарів на допис"
 msgid "%(linkbacks_per_entry)s linkbacks per entry"
 msgstr "%(linkbacks_per_entry)s лінкбеків на допис"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:6
 #: templates/zinnia/entry_detail_base.html:249
 #: templates/zinnia/entry_detail_base.html:250
 msgid "Edit the entry"
 msgstr "Редагувати допис"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:9
 #: templates/comments/zinnia_entry_preview.html:25
 #: templates/feeds/comment_title.html:2
 #: templates/feeds/discussion_title.html:2
@@ -738,20 +736,9 @@ msgctxt "on date"
 msgid "on"
 msgstr "на"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:15
 #: templates/comments/zinnia/entry/form.html:30
 msgid "Preview"
 msgstr "Попередній перегляд"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:22
-#: templates/zinnia/tags/entries_draft.html:9
-msgid "No draft entries."
-msgstr "Немає чорнових  дописів"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:31
-#: templates/admin/zinnia/widgets/_draft_entries.html:32
-msgid "View all draft entries"
-msgstr "Переглянути усі чорнові дописи"
 
 #: templates/admin/zinnia/widgets/_recent_comments.html:10
 #: templates/zinnia/_entry_detail_base.html:36
@@ -811,11 +798,6 @@ msgstr "Досі немає жодного лінкбека."
 #: templates/admin/zinnia/widgets/content_stats.html:8
 msgid "Today"
 msgstr "Сьогодні"
-
-#: templates/admin/zinnia/widgets/draft_entries.html:6
-#: templates/admin/zinnia/widgets/draft_entries.html:8
-msgid "Draft entries"
-msgstr "Чорнові дописи"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8

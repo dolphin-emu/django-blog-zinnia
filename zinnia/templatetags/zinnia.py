@@ -21,7 +21,6 @@ from ..calendar import Calendar
 from ..context import get_context_first_matching_object
 from ..context import get_context_first_object
 from ..context import get_context_loop_positions
-from ..managers import DRAFT
 from ..managers import tags_published
 from ..models.author import Author
 from ..models.category import Category
@@ -91,16 +90,6 @@ def get_featured_entries(number=5,
     """
     return {'template': template,
             'entries': Entry.published.filter(featured=True)[:number]}
-
-
-@register.inclusion_tag('zinnia/tags/dummy.html')
-def get_draft_entries(number=5,
-                      template='zinnia/tags/entries_draft.html'):
-    """
-    Return the last draft entries.
-    """
-    return {'template': template,
-            'entries': Entry.objects.filter(status=DRAFT)[:number]}
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html')

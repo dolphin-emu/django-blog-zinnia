@@ -709,13 +709,11 @@ msgstr "%(comments_per_entry)s commentaires par article"
 msgid "%(linkbacks_per_entry)s linkbacks per entry"
 msgstr "%(linkbacks_per_entry)s linkbacks par article"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:6
 #: templates/zinnia/entry_detail_base.html:249
 #: templates/zinnia/entry_detail_base.html:250
 msgid "Edit the entry"
 msgstr "Editer l'article"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:9
 #: templates/comments/zinnia_entry_preview.html:25
 #: templates/feeds/comment_title.html:2
 #: templates/feeds/discussion_title.html:2
@@ -729,20 +727,9 @@ msgctxt "on date"
 msgid "on"
 msgstr "le"
 
-#: templates/admin/zinnia/widgets/_draft_entries.html:15
 #: templates/comments/zinnia/entry/form.html:30
 msgid "Preview"
 msgstr "Prévisualiser"
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:22
-#: templates/zinnia/tags/entries_draft.html:9
-msgid "No draft entries."
-msgstr "Aucun brouillon actuellement."
-
-#: templates/admin/zinnia/widgets/_draft_entries.html:31
-#: templates/admin/zinnia/widgets/_draft_entries.html:32
-msgid "View all draft entries"
-msgstr "Voir tous les articles en brouillon"
 
 #: templates/admin/zinnia/widgets/_recent_comments.html:10
 #: templates/zinnia/_entry_detail_base.html:36
@@ -802,11 +789,6 @@ msgstr "Aucun lien entrant."
 #: templates/admin/zinnia/widgets/content_stats.html:8
 msgid "Today"
 msgstr "Aujourd'hui"
-
-#: templates/admin/zinnia/widgets/draft_entries.html:6
-#: templates/admin/zinnia/widgets/draft_entries.html:8
-msgid "Draft entries"
-msgstr "Brouillons en cours"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8
