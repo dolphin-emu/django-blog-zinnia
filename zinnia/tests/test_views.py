@@ -1,5 +1,6 @@
 """Test cases for Zinnia's views"""
 from datetime import date
+from unittest.mock import patch
 
 from django.contrib.auth.models import update_last_login
 from django.contrib.auth.signals import user_logged_in
@@ -322,6 +323,7 @@ class ViewsTestCase(ViewsBaseCase):
             response = self.client.get('/%s/' % base36(self.first_entry.pk))
         self.assertEqual(response.status_code, 404)
 
+    @patch('zinnia.views.mixins.entry_preview.PUBLIC_PREVIEWS', False)
     def test_zinnia_entry_detail(self):
         entry = self.first_entry
         with self.assertNumQueries(1):
@@ -443,6 +445,16 @@ class ViewsTestCase(ViewsBaseCase):
             'zinnia/archives/2010/01/01/my-test-entry_entry_detail.html')
         user_logged_in.connect(update_last_login)
 
+    def test_zinnia_entry_detail_public_preview(self):
+        self.first_entry.status = DRAFT
+        self.first_entry.save()
+        response = self.client.get(self.first_entry.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        # Public previews do not add drafts to the public archive.
+        response = self.client.get('/')
+        self.assertNotIn(self.first_entry, response.context['object_list'])
+
+    @patch('zinnia.views.mixins.entry_preview.PUBLIC_PREVIEWS', False)
     def test_zinnia_entry_detail_preview(self):
         self.first_entry.status = DRAFT
         self.first_entry.save()

@@ -2,6 +2,8 @@
 from django.http import Http404
 from django.utils.translation import gettext as _
 
+from zinnia.settings import PUBLIC_PREVIEWS
+
 
 class EntryPreviewMixin:
     """
@@ -9,14 +11,9 @@ class EntryPreviewMixin:
     """
 
     def get_object(self, queryset=None):
-        """
-        If the status of the entry is not PUBLISHED,
-        a preview is requested, so we check if the user
-        has the 'zinnia.can_view_all' permission or if
-        it's an author of the entry.
-        """
+        """Allow public previews, or restrict them to authors and permitted users."""
         obj = super().get_object(queryset)
-        if obj.is_visible:
+        if PUBLIC_PREVIEWS or obj.is_visible:
             return obj
         if (self.request.user.has_perm('zinnia.can_view_all') or
                 self.request.user.pk in [

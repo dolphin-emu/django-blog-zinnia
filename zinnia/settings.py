@@ -11,6 +11,7 @@ COPYRIGHT = getattr(settings, 'ZINNIA_COPYRIGHT', 'Zinnia')
 PAGINATION = getattr(settings, 'ZINNIA_PAGINATION', 10)
 ALLOW_EMPTY = getattr(settings, 'ZINNIA_ALLOW_EMPTY', True)
 ALLOW_FUTURE = getattr(settings, 'ZINNIA_ALLOW_FUTURE', True)
+PUBLIC_PREVIEWS = getattr(settings, 'ZINNIA_PUBLIC_PREVIEWS', True)
 
 ENTRY_BASE_MODEL = getattr(settings, 'ZINNIA_ENTRY_BASE_MODEL',
                            'zinnia.models_bases.entry.AbstractEntry')
