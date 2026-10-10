@@ -38,12 +38,7 @@
             </li>
           </ul>
         </nav>
-        <form onsubmit="return false;">
-          <p>
-            <input type="text" name="pattern" placeholder="{% trans "Keywords..." %}" />
-            <input type="button" class="submitbutton" value="OK" />
-          </p>
-        </form>
+        {% include "zinnia/tags/search_form.html" with search_form_id="header-searchform" search_box_id="header-searchbox" %}
         <h1>
           <a href="{% url 'zinnia:entry_archive_index' %}" title="Zinnia's Weblog" rel="home">
             Zinnia's Weblog

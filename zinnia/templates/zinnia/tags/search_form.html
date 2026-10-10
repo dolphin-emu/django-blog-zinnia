@@ -1,7 +1,16 @@
-{% load i18n %}
-<form onsubmit="return false;" id="searchform">
+{% load i18n zinnia %}
+{% get_site_domain as search_domain %}
+<form method="get" action="https://google.com/search" role="search"
+      id="{{ search_form_id|default:'searchform' }}">
+  {% block search_filters %}
+  {% if search_domain %}
+  <input type="hidden" name="as_sitesearch" value="{{ search_domain }}" />
+  {% endif %}
+  {% endblock %}
+  {% block search_fields %}
   <p>
-    <input type="text" name="pattern" id="searchbox" placeholder="{% trans "Keywords..." %}" />
-    <input type="button" class="submitbutton" value="OK" />
+    <input type="text" name="q" id="{{ search_box_id|default:'searchbox' }}" placeholder="{% trans "Keywords..." %}" required />
+    <input type="submit" class="submitbutton" value="OK" />
   </p>
+  {% endblock %}
 </form>

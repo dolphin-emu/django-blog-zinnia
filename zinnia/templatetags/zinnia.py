@@ -1,9 +1,11 @@
 """Template tags and filters for Zinnia"""
 import re
 from datetime import date
+from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.sites.models import Site
 from django.db.models import Count
 from django.template import Library
 from django.template.defaultfilters import stringfilter
@@ -38,6 +40,15 @@ END_PUNCTUATION_WIDONT_REGEXP = re.compile(
     r'\s+([?!]+\s*)$')
 
 register = Library()
+
+
+@register.simple_tag(takes_context=True)
+def get_site_domain(context):
+    """Return the current request's hostname without its port."""
+    request = context.get('request')
+    if request is None:
+        return Site.objects.get_current().domain
+    return urlsplit('//' + request.get_host()).hostname.lower().rstrip('.')
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
