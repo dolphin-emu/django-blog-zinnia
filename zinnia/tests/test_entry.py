@@ -12,6 +12,7 @@ from django.utils.translation import deactivate
 from zinnia import markups
 from zinnia import url_shortener as shortener_settings
 from zinnia.managers import PUBLISHED
+from zinnia.models import entry as entry_model
 from zinnia.models.entry import Entry
 from zinnia.models_bases import entry
 from zinnia.tests.utils import datetime
@@ -255,13 +256,13 @@ class EntryHtmlContentTestCase(TestCase):
                   'content': 'My content',
                   'slug': 'my-entry'}
         self.entry = Entry(**params)
-        self.original_rendering = markups.MARKUP_LANGUAGE
+        self.original_rendering = entry_model.MARKUP_LANGUAGE
 
     def tearDown(self):
-        markups.MARKUP_LANGUAGE = self.original_rendering
+        entry_model.MARKUP_LANGUAGE = self.original_rendering
 
     def test_html_content_default(self):
-        markups.MARKUP_LANGUAGE = None
+        entry_model.MARKUP_LANGUAGE = None
         self.assertEqual(self.entry.html_content, '<p>My content</p>')
 
         self.entry.content = 'Hello world !\n' \
@@ -271,11 +272,11 @@ class EntryHtmlContentTestCase(TestCase):
             '<p>Hello world !<br /> this is my content</p>'
         )
         self.entry.content = ''
-        self.assertEqual(self.entry.html_content, '')
+        self.assertEqual(self.entry.html_content, '<p></p>')
 
     @skip_if_lib_not_available('markdown')
     def test_html_content_markdown(self):
-        markups.MARKUP_LANGUAGE = 'markdown'
+        entry_model.MARKUP_LANGUAGE = 'markdown'
         self.entry.content = 'Hello world !\n\n' \
                              'this is my content :\n\n' \
                              '* Item 1\n* Item 2'
@@ -290,7 +291,7 @@ class EntryHtmlContentTestCase(TestCase):
 
     @skip_if_lib_not_available('markdown')
     def test_markdown_with_inline_html(self):
-        markups.MARKUP_LANGUAGE = 'markdown'
+        entry_model.MARKUP_LANGUAGE = 'markdown'
         self.entry.content = ('Hello *World* !\n\n'
                               '<p>This is an inline HTML paragraph</p>')
         html_content = self.entry.html_content
@@ -301,7 +302,7 @@ class EntryHtmlContentTestCase(TestCase):
         )
 
     def test_html_preview(self):
-        markups.MARKUP_LANGUAGE = None
+        entry_model.MARKUP_LANGUAGE = None
         preview = self.entry.html_preview
         self.assertEqual(str(preview), '<p>My content</p>')
         self.assertEqual(preview.has_more, False)
