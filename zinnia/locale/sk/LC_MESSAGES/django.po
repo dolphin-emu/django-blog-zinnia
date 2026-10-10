@@ -24,7 +24,7 @@ msgstr ""
 msgid "tree path"
 msgstr "cesta stromom"
 
-#: admin/entry.py:34 templates/admin/zinnia/widgets/quickpost.html:17
+#: admin/entry.py:34
 msgid "Content"
 msgstr "Obsah"
 
@@ -216,7 +216,7 @@ msgstr "kategórie"
 msgid "Weblog"
 msgstr ""
 
-#: breadcrumbs.py:63 templates/admin/zinnia/widgets/quickpost.html:25
+#: breadcrumbs.py:63
 #: templates/zinnia/_entry_detail_base.html:113 templates/zinnia/base.html:54
 #: templates/zinnia/tag_list.html:6
 msgid "Tags"
@@ -817,27 +817,6 @@ msgstr "Dnes"
 #: templates/admin/zinnia/widgets/draft_entries.html:8
 msgid "Draft entries"
 msgstr "Nedokončené články"
-
-#: templates/admin/zinnia/widgets/quickpost.html:5
-#: templates/admin/zinnia/widgets/quickpost.html:6
-msgid "Quick publishing"
-msgstr "Rýchle publikovanie"
-
-#: templates/admin/zinnia/widgets/quickpost.html:9
-msgid "Title"
-msgstr "Titulok"
-
-#: templates/admin/zinnia/widgets/quickpost.html:33
-msgid "Save as draft"
-msgstr "Ulož ako nedokončené"
-
-#: templates/admin/zinnia/widgets/quickpost.html:34
-msgid "Reset"
-msgstr "Reset"
-
-#: templates/admin/zinnia/widgets/quickpost.html:35
-msgid "Publish"
-msgstr "Uverejni"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8
@@ -1623,10 +1602,6 @@ msgstr ""
 #, python-brace-format
 msgid ""
 "^trackbacks/(?P<year>\\d{4})/(?P<month>\\d{2})/(?P<day>\\d{2})/(?P<slug>[-\\w]+)/$"
-msgstr ""
-
-#: urls/quick_entry.py:9
-msgid "^quick-entry/$"
 msgstr ""
 
 #: urls/tags.py:16

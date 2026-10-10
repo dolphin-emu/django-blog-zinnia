@@ -31,6 +31,5 @@ urlpatterns = [
     re_path(r'^', include('zinnia.urls.entries')),
     re_path(r'^', include('zinnia.urls.archives')),
     re_path(r'^', include('zinnia.urls.shortlink')),
-    re_path(r'^', include('zinnia.urls.quick_entry')),
     re_path(r'^', include('zinnia.urls.capabilities')),
 ]

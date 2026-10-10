@@ -22,24 +22,6 @@ body.dashboard #content {
   padding-left: 12px;
 }
 
-input, textarea, select {
-  border: 1px solid #cccccc;
-}
-
-.vTextField, .vLargeTextField {
-  width: 25em;
-}
-
-.required label, label.required {
-  color: #333333 !important;
-  font-weight: bold !important;
-}
-
-.button {
-  float: left;
-  margin-right: 5px;
-}
-
 #contents {
   th {
     width: 50%;
@@ -49,16 +31,6 @@ input, textarea, select {
     a {
       font-weight: bold;
     }
-  }
-}
-
-#quickpost {
-  th {
-    width: 20%;
-    vertical-align: middle;
-  }
-  td {
-    width: 100%;
   }
 }
 

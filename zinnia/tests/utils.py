@@ -4,8 +4,6 @@ from datetime import datetime as original_datetime
 from datetime import timezone as datetime_timezone
 from unittest import SkipTest
 from unittest import skipIf
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
 
 from django.conf import settings
 from django.template import Origin
@@ -57,18 +55,6 @@ def skip_if_custom_user(test_func):
     """
     return skipIf(settings.AUTH_USER_MODEL != 'auth.User',
                   'Custom user model in use')(test_func)
-
-
-def url_equal(url_1, url_2):
-    """
-    Compare two URLs with query string where
-    ordering does not matter.
-    """
-    parse_result_1 = urlparse(url_1)
-    parse_result_2 = urlparse(url_2)
-
-    return (parse_result_1[:4] == parse_result_2[:4] and
-            parse_qs(parse_result_1[5]) == parse_qs(parse_result_2[5]))
 
 
 class VoidLoader(Loader):

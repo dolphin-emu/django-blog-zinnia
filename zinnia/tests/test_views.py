@@ -18,9 +18,7 @@ from zinnia.models.entry import Entry
 from zinnia.settings import PAGINATION
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
-from zinnia.tests.utils import url_equal
 from zinnia.url_shortener.backends.default import base36
-from zinnia.views import quick_entry
 
 
 @skip_if_custom_user
@@ -609,85 +607,6 @@ class ViewsTestCase(ViewsBaseCase):
         self.check_capabilities('/humans.txt', 'text/plain', 0)
         self.check_capabilities('/opensearch.xml',
                                 'application/opensearchdescription+xml', 0)
-
-    def test_quick_entry(self):
-        Author.objects.create_superuser(
-            'root', 'root@example.com', 'password')
-        response = self.client.get('/quick-entry/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            '/accounts/login/?next=/quick-entry/')
-        self.client.login(username='admin', password='password')
-        response = self.client.get('/quick-entry/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            '/accounts/login/?next=/quick-entry/')
-        self.client.logout()
-        self.client.login(username='root', password='password')
-        response = self.client.get('/quick-entry/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            '/admin/zinnia/entry/add/')
-        response = self.client.post('/quick-entry/', {'content': 'test'})
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(url_equal(
-            response['Location'],
-            '/admin/zinnia/entry/add/'
-            '?tags=&title=&sites=1&content='
-            '%3Cp%3Etest%3C%2Fp%3E&authors=2&slug='))
-        response = self.client.post('/quick-entry/',
-                                    {'title': 'test', 'tags': 'test',
-                                     'content': 'Test content',
-                                     'save_draft': ''})
-        entry = Entry.objects.get(title='test')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            entry.get_absolute_url())
-        self.assertEqual(entry.status, DRAFT)
-        self.assertEqual(entry.title, 'test')
-        self.assertEqual(entry.tags, 'test')
-        self.assertEqual(entry.content, '<p>Test content</p>')
-
-    def test_quick_entry_non_ascii_title_issue_153(self):
-        Author.objects.create_superuser(
-            'root', 'root@example.com', 'password')
-        self.client.login(username='root', password='password')
-        response = self.client.post('/quick-entry/',
-                                    {'title': 'тест', 'tags': 'test-2',
-                                     'content': 'Test content',
-                                     'save_draft': ''})
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(url_equal(
-            response['Location'],
-            '/admin/zinnia/entry/add/'
-            '?tags=test-2&title=%D1%82%D0%B5%D1%81%D1%82'
-            '&sites=1&content=%3Cp%3ETest+content%3C%2Fp%3E'
-            '&authors=2&slug='))
-
-    def test_quick_entry_markup_language_issue_270(self):
-        original_markup_language = quick_entry.MARKUP_LANGUAGE
-        quick_entry.MARKUP_LANGUAGE = 'markdown'
-        Author.objects.create_superuser(
-            'root', 'root@example.com', 'password')
-        self.client.login(username='root', password='password')
-        response = self.client.post('/quick-entry/',
-                                    {'title': 'Test markup',
-                                     'tags': 'test, markup',
-                                     'content': 'Hello *World* !',
-                                     'save_draft': ''})
-        entry = Entry.objects.get(title='Test markup')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            entry.get_absolute_url())
-        self.assertEqual(
-            entry.content,
-            'Hello *World* !')
-        quick_entry.MARKUP_LANGUAGE = original_markup_language
 
 
 @override_settings(

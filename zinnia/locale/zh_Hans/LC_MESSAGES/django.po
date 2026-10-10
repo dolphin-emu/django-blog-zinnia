@@ -28,7 +28,7 @@ msgstr ""
 msgid "tree path"
 msgstr "目录树"
 
-#: admin/entry.py:34 templates/admin/zinnia/widgets/quickpost.html:17
+#: admin/entry.py:34
 msgid "Content"
 msgstr "内容"
 
@@ -216,7 +216,7 @@ msgstr "类别（复数）"
 msgid "Weblog"
 msgstr "博客"
 
-#: breadcrumbs.py:63 templates/admin/zinnia/widgets/quickpost.html:25
+#: breadcrumbs.py:63
 #: templates/zinnia/_entry_detail_base.html:113 templates/zinnia/base.html:54
 #: templates/zinnia/tag_list.html:6
 msgid "Tags"
@@ -801,27 +801,6 @@ msgstr "今天"
 #: templates/admin/zinnia/widgets/draft_entries.html:8
 msgid "Draft entries"
 msgstr "草稿日志"
-
-#: templates/admin/zinnia/widgets/quickpost.html:5
-#: templates/admin/zinnia/widgets/quickpost.html:6
-msgid "Quick publishing"
-msgstr "快速发布"
-
-#: templates/admin/zinnia/widgets/quickpost.html:9
-msgid "Title"
-msgstr "标题"
-
-#: templates/admin/zinnia/widgets/quickpost.html:33
-msgid "Save as draft"
-msgstr "保存为草稿"
-
-#: templates/admin/zinnia/widgets/quickpost.html:34
-msgid "Reset"
-msgstr "重置"
-
-#: templates/admin/zinnia/widgets/quickpost.html:35
-msgid "Publish"
-msgstr "公开的"
 
 #: templates/admin/zinnia/widgets/recent_comments.html:6
 #: templates/admin/zinnia/widgets/recent_comments.html:8
@@ -1602,10 +1581,6 @@ msgstr "^pingbacks/(?P<year>\\d{4})/(?P<month>\\d{2})/(?P<day>\\d{2})/(?P<slug>[
 msgid ""
 "^trackbacks/(?P<year>\\d{4})/(?P<month>\\d{2})/(?P<day>\\d{2})/(?P<slug>[-\\w]+)/$"
 msgstr "^trackbacks/(?P<year>\\d{4})/(?P<month>\\d{2})/(?P<day>\\d{2})/(?P<slug>[-\\w]+)/$"
-
-#: urls/quick_entry.py:9
-msgid "^quick-entry/$"
-msgstr "^quick-entry/$"
 
 #: urls/tags.py:16
 msgid "^(?P<tag>[^/]+(?u))/page/(?P<page>\\d+)/$"
