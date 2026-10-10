@@ -277,17 +277,6 @@ msgstr ""
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1251,22 +1240,6 @@ msgstr "编辑标签"
 msgid "Edit the author"
 msgstr "编辑作者"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "找到了%(entry_count)s条日志"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "没有找到"
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "需要登录"
@@ -1282,15 +1255,6 @@ msgstr "你需要联网查看此日志。"
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "登录"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1398,13 +1362,6 @@ msgstr "日志页面"
 msgid "More old entries"
 msgstr "更多以前日志"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "你可以使用 - 排除单词或词组；“双引号”；对于精确的短语和AND/OR布尔操作结合括号可以作复杂的查询。"
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1427,14 +1384,6 @@ msgstr ""
 msgid "Blog"
 msgstr "博客"
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "模式长度不够"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "没有搜索到相关模式"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^feeds/"
@@ -1450,10 +1399,6 @@ msgstr "^authors/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^categories/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^search/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1523,10 +1468,6 @@ msgstr "^success/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^discussions/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^search/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

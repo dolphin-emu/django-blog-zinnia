@@ -273,17 +273,6 @@ msgstr ""
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1256,23 +1245,6 @@ msgstr "Breyta tagginu"
 msgid "Edit the author"
 msgstr "Breyta höfundi"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s færsla fannst"
-msgstr[1] "%(entry_count)s færslur fundust"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "Ekkert fannst."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Innskráning nauðsynleg"
@@ -1288,15 +1260,6 @@ msgstr "Þú verður að vera tengdur til að skoða þessa færslu."
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Innskrá"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1404,13 +1367,6 @@ msgstr "Færslu síða"
 msgid "More old entries"
 msgstr "Fleiri gamlar færslur"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Þú getur notað bandstrik (-) til að fjarlægja orð eða setningar, &quot;double quotes&quot; fyrir nákvæmar setningar og AND/OR milli orðasambanda fyrir ítarlega leit."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1434,14 +1390,6 @@ msgstr ""
 msgid "Blog"
 msgstr "Blogg"
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Mynstrið er of stutt"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Ekkert leitarmynstur fannst"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^veitur/"
@@ -1457,10 +1405,6 @@ msgstr "^hofundar/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^flokkar/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^leit/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1530,10 +1474,6 @@ msgstr "^tokst/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^umraedur/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^leit/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

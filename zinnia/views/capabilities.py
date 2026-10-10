@@ -31,11 +31,3 @@ class HumansTxt(CapabilityView):
     """
     content_type = 'text/plain'
     template_name = 'zinnia/humans.txt'
-
-
-class OpenSearchXml(CapabilityView):
-    """
-    http://www.opensearch.org/
-    """
-    content_type = 'application/opensearchdescription+xml'
-    template_name = 'zinnia/opensearch.xml'

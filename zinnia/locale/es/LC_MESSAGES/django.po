@@ -284,17 +284,6 @@ msgstr "Entradas para la etiqueta %(object)s"
 msgid "The last entries tagged with %(object)s"
 msgstr "Las últimas entradas etiquetadas como %(object)s"
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr "Buscar resultados para '%(pattern)s'"
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr "Las últimas entradas que contengan el patrón \"%(pattern)s\""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr "Últimas discusiones"
@@ -1267,23 +1256,6 @@ msgstr "Editar el tag"
 msgid "Edit the author"
 msgstr "Editar el autor"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr "RSS de los resultados de búqueda para '%(pattern)s'"
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s entrada encontrada"
-msgstr[1] "%(entry_count)s entradas encontradas"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "No hubo resultados."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Identificación requerida"
@@ -1299,15 +1271,6 @@ msgstr "Necesitas estar identificado para ver esta entrada."
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Login"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr "Búsqueda web"
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr "Hacer una búsqueda en %(object)s"
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1415,13 +1378,6 @@ msgstr "Página de entradas"
 msgid "More old entries"
 msgstr "Entradas más antiguas"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Puedes usar - para excluir palabras o frases, &quot;comillas dobles&quot; para frases exactas y  los operadores booleanos AND/OR combinados con paréntesis para consultas complejas."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1445,14 +1401,6 @@ msgstr "Administrar comentarios"
 msgid "Blog"
 msgstr "Blog"
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "La cadena es muy corta"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "No se encuentra cadena"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^feeds/"
@@ -1468,10 +1416,6 @@ msgstr "^autores/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^categorias/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^buscar/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1541,10 +1485,6 @@ msgstr "^exito/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^discusiones/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^busqueda/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

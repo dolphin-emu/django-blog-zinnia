@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 
 from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.urls import NoReverseMatch
 from django.urls import reverse
@@ -295,46 +294,6 @@ class TagEntries(EntryFeed):
         """
         return _('The last entries tagged with %(object)s') % {
             'object': obj.name}
-
-
-class SearchEntries(EntryFeed):
-    """
-    Feed filtered by a search pattern.
-    """
-
-    def get_object(self, request):
-        """
-        The GET parameter 'pattern' is the object.
-        """
-        pattern = request.GET.get('pattern', '')
-        if len(pattern) < 3:
-            raise ObjectDoesNotExist
-        return pattern
-
-    def items(self, obj):
-        """
-        Items are the published entries founds.
-        """
-        return Entry.published.search(obj)[:self.limit]
-
-    def link(self, obj):
-        """
-        URL of the search request.
-        """
-        return '%s?pattern=%s' % (reverse('zinnia:entry_search'), obj)
-
-    def get_title(self, obj):
-        """
-        Title of the feed.
-        """
-        return _("Search results for '%(pattern)s'") % {'pattern': obj}
-
-    def description(self, obj):
-        """
-        Description of the feed.
-        """
-        return _("The last entries containing the pattern '%(pattern)s'") % {
-            'pattern': obj}
 
 
 class SeriesFeed(EntryFeed):

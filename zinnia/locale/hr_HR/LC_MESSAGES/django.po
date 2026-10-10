@@ -276,16 +276,6 @@ msgstr "Unosi za oznaku %s"
 msgid "The latest entries for the tag %s"
 msgstr "Najnoviji unosi za oznaku %s"
 
-#: feeds.py:323
-#, python-format
-msgid "Results of the search for '%s'"
-msgstr "Rezultati pretraživanja za '%s'"
-
-#: feeds.py:329
-#, python-format
-msgid "The entries containing the pattern '%s'"
-msgstr "Zapisi koji sadrže uzorak '%s'"
-
 #: feeds.py:394
 msgid "Latest discussions"
 msgstr ""
@@ -1274,30 +1264,6 @@ msgstr "Uredi oznaku"
 msgid "Edit the author"
 msgstr "Uredi autora"
 
-#: templates/zinnia/entry_search.html:4 templates/zinnia/entry_search.html:6
-#: templates/zinnia/entry_search.html:18
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:11 templates/zinnia/entry_search.html:24
-#: templates/zinnia/entry_search.html:25
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:32
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s unos pronađen"
-msgstr[1] "%(entry_count)s pronađenih unosa "
-msgstr[2] "%(entry_count)s pronađenih unosa "
-
-#: templates/zinnia/entry_search.html:43
-msgid "Nothing found."
-msgstr "Ništa nije pronađeno."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Potrebna prijava"
@@ -1424,13 +1390,6 @@ msgstr "Stranica unosa"
 msgid "More old entries"
 msgstr "Više starijih unosa"
 
-#: templates/zinnia/tags/search_form.html:6
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr ""
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1442,14 +1401,6 @@ msgstr[2] ""
 #: templatetags/zinnia.py:345
 msgid "Blog"
 msgstr ""
-
-#: tests/test_views.py:585 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Uzorak je prekratak"
-
-#: tests/test_views.py:589 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Obrazac za pretraživanje nije pronađen"
 
 #: urls/__init__.py:23
 msgid "^feeds/"
@@ -1465,10 +1416,6 @@ msgstr ""
 
 #: urls/__init__.py:26
 msgid "^categories/"
-msgstr ""
-
-#: urls/__init__.py:27
-msgid "^search/"
 msgstr ""
 
 #: urls/__init__.py:28
@@ -1533,10 +1480,6 @@ msgstr ""
 
 #: urls/feeds.py:23
 msgid "^discussions/$"
-msgstr ""
-
-#: urls/feeds.py:26
-msgid "^search/$"
 msgstr ""
 
 #: urls/feeds.py:29

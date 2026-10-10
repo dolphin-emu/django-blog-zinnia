@@ -1,8 +1,6 @@
 """Settings of Zinnia"""
 from django.conf import settings
 
-from mots_vides import stop_words
-
 
 TRANSLATED_URLS = getattr(settings, 'ZINNIA_TRANSLATED_URLS', False)
 
@@ -46,11 +44,5 @@ ETHERPAD_URL = getattr(settings, 'ZINNIA_ETHERPAD_URL', '')
 ETHERPAD_API_KEY = getattr(settings, 'ZINNIA_ETHERPAD_API_KEY', '')
 ETHERPAD_HMAC_KEY = getattr(settings, 'ZINNIA_ETHERPAD_HMAC_KEY', '')
 
-SEARCH_FIELDS = getattr(settings, 'ZINNIA_SEARCH_FIELDS',
-                        ['title', 'lead', 'content',
-                         'excerpt', 'image_caption', 'tags'])
-
 URL_SHORTENER_BACKEND = getattr(settings, 'ZINNIA_URL_SHORTENER_BACKEND',
                                 'zinnia.url_shortener.backends.default')
-
-STOP_WORDS = stop_words(settings.LANGUAGE_CODE.split('-')[0])

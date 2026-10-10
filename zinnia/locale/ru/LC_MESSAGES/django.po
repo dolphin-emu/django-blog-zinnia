@@ -285,17 +285,6 @@ msgstr "Записи с тегом %(object)s"
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr "Результаты поиска '%(pattern)s'"
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1286,25 +1275,6 @@ msgstr "Редактировать тег"
 msgid "Edit the author"
 msgstr "Редактировать автора"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr "RSS лента с результатами поиска '%(pattern)s'"
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s запись найдена"
-msgstr[1] "%(entry_count)s записи найдено"
-msgstr[2] "%(entry_count)s записей найдено"
-msgstr[3] "%(entry_count)s записей найдено"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "Ничего не найдено."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Требуется авторизация"
@@ -1320,15 +1290,6 @@ msgstr "Вы должны быть подключены, чтобы посмот
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Войти"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1436,13 +1397,6 @@ msgstr "Страница записей"
 msgid "More old entries"
 msgstr "Самые старые записи"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Вы можете использовать для исключения слов или фраз &quot;двойные кавычки&quot; для определенных фраз и AND/OR бинарныe операторы комбинируя с предложениями для комлексных запросов."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1468,14 +1422,6 @@ msgstr ""
 msgid "Blog"
 msgstr "Блог"
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Запрос слишком короткий"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Нечего искать"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^feeds/"
@@ -1491,10 +1437,6 @@ msgstr "^authors/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^categories/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^search/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1564,10 +1506,6 @@ msgstr "^success/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^discussions/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^search/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

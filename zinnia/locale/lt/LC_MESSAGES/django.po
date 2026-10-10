@@ -276,17 +276,6 @@ msgstr ""
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1268,24 +1257,6 @@ msgstr "Keisti žymę"
 msgid "Edit the author"
 msgstr "Keisti autorių"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] ""
-msgstr[1] "%(entry_count)s įrašas nerastas"
-msgstr[2] "%(entry_count)s įrašai nerasti"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "Nieko nerasta."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Būtina prisijungti"
@@ -1301,15 +1272,6 @@ msgstr "Turite būti prisijungęs, kad galėtumėte peržiūrėti šį įrašą.
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Prisijungti"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1417,13 +1379,6 @@ msgstr "Įrašų puslapis"
 msgid "More old entries"
 msgstr "Daugiau senesnių įrašų"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Galite naudoti - kad išskirti žodžius ar frazes, &quot;double quotes&quot; tikslioms frazėms ir AND/OR boolean operatorius."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1448,14 +1403,6 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Struktūra per trumpa"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Struktūra paieškai nerasta"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^srautai/"
@@ -1471,10 +1418,6 @@ msgstr "^autoriai/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^kategorijos/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^paieska/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1544,10 +1487,6 @@ msgstr "^pavyko/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^diskusijos/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^paieska/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

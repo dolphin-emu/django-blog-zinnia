@@ -25,7 +25,6 @@ urlpatterns = [
     re_path(_(r'^tags/'), include('zinnia.urls.tags')),
     re_path(_(r'^authors/'), include('zinnia.urls.authors')),
     re_path(_(r'^categories/'), include('zinnia.urls.categories')),
-    re_path(_(r'^search/'), include('zinnia.urls.search')),
     re_path(r'^', include('zinnia.urls.series')),
     re_path(_(r'^sitemap/'), include('zinnia.urls.sitemap')),
     re_path(r'^', include('zinnia.urls.entries')),

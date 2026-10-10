@@ -2,7 +2,6 @@
 from urllib.parse import urljoin
 
 from django.contrib.sites.models import Site
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.test import TestCase
@@ -19,7 +18,6 @@ from zinnia.feeds import AuthorEntries
 from zinnia.feeds import CategoryEntries
 from zinnia.feeds import EntryFeed
 from zinnia.feeds import LastEntries
-from zinnia.feeds import SearchEntries
 from zinnia.feeds import TagEntries
 from zinnia.feeds import ZinniaFeed
 from zinnia.managers import PUBLISHED
@@ -244,23 +242,6 @@ class FeedsTestCase(TestCase):
                          'Entries for the tag %s' % tag_unicode)
         self.assertEqual(feed.description(tag),
                          'The last entries tagged with %s' % tag_unicode)
-
-    def test_search_entries(self):
-        class FakeRequest:
-            def __init__(self, val):
-                self.GET = {'pattern': val}
-        self.create_published_entry()
-        feed = SearchEntries()
-        self.assertRaises(ObjectDoesNotExist,
-                          feed.get_object, FakeRequest('te'))
-        self.assertEqual(feed.get_object(FakeRequest('test')), 'test')
-        self.assertEqual(len(feed.items('test')), 1)
-        self.assertEqual(feed.link('test'), '/search/?pattern=test')
-        self.assertEqual(feed.get_title('test'),
-                         "Search results for '%s'" % 'test')
-        self.assertEqual(
-            feed.description('test'),
-            "The last entries containing the pattern '%s'" % 'test')
 
     def test_entry_feed_no_authors(self):
         entry = self.create_published_entry()

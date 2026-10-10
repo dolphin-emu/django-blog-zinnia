@@ -276,17 +276,6 @@ msgstr ""
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1268,24 +1257,6 @@ msgstr "Редагувати тег"
 msgid "Edit the author"
 msgstr "Редагувати автора"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s допис знайдено"
-msgstr[1] "%(entry_count)s дописи знайдено"
-msgstr[2] "%(entry_count)s дописів знайдено"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "Нічого не знайдено."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Необхідно увійти"
@@ -1301,15 +1272,6 @@ msgstr "Вам необхідно під’єднатися, аби перегл
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Увійти"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1417,13 +1379,6 @@ msgstr "Сторінка дописів"
 msgid "More old entries"
 msgstr "Більше старих дописів"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Можна використовувати - для виключення слів чи фраз, &quot;подвійні лапки&quot; для пошуку конкретних фраз, та комбінувати логічні оператори AND/OR з дужками для побудови складних запитів."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1448,14 +1403,6 @@ msgstr ""
 msgid "Blog"
 msgstr "Блог"
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Шаблон надто короткий"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Не знайдено шаблону для пошуку"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^feeds/"
@@ -1471,10 +1418,6 @@ msgstr "^authors/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^categories/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^search/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1544,10 +1487,6 @@ msgstr "^success/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^discussions/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^search/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"

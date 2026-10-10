@@ -40,9 +40,7 @@ setup(
                       ('django-tagging @ git+https://github.com/'
                        'dolphin-emu/django-tagging.git@'
                        '0d282f1203470f8d4f83bfda9a5b1edd878d52ba'),
-                      'mots-vides>=2015.5.11',
                       'pillow>=10.4.0',
-                      'pyparsing>=3.1.4',
                       'pytz>=2026.3.post1',
                       'requests>=2.32.4']
 )

@@ -8,7 +8,6 @@ from django.contrib.sites.models import Site
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from zinnia.managers import DRAFT
 from zinnia.managers import PUBLISHED
@@ -579,18 +578,6 @@ class ViewsTestCase(ViewsBaseCase):
         self.assertEqual(len(response.context['object_list']), 2)
         self.assertEqual(response.context['tag'].name, 'tests')
 
-    def test_zinnia_entry_search(self):
-        self.check_publishing_context(
-            '/search/?pattern=test', 2, 3, 'entry_list', 1)
-        response = self.client.get('/search/?pattern=ab')
-        self.assertEqual(len(response.context['object_list']), 0)
-        self.assertEqual(response.context['error'],
-                         _('The pattern is too short'))
-        response = self.client.get('/search/')
-        self.assertEqual(len(response.context['object_list']), 0)
-        self.assertEqual(response.context['error'],
-                         _('No pattern to search found'))
-
     def test_zinnia_sitemap(self):
         with self.assertNumQueries(0):
             response = self.client.get('/sitemap/')
@@ -605,8 +592,6 @@ class ViewsTestCase(ViewsBaseCase):
 
     def test_capabilities(self):
         self.check_capabilities('/humans.txt', 'text/plain', 0)
-        self.check_capabilities('/opensearch.xml',
-                                'application/opensearchdescription+xml', 0)
 
 
 @override_settings(

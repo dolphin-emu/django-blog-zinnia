@@ -3,8 +3,6 @@ from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
 
-from zinnia.settings import SEARCH_FIELDS
-
 DRAFT = 0
 HIDDEN = 1
 PUBLISHED = 2
@@ -53,38 +51,6 @@ class EntryPublishedManager(models.Manager):
         """
         return super().get_queryset().filter(
             sites=Site.objects.get_current())
-
-    def search(self, pattern):
-        """
-        Top level search method on entries.
-        """
-        try:
-            return self.advanced_search(pattern)
-        except Exception:
-            return self.basic_search(pattern)
-
-    def advanced_search(self, pattern):
-        """
-        Advanced search on entries.
-        """
-        from zinnia.search import advanced_search
-        return advanced_search(pattern)
-
-    def basic_search(self, pattern):
-        """
-        Basic search on entries.
-        """
-        lookup = None
-        for pattern in pattern.split():
-            query_part = models.Q()
-            for field in SEARCH_FIELDS:
-                query_part |= models.Q(**{'%s__icontains' % field: pattern})
-            if lookup is None:
-                lookup = query_part
-            else:
-                lookup |= query_part
-
-        return self.get_queryset().filter(lookup)
 
 
 class EntryRelatedPublishedManager(models.Manager):

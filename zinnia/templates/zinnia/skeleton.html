@@ -38,10 +38,10 @@
             </li>
           </ul>
         </nav>
-        <form method="get" action="{% url 'zinnia:entry_search' %}">
+        <form onsubmit="return false;">
           <p>
-            <input type="text" name="pattern" placeholder="{% trans "Keywords..." %}" {% if pattern %}value="{{ pattern }}"{% endif %} />
-            <input type="submit" class="submitbutton" value="OK" />
+            <input type="text" name="pattern" placeholder="{% trans "Keywords..." %}" />
+            <input type="button" class="submitbutton" value="OK" />
           </p>
         </form>
         <h1>

@@ -53,9 +53,9 @@ class MixinTestCase(TestCase):
                           'zinnia/model/name_entry_list.html',
                           'zinnia/model/entry_list.html',
                           'zinnia/entry_list.html'])
-        instance.template_name = 'zinnia/entry_search.html'
+        instance.template_name = 'zinnia/custom_entry_list.html'
         self.assertEqual(instance.get_template_names(),
-                         ['zinnia/entry_search.html',
+                         ['zinnia/custom_entry_list.html',
                           'zinnia/model/name/entry_list.html',
                           'zinnia/model/name_entry_list.html',
                           'zinnia/model/entry_list.html',
@@ -123,10 +123,10 @@ class MixinTestCase(TestCase):
              'zinnia/entry_archive.html',
              'entry_archive.html'])
 
-        instance.template_name = 'zinnia/entry_search.html'
+        instance.template_name = 'zinnia/custom_entry_list.html'
         self.assertEqual(
             instance.get_template_names(),
-            ['zinnia/entry_search.html',
+            ['zinnia/custom_entry_list.html',
              'zinnia/archives/2012/04/21/entry_archive.html',
              'zinnia/archives/month/04/day/21/entry_archive.html',
              'zinnia/archives/2012/day/21/entry_archive.html',

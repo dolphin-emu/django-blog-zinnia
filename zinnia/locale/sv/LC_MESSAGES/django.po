@@ -274,17 +274,6 @@ msgstr ""
 msgid "The last entries tagged with %(object)s"
 msgstr ""
 
-#: feeds.py:335 templates/zinnia/entry_search.html:5
-#: templates/zinnia/entry_search.html:7 templates/zinnia/entry_search.html:19
-#, python-format
-msgid "Search results for '%(pattern)s'"
-msgstr ""
-
-#: feeds.py:341
-#, python-format
-msgid "The last entries containing the pattern '%(pattern)s'"
-msgstr ""
-
 #: feeds.py:407
 msgid "Last discussions"
 msgstr ""
@@ -1257,23 +1246,6 @@ msgstr "Ändra etikett"
 msgid "Edit the author"
 msgstr "Ändra skribent"
 
-#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
-#: templates/zinnia/entry_search.html:26
-#, python-format
-msgid "RSS feed of search results for '%(pattern)s'"
-msgstr ""
-
-#: templates/zinnia/entry_search.html:33
-#, python-format
-msgid "%(entry_count)s entry found"
-msgid_plural "%(entry_count)s entries found"
-msgstr[0] "%(entry_count)s inlägg hittat"
-msgstr[1] "%(entry_count)s inlägg hittades"
-
-#: templates/zinnia/entry_search.html:44
-msgid "Nothing found."
-msgstr "Inget hittates."
-
 #: templates/zinnia/login.html:4 templates/zinnia/login.html.py:9
 msgid "Login required"
 msgstr "Inloggning krävs"
@@ -1289,15 +1261,6 @@ msgstr "Du behöver vara ansluten för att se detta inlägg"
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "Logga in"
-
-#: templates/zinnia/opensearch.xml:5
-msgid "Web search"
-msgstr ""
-
-#: templates/zinnia/opensearch.xml:6
-#, python-format
-msgid "Make a search on %(object)s."
-msgstr ""
 
 #: templates/zinnia/password.html:4 templates/zinnia/password.html.py:9
 msgid "Password required"
@@ -1405,13 +1368,6 @@ msgstr "Inläggsida"
 msgid "More old entries"
 msgstr "Äldre inlägg"
 
-#: templates/zinnia/tags/search_form.html:7
-msgid ""
-"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
-"exact phrases and the AND/OR boolean operators combined with parenthesis for"
-" complex queries."
-msgstr "Du kan använda - för att exkludera ord och fraser, &quot;citationstecken&quot; för exakta fraser och OCH/ELLER boolska operatorer kombinerat med parenteser för komplexa frågor."
-
 #: templates/zinnia/tags/tag_cloud.html:6
 #, python-format
 msgid "%(entry_count)s entry tagged by %(tag)s"
@@ -1435,14 +1391,6 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: tests/test_views.py:589 views/search.py:30
-msgid "The pattern is too short"
-msgstr "Sökmönstret är för kort"
-
-#: tests/test_views.py:593 views/search.py:34
-msgid "No pattern to search found"
-msgstr "Inget sökmönster funnet"
-
 #: urls/__init__.py:21
 msgid "^feeds/"
 msgstr "^floden/"
@@ -1458,10 +1406,6 @@ msgstr "^authors/"
 #: urls/__init__.py:24
 msgid "^categories/"
 msgstr "^kategorier/"
-
-#: urls/__init__.py:25
-msgid "^search/"
-msgstr "^sok/"
 
 #: urls/__init__.py:26
 msgid "^random/"
@@ -1531,10 +1475,6 @@ msgstr "^lyckat/$"
 #: urls/feeds.py:21
 msgid "^discussions/$"
 msgstr "^diskussioner/$"
-
-#: urls/feeds.py:24
-msgid "^search/$"
-msgstr "^sok/$"
 
 #: urls/feeds.py:27
 msgid "^tags/(?P<tag>[^/]+(?u))/$"
