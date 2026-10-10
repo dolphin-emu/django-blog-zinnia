@@ -593,11 +593,6 @@ class ViewsTestCase(ViewsBaseCase):
         self.assertEqual(response.context['error'],
                          _('No pattern to search found'))
 
-    def test_zinnia_entry_random(self):
-        response = self.client.get('/random/', follow=True)
-        self.assertTrue(response.redirect_chain[0][0].startswith('/2010/'))
-        self.assertEqual(response.redirect_chain[0][1], 302)
-
     def test_zinnia_sitemap(self):
         with self.assertNumQueries(0):
             response = self.client.get('/sitemap/')

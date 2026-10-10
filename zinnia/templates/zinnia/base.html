@@ -61,10 +61,6 @@
   <h3><a href="{% url 'zinnia:series_list' %}">{% trans "Blog series" %}</a></h3>
   {% get_recent_blog_series %}
 </aside>
-<aside id="widget-randoms" class="widget">
-  <h3>{% trans "Random entries" %}</h3>
-  {% get_random_entries %}
-</aside>
 <aside id="widget-archives" class="widget">
   <h3>{% trans "Archives" %}</h3>
   {% get_archives_entries_tree %}

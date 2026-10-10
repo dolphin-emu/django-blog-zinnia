@@ -104,15 +104,6 @@ def get_draft_entries(number=5,
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html')
-def get_random_entries(number=5, template='zinnia/tags/entries_random.html'):
-    """
-    Return random entries.
-    """
-    return {'template': template,
-            'entries': Entry.published.order_by('?')[:number]}
-
-
-@register.inclusion_tag('zinnia/tags/dummy.html')
 def get_archives_entries(template='zinnia/tags/entries_archives.html'):
     """
     Return archives entries.
