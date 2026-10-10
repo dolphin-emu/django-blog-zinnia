@@ -4,12 +4,13 @@ from itertools import chain
 
 from django.contrib.admin import widgets
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.forms import Media
+from django.forms import Media, Widget
 from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 
 from tagging.models import Tag
 
+from zinnia.settings import ETHERPAD_URL
 from zinnia.models import Entry
 
 
@@ -124,3 +125,19 @@ class MiniTextarea(widgets.AdminTextareaWidget):
     def __init__(self, attrs=None):
         super().__init__(
             {'rows': self.rows})
+
+
+class EtherpadWidget(Widget):
+    """Embedded editor for an entry's collaborative draft."""
+    template_name = 'zinnia/admin/etherpad_widget.html'
+
+    def __init__(self, pad_id, attrs=None):
+        super().__init__(attrs)
+        self.pad_id = pad_id
+
+    def get_context(self, name, value, attrs):
+        from urllib.parse import quote
+        context = super().get_context(name, value, attrs)
+        context['pad_url'] = '%s/p/%s' % (
+            ETHERPAD_URL.rstrip('/'), quote(str(self.pad_id), safe=''))
+        return context

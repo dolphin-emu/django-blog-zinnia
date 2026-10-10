@@ -20,6 +20,7 @@ _ = i18n_url
 app_name = 'zinnia'
 
 urlpatterns = [
+    re_path(r'^', include('zinnia.urls.etherpad')),
     re_path(_(r'^feeds/'), include('zinnia.urls.feeds')),
     re_path(_(r'^tags/'), include('zinnia.urls.tags')),
     re_path(_(r'^authors/'), include('zinnia.urls.authors')),

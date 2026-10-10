@@ -41,6 +41,10 @@ PROTOCOL = getattr(settings, 'ZINNIA_PROTOCOL', 'http')
 FEEDS_FORMAT = getattr(settings, 'ZINNIA_FEEDS_FORMAT', 'rss')
 FEEDS_MAX_ITEMS = getattr(settings, 'ZINNIA_FEEDS_MAX_ITEMS', 15)
 
+ETHERPAD_URL = getattr(settings, 'ZINNIA_ETHERPAD_URL', '')
+ETHERPAD_API_KEY = getattr(settings, 'ZINNIA_ETHERPAD_API_KEY', '')
+ETHERPAD_HMAC_KEY = getattr(settings, 'ZINNIA_ETHERPAD_HMAC_KEY', '')
+
 SEARCH_FIELDS = getattr(settings, 'ZINNIA_SEARCH_FIELDS',
                         ['title', 'lead', 'content',
                          'excerpt', 'image_caption', 'tags'])

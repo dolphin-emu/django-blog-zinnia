@@ -16,3 +16,10 @@ class ZinniaConfig(AppConfig):
         from zinnia.signals import connect_entry_signals
         # Connect the signals
         connect_entry_signals()
+
+        from django.db.models.signals import post_save
+        from zinnia.etherpad import create_entry_pad
+        from zinnia.models import Entry
+
+        post_save.connect(create_entry_pad, sender=Entry,
+                          dispatch_uid='zinnia.entry.create_etherpad')
