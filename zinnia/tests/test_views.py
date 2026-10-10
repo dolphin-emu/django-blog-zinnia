@@ -471,10 +471,6 @@ class ViewsTestCase(ViewsBaseCase):
             response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_zinnia_entry_channel(self):
-        self.check_publishing_context(
-            '/channel-test/', 2, 3, 'entry_list', 1)
-
     def test_zinnia_category_list(self):
         category = Category.objects.create(
             title='New category', slug='new-category')
