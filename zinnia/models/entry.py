@@ -65,7 +65,7 @@ class Entry(load_model_class(ENTRY_BASE_MODEL)):
         if self.within_series is None:
             return 1
 
-        return (self.within_series.entries
+        return (self.within_series.published_entries
             .filter(publication_date__lt=self.publication_date)
             .exclude(pk=self.pk)
             .count()) + 1

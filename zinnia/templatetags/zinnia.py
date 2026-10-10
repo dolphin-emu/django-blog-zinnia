@@ -27,6 +27,7 @@ from ..managers import tags_published
 from ..models.author import Author
 from ..models.category import Category
 from ..models.entry import Entry
+from ..models.series import BlogSeries
 from ..settings import ENTRY_LOOP_TEMPLATES
 from ..templating import loop_template_list
 
@@ -383,3 +384,12 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
             'authors': authors.count(),
             'words_per_entry': words_per_entry,
             'entries_per_month': entries_per_month}
+
+
+@register.inclusion_tag('zinnia/tags/dummy.html')
+def get_recent_blog_series(number=5, template='zinnia/tags/series_recent.html'):
+    """Return the most recently created visible series."""
+    return {
+        'template': template,
+        'recent_series': BlogSeries.objects.filter(visible=True).order_by('-pk')[:number],
+    }

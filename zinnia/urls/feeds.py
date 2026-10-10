@@ -5,11 +5,13 @@ from zinnia.feeds import AuthorEntries
 from zinnia.feeds import CategoryEntries
 from zinnia.feeds import LastEntries
 from zinnia.feeds import SearchEntries
+from zinnia.feeds import SeriesFeed
 from zinnia.feeds import TagEntries
 from zinnia.urls import _
 
 
 urlpatterns = [
+    re_path(r'^series/(?P<pk>[0-9]+)$', SeriesFeed(), name='series_feed'),
     re_path(r'^$',
         LastEntries(),
         name='entry_feed'),

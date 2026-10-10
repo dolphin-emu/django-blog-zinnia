@@ -20,6 +20,7 @@ from tagging.models import TaggedItem
 
 from zinnia.models.author import Author
 from zinnia.models.entry import Entry
+from zinnia.models.series import BlogSeries
 from zinnia.settings import COPYRIGHT
 from zinnia.settings import FEEDS_FORMAT
 from zinnia.settings import FEEDS_MAX_ITEMS
@@ -341,3 +342,22 @@ class SearchEntries(EntryFeed):
         """
         return _("The last entries containing the pattern '%(pattern)s'") % {
             'pattern': obj}
+
+
+class SeriesFeed(EntryFeed):
+    """Latest published entries in a visible series."""
+
+    def get_object(self, request, pk):
+        return get_object_or_404(BlogSeries, pk=pk, visible=True)
+
+    def items(self, obj):
+        return obj.published_entries.order_by('-publication_date')[:self.limit]
+
+    def link(self, obj):
+        return obj.get_absolute_url()
+
+    def get_title(self, obj):
+        return _("Entries for the series %s") % obj.name
+
+    def description(self, obj):
+        return _("The latest entries for the series %s") % obj.name

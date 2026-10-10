@@ -108,6 +108,9 @@
 
   {% block entry-footer %}
   <footer class="entry-footer">
+    {% block entry-series %}
+    {% include "zinnia/tags/entry_series.html" %}
+    {% endblock entry-series %}
     {% block entry-tags %}
     <p class="entry-tags">
       <strong>{% trans "Tags" %}</strong> :

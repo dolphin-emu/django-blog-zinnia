@@ -1,0 +1,40 @@
+{% extends "zinnia/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Blog series" %}{% endblock %}
+{% block meta-description %}{% trans "List of blog series" %}{% endblock %}
+
+{% block content %}
+{% for series in all_series %}
+{% block series-item %}
+<div class="{% block series-class %}series{% endblock %}">
+  {% block series-image %}
+  {% if series.image %}
+  <img src="{{ series.image.url }}" alt="{% trans 'Series illustration' %}" width="120" height="120" />
+  {% endif %}
+  {% endblock %}
+  <div class="{% block series-details-class %}series-details{% endblock %}">
+    {% with entries=series.published_entries %}
+    <h2 id="series-{{ series.pk }}">{{ series.name }}
+      <small>{% blocktrans count count=entries|length %}
+        {{ count }} entry
+      {% plural %}
+        {{ count }} entries
+      {% endblocktrans %}</small>
+    </h2>
+    {% block series-feed %}
+    <p><a href="{% url 'zinnia:series_feed' pk=series.pk %}">{% trans "RSS feed:" %}</a></p>
+    {% endblock %}
+    <ol>
+    {% for entry in entries %}
+      <li><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></li>
+    {% endfor %}
+    </ol>
+    {% endwith %}
+  </div>
+</div>
+{% endblock %}
+{% empty %}
+<p>{% trans "No blog series yet." %}</p>
+{% endfor %}
+{% endblock %}

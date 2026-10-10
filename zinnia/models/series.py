@@ -1,8 +1,9 @@
 """Date-ordered series of blog entries."""
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from zinnia.managers import PUBLISHED
+from zinnia.managers import entries_published
 from zinnia.settings import UPLOAD_TO
 
 
@@ -15,6 +16,14 @@ class BlogSeries(models.Model):
         _('image'), blank=True, upload_to=UPLOAD_TO,
         help_text=_('Used for illustration.'))
 
+    def get_absolute_url(self):
+        return '%s#series-%s' % (reverse('zinnia:series_list'), self.pk)
+
+    @property
+    def published_entries(self):
+        """Public entries in reading order, restricted to the current site."""
+        return entries_published(self.entries).order_by('publication_date')
+
     @property
     def entries_reversed(self):
         return self.entries.order_by('publication_date')
@@ -24,9 +33,7 @@ class BlogSeries(models.Model):
         if nth < 1:
             return None
 
-        qs = self.entries.all()
-        if not allow_hidden:
-            qs = qs.filter(status=PUBLISHED)
+        qs = self.entries.all() if allow_hidden else self.published_entries
 
         try:
             return qs.order_by('publication_date')[nth - 1]
