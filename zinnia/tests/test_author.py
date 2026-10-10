@@ -6,7 +6,6 @@ from django.test import TestCase
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import skip_if_custom_user
 
 
@@ -14,7 +13,6 @@ from zinnia.tests.utils import skip_if_custom_user
 class AuthorTestCase(TestCase):
 
     def setUp(self):
-        disconnect_entry_signals()
         self.site = Site.objects.get_current()
         self.author = Author.objects.create_user(
             'webmaster', 'webmaster@example.com')

@@ -17,7 +17,6 @@ from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
 from zinnia.url_shortener.backends.default import base36
@@ -30,7 +29,6 @@ class BaseAdminTestCase(TestCase):
     admin_class = None
 
     def setUp(self):
-        disconnect_entry_signals()
         activate('en')
         self.site = AdminSite()
         self.admin = self.admin_class(
@@ -358,7 +356,6 @@ class FunctionnalAdminTestCase(TestCase):
     """
 
     def setUp(self):
-        disconnect_entry_signals()
         self.author = Author.objects.create_superuser(
             username='admin',
             email='admin@example.com',

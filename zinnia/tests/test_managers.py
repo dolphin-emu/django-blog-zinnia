@@ -10,7 +10,6 @@ from zinnia.managers import tags_published
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
 
@@ -19,7 +18,6 @@ from zinnia.tests.utils import skip_if_custom_user
 class ManagersTestCase(TestCase):
 
     def setUp(self):
-        disconnect_entry_signals()
         self.sites = [
             Site.objects.get_current(),
             Site.objects.create(domain='http://domain.com',

@@ -3,7 +3,6 @@ from datetime import date
 
 from django.contrib.sites.models import Site
 from django.core.paginator import Paginator
-from django.db.models.signals import post_save
 from django.template import Context
 from django.template import Template
 from django.template import TemplateDoesNotExist
@@ -19,8 +18,6 @@ from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
-from zinnia.signals import flush_similar_cache_handler
 from zinnia.templatetags import zinnia as ztemplatetags
 from zinnia.templatetags.zinnia import get_archives_entries
 from zinnia.templatetags.zinnia import get_archives_entries_tree
@@ -32,7 +29,6 @@ from zinnia.templatetags.zinnia import get_draft_entries
 from zinnia.templatetags.zinnia import get_featured_entries
 from zinnia.templatetags.zinnia import get_random_entries
 from zinnia.templatetags.zinnia import get_recent_entries
-from zinnia.templatetags.zinnia import get_similar_entries
 from zinnia.templatetags.zinnia import get_tag_cloud
 from zinnia.templatetags.zinnia import user_admin_urlname
 from zinnia.templatetags.zinnia import week_number
@@ -49,7 +45,6 @@ class TemplateTagsTestCase(TestCase):
     """Test cases for Template tags"""
 
     def setUp(self):
-        disconnect_entry_signals()
         params = {'title': 'My entry',
                   'content': 'My content',
                   'tags': 'zinnia, test',
@@ -196,65 +191,6 @@ class TemplateTagsTestCase(TestCase):
         with self.assertNumQueries(0):
             context = get_random_entries(0)
         self.assertEqual(len(context['entries']), 0)
-
-    def test_get_similar_entries(self):
-        post_save.connect(
-            flush_similar_cache_handler, sender=Entry,
-            dispatch_uid='flush_cache')
-        self.publish_entry()
-        source_context = Context({'object': self.entry})
-        with self.assertNumQueries(0):
-            context = get_similar_entries(source_context)
-        self.assertEqual(len(context['entries']), 0)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/entries_similar.html')
-
-        source_context = Context({'entry': self.entry})
-        with self.assertNumQueries(1):
-            context = get_similar_entries(source_context)
-        self.assertEqual(len(context['entries']), 0)
-        self.assertEqual(context['template'],
-                         'zinnia/tags/entries_similar.html')
-
-        params = {'title': 'My second entry',
-                  'content': 'This is the second content of my testing',
-                  'excerpt': 'Similarity testing',
-                  'status': PUBLISHED,
-                  'slug': 'my-second-entry'}
-        second_entry = Entry.objects.create(**params)
-        second_entry.sites.add(self.site)
-
-        params = {'title': 'My third entry',
-                  'content': 'This is the third content for testing',
-                  'excerpt': 'Similarity testing',
-                  'status': PUBLISHED,
-                  'slug': 'my-third-entry'}
-        third_entry = Entry.objects.create(**params)
-        third_entry.sites.add(self.site)
-
-        with self.assertNumQueries(2):
-            context = get_similar_entries(source_context, 3,
-                                          'custom_template.html')
-        self.assertEqual(len(context['entries']), 2)
-        self.assertEqual(context['entries'][0].pk, third_entry.pk)
-        self.assertEqual(context['template'], 'custom_template.html')
-        with self.assertNumQueries(0):
-            context = get_similar_entries(source_context, 3)
-
-        second_site = Site.objects.create(domain='second', name='second')
-        second_entry.sites.add(second_site)
-        with override_settings(SITE_ID=second_site.pk):
-            with self.assertNumQueries(2):
-                context = get_similar_entries(source_context, 3)
-        self.assertEqual(len(context['entries']), 0)
-
-        source_context = Context({'entry': second_entry})
-        with self.assertNumQueries(1):
-            context = get_similar_entries(source_context)
-        self.assertEqual(len(context['entries']), 2)
-
-        post_save.disconnect(
-            sender=Entry, dispatch_uid='flush_cache')
 
     def test_get_archives_entries(self):
         with self.assertNumQueries(0):

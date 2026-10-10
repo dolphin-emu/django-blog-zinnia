@@ -16,7 +16,6 @@ from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
 from zinnia.settings import PAGINATION
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
 from zinnia.tests.utils import url_equal
@@ -47,7 +46,6 @@ class ViewsBaseCase(TestCase):
     """
 
     def setUp(self):
-        disconnect_entry_signals()
         self.site = Site.objects.get_current()
         self.author = Author.objects.create_user(username='admin',
                                                  email='admin@example.com',

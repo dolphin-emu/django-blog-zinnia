@@ -14,7 +14,6 @@ from zinnia import url_shortener as shortener_settings
 from zinnia.managers import PUBLISHED
 from zinnia.models.entry import Entry
 from zinnia.models_bases import entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_lib_not_available
 from zinnia.url_shortener.backends.default import base36
@@ -23,7 +22,6 @@ from zinnia.url_shortener.backends.default import base36
 class EntryTestCase(TestCase):
 
     def setUp(self):
-        disconnect_entry_signals()
         params = {'title': 'My entry',
                   'content': 'My content',
                   'slug': 'my-entry'}

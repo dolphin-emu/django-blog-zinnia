@@ -44,6 +44,5 @@ setup(
                       'pillow>=10.4.0',
                       'pyparsing>=3.1.4',
                       'pytz>=2026.3.post1',
-                      'regex>=2024.11.6',
                       'requests>=2.32.4']
 )

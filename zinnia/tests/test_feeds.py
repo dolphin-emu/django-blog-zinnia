@@ -26,7 +26,6 @@ from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import datetime
 from zinnia.tests.utils import skip_if_custom_user
 
@@ -39,7 +38,6 @@ class FeedsTestCase(TestCase):
     """Test cases for the Feed classes provided"""
 
     def setUp(self):
-        disconnect_entry_signals()
         activate('en')
         self.site = Site.objects.get_current()
         self.author = Author.objects.create(username='admin',

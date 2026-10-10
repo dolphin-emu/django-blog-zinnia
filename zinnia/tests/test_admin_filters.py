@@ -16,7 +16,6 @@ from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.tests.utils import skip_if_custom_user
 
 
@@ -35,7 +34,6 @@ class BaseListFilterTestCase(TestCase):
     """Base TestCase for testing Filters"""
 
     def setUp(self):
-        disconnect_entry_signals()
         activate('en')
         self.root = User.objects.create_superuser(
             'root', 'root@exemple.com', 'toor'

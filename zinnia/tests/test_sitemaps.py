@@ -7,7 +7,6 @@ from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 from zinnia.sitemaps import AuthorSitemap
 from zinnia.sitemaps import CategorySitemap
 from zinnia.sitemaps import EntrySitemap
@@ -23,7 +22,6 @@ class SitemapsTestCase(TestCase):
     """Test cases for Sitemaps classes provided"""
 
     def setUp(self):
-        disconnect_entry_signals()
         self.site = Site.objects.get_current()
         self.authors = [
             Author.objects.create(username='admin', email='admin@example.com'),

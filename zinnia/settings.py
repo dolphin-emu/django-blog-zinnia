@@ -50,10 +50,6 @@ SEARCH_FIELDS = getattr(settings, 'ZINNIA_SEARCH_FIELDS',
                         ['title', 'lead', 'content',
                          'excerpt', 'image_caption', 'tags'])
 
-COMPARISON_FIELDS = getattr(settings, 'ZINNIA_COMPARISON_FIELDS',
-                            ['title', 'lead', 'content',
-                             'excerpt', 'image_caption', 'tags'])
-
 URL_SHORTENER_BACKEND = getattr(settings, 'ZINNIA_URL_SHORTENER_BACKEND',
                                 'zinnia.url_shortener.backends.default')
 

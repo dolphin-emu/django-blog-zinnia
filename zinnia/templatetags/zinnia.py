@@ -18,7 +18,6 @@ from tagging.utils import calculate_cloud
 
 from ..breadcrumbs import retrieve_breadcrumbs
 from ..calendar import Calendar
-from ..comparison import EntryPublishedVectorBuilder
 from ..context import get_context_first_matching_object
 from ..context import get_context_first_object
 from ..context import get_context_loop_positions
@@ -111,23 +110,6 @@ def get_random_entries(number=5, template='zinnia/tags/entries_random.html'):
     """
     return {'template': template,
             'entries': Entry.published.order_by('?')[:number]}
-
-
-@register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
-def get_similar_entries(context, number=5,
-                        template='zinnia/tags/entries_similar.html'):
-    """
-    Return similar entries.
-    """
-    entry = context.get('entry')
-    if not entry:
-        return {'template': template, 'entries': []}
-
-    vectors = EntryPublishedVectorBuilder()
-    entries = vectors.get_related(entry, number)
-
-    return {'template': template,
-            'entries': entries}
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html')

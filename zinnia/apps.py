@@ -13,10 +13,6 @@ class ZinniaConfig(AppConfig):
     verbose_name = _('Weblog')
 
     def ready(self):
-        from zinnia.signals import connect_entry_signals
-        # Connect the signals
-        connect_entry_signals()
-
         from django.db.models.signals import post_save
         from zinnia.etherpad import create_entry_pad
         from zinnia.models import Entry

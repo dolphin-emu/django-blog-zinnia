@@ -6,7 +6,6 @@ from zinnia.admin.widgets import MPTTFilteredSelectMultiple
 from zinnia.admin.widgets import MiniTextarea
 from zinnia.admin.widgets import TagAutoComplete
 from zinnia.models.entry import Entry
-from zinnia.signals import disconnect_entry_signals
 
 
 class MPTTFilteredSelectMultipleTestCase(TestCase):
@@ -169,9 +168,6 @@ class MPTTFilteredSelectMultipleTestCase(TestCase):
 
 
 class TagAutoCompleteTestCase(TestCase):
-
-    def setUp(self):
-        disconnect_entry_signals()
 
     def test_get_tags(self):
         widget = TagAutoComplete()

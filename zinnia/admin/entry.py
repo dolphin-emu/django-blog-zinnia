@@ -15,7 +15,6 @@ from zinnia import settings
 from zinnia.admin.filters import AuthorListFilter
 from zinnia.admin.filters import CategoryListFilter
 from zinnia.admin.forms import EntryAdminForm
-from zinnia.comparison import EntryPublishedVectorBuilder
 from zinnia.managers import HIDDEN
 from zinnia.managers import PUBLISHED
 from zinnia.models.author import Author
@@ -236,7 +235,6 @@ class EntryAdmin(admin.ModelAdmin):
         Set entries selected as published.
         """
         queryset.update(status=PUBLISHED)
-        EntryPublishedVectorBuilder().cache_flush()
         self.message_user(
             request, _('The selected entries are now marked as published.'))
     make_published.short_description = _('Set entries selected as published')
@@ -246,7 +244,6 @@ class EntryAdmin(admin.ModelAdmin):
         Set entries selected as hidden.
         """
         queryset.update(status=HIDDEN)
-        EntryPublishedVectorBuilder().cache_flush()
         self.message_user(
             request, _('The selected entries are now marked as hidden.'))
     make_hidden.short_description = _('Set entries selected as hidden')
