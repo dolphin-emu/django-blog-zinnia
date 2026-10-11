@@ -50,3 +50,5 @@ class BlogSeries(models.Model):
     class Meta:
         # Keep existing dolweb installations on the same table.
         db_table = "blog_blogseries"
+        verbose_name = _("Blog series")
+        verbose_name_plural = _("Blog series")
