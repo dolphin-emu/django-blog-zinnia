@@ -360,9 +360,11 @@ def zinnia_statistics(template='zinnia/tags/statistics.html'):
 
 
 @register.inclusion_tag('zinnia/tags/dummy.html')
-def get_recent_blog_series(number=5, template='zinnia/tags/series_recent.html'):
+def get_recent_blog_series(
+        number=5, template='zinnia/tags/series_recent.html'):
     """Return the most recently created visible series."""
     return {
         'template': template,
-        'recent_series': BlogSeries.objects.filter(visible=True).order_by('-pk')[:number],
+        'recent_series': BlogSeries.objects.filter(
+            visible=True).order_by('-pk')[:number],
     }

@@ -6,12 +6,12 @@ from django.utils.translation import gettext_lazy as _
 from mptt.forms import TreeNodeChoiceField
 
 from zinnia.admin.fields import MPTTModelMultipleChoiceField
+from zinnia.admin.widgets import EtherpadWidget
 from zinnia.admin.widgets import MPTTFilteredSelectMultiple
 from zinnia.admin.widgets import MiniTextarea
-from zinnia.admin.widgets import EtherpadWidget
-from zinnia.settings import ETHERPAD_URL
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
+from zinnia.settings import ETHERPAD_URL
 
 
 class CategoryAdminForm(forms.ModelForm):
@@ -68,13 +68,15 @@ class EntryAdminForm(forms.ModelForm):
         self.collaborative_editing = bool(
             ETHERPAD_URL and self.instance.use_collaborative_editing)
         if self.collaborative_editing and 'content' in self.fields:
-            self.fields['content'].widget = EtherpadWidget(self.instance.etherpad_id)
+            self.fields['content'].widget = EtherpadWidget(
+                self.instance.etherpad_id)
             self.fields['content'].disabled = True
 
     def save(self, commit=True):
         if self.collaborative_editing:
             # A webhook may have updated the draft since this form was opened.
-            self.instance.content = Entry.objects.get(pk=self.instance.pk).content
+            self.instance.content = Entry.objects.get(
+                pk=self.instance.pk).content
         return super().save(commit=commit)
 
     class Meta:

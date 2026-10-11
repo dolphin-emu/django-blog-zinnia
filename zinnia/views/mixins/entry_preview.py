@@ -11,7 +11,9 @@ class EntryPreviewMixin:
     """
 
     def get_object(self, queryset=None):
-        """Allow public previews, or restrict them to authors and permitted users."""
+        """
+        Allow public previews, or restrict them to authors and permitted users.
+        """
         obj = super().get_object(queryset)
         if PUBLIC_PREVIEWS or obj.is_visible:
             return obj

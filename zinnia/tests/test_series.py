@@ -17,10 +17,13 @@ class SeriesTestCase(TestCase):
     def setUp(self):
         self.site = Site.objects.get_current()
         self.series = BlogSeries.objects.create(name='Public series')
-        self.hidden = BlogSeries.objects.create(name='Hidden series', visible=False)
+        self.hidden = BlogSeries.objects.create(
+            name='Hidden series', visible=False)
         now = timezone.now()
-        self.first = self.create_entry('First article', now - timedelta(days=2))
-        self.draft = self.create_entry('Draft article', now - timedelta(days=1), status=DRAFT)
+        self.first = self.create_entry(
+            'First article', now - timedelta(days=2))
+        self.draft = self.create_entry(
+            'Draft article', now - timedelta(days=1), status=DRAFT)
         self.last = self.create_entry('Latest article', now)
         self.scheduled = self.create_entry(
             'Scheduled article', now + timedelta(days=1),
@@ -44,13 +47,15 @@ class SeriesTestCase(TestCase):
 
     def test_urls_and_fragment(self):
         self.assertEqual(reverse('zinnia:series_list'), '/series')
-        self.assertEqual(self.series.get_absolute_url(), '/series#series-%s' % self.series.pk)
+        self.assertEqual(self.series.get_absolute_url(),
+                         '/series#series-%s' % self.series.pk)
         self.assertEqual(reverse('zinnia:series_feed', args=[self.series.pk]),
                          '/feeds/series/%s' % self.series.pk)
 
     def test_legacy_series_link(self):
         response = self.client.get(f'/series%23series-{self.series.pk}')
-        self.assertRedirects(response, self.series.get_absolute_url(), status_code=301)
+        self.assertRedirects(
+            response, self.series.get_absolute_url(), status_code=301)
 
     def test_admin_series_field(self):
         from django.contrib import admin
@@ -61,7 +66,8 @@ class SeriesTestCase(TestCase):
         entry_admin = EntryAdmin(Entry, admin.site)
         request = RequestFactory().get('/')
         request.user = get_user_model()(is_superuser=True, is_staff=True)
-        self.assertIn('within_series', entry_admin.get_form(request).base_fields)
+        self.assertIn(
+            'within_series', entry_admin.get_form(request).base_fields)
 
     def test_public_index(self):
         response = self.client.get(reverse('zinnia:series_list'))
@@ -75,25 +81,33 @@ class SeriesTestCase(TestCase):
 
         content = response.content.decode()
 
-        self.assertLess(content.index('First article'), content.index('Latest article'))
+        self.assertLess(
+            content.index('First article'), content.index('Latest article'))
         self.assertContains(response, 'id="series-%s"' % self.series.pk)
 
     def test_feed(self):
         feed = SeriesFeed()
 
-        self.assertEqual(list(feed.items(self.series)), [self.last, self.first])
+        self.assertEqual(
+            list(feed.items(self.series)), [self.last, self.first])
 
         feed.limit = 1
 
         self.assertEqual(list(feed.items(self.series)), [self.last])
-        self.assertEqual(feed.link(self.series), self.series.get_absolute_url())
+        self.assertEqual(
+            feed.link(self.series), self.series.get_absolute_url())
 
-        response = self.client.get(reverse('zinnia:series_feed', args=[self.series.pk]))
+        response = self.client.get(
+            reverse('zinnia:series_feed', args=[self.series.pk]))
 
         self.assertContains(response, 'Latest article')
         self.assertNotContains(response, 'Draft article')
-        self.assertEqual(self.client.get(reverse('zinnia:series_feed', args=[self.hidden.pk])).status_code, 404)
-        self.assertEqual(self.client.get(reverse('zinnia:series_feed', args=[999999])).status_code, 404)
+        self.assertEqual(
+            self.client.get(reverse(
+                'zinnia:series_feed', args=[self.hidden.pk])).status_code, 404)
+        self.assertEqual(
+            self.client.get(reverse(
+                'zinnia:series_feed', args=[999999])).status_code, 404)
 
     def test_recent_series_tag(self):
         latest = BlogSeries.objects.create(name='Latest series')

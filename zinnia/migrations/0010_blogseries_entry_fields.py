@@ -1,6 +1,6 @@
 """Own dolweb's series and entry fields without replacing existing data."""
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 def ensure_tables_and_fields(apps, schema_editor):
@@ -12,7 +12,8 @@ def ensure_tables_and_fields(apps, schema_editor):
     entry = apps.get_model('zinnia', 'Entry')
     with connection.cursor() as cursor:
         columns = {
-            column.name for column in connection.introspection.get_table_description(
+            column.name for column in
+            connection.introspection.get_table_description(
                 cursor, entry._meta.db_table)
         }
     # An older dolweb database can already have these custom fields without a
@@ -34,22 +35,31 @@ class Migration(migrations.Migration):
                 migrations.CreateModel(
                     name='BlogSeries',
                     fields=[
-                        ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                        ('name', models.CharField(db_index=True, max_length=255)),
+                        ('id', models.AutoField(
+                            auto_created=True, primary_key=True,
+                            serialize=False, verbose_name='ID')),
+                        ('name', models.CharField(
+                            db_index=True, max_length=255)),
                         ('visible', models.BooleanField(default=True)),
-                        ('image', models.ImageField(blank=True, help_text='Used for illustration.', upload_to='uploads/zinnia', verbose_name='image')),
+                        ('image', models.ImageField(
+                            blank=True, help_text='Used for illustration.',
+                            upload_to='uploads/zinnia', verbose_name='image')),
                     ],
                     options={'db_table': 'blog_blogseries'},
                 ),
                 migrations.AddField(
                     model_name='entry',
                     name='etherpad_id',
-                    field=models.CharField(blank=True, max_length=256, null=True),
+                    field=models.CharField(
+                        blank=True, max_length=256, null=True),
                 ),
                 migrations.AddField(
                     model_name='entry',
                     name='within_series',
-                    field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='entries', to='zinnia.blogseries'),
+                    field=models.ForeignKey(
+                        blank=True, null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name='entries', to='zinnia.blogseries'),
                 ),
             ],
         ),

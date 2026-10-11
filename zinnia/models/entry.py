@@ -19,7 +19,9 @@ class Entry(load_model_class(ENTRY_BASE_MODEL)):
     Represents a blog entry. Adds an optional `series` field to the default
     Zinnia model.
     """
-    within_series = models.ForeignKey('zinnia.BlogSeries', on_delete=models.SET_NULL, null=True, blank=True, related_name='entries')
+    within_series = models.ForeignKey(
+        'zinnia.BlogSeries', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='entries')
     etherpad_id = models.CharField(max_length=256, null=True, blank=True)
 
     @property

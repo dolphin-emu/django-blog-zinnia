@@ -44,7 +44,8 @@ class BlogSeries(models.Model):
         return self.name
 
     def __repr__(self):
-        return '<BlogSeries "%s" (%d entries)>' % (self.name, self.entries.count())
+        return '<BlogSeries "%s" (%d entries)>' % (
+            self.name, self.entries.count())
 
     class Meta:
         # Keep existing dolweb installations on the same table.

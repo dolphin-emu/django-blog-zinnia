@@ -1,5 +1,6 @@
 """Optional Etherpad webhook URL."""
 from django.urls import re_path
+
 from zinnia.views.etherpad import etherpad_event
 
 urlpatterns = [
