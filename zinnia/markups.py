@@ -2,10 +2,14 @@
 Set of" markup" function to transform plain text into HTML for Zinnia.
 Code originally provided by django.contrib.markups
 """
+import hashlib
+import json
 import warnings
 
+from django.core.cache import cache
 from django.utils.encoding import force_str
 from django.utils.html import linebreaks
+from django.utils.translation import get_language
 
 from zinnia.settings import MARKDOWN_EXTENSIONS
 from zinnia.settings import MARKUP_LANGUAGE
@@ -25,7 +29,16 @@ def markdown(value, extensions=MARKDOWN_EXTENSIONS):
                       RuntimeWarning)
         return value
 
-    return markdown.markdown(force_str(value), extensions=extensions)
+    value = force_str(value)
+
+    # Hash the source so edits (including unsaved previews) use fresh HTML.
+    # TODO: consider extensions?
+    signature = json.dumps(
+        [value, markdown.__version__, get_language()]).encode('utf-8')
+    key = 'zinnia:markdown:v1:%s' % hashlib.sha256(signature).hexdigest()
+
+    return cache.get_or_set(
+        key, lambda: markdown.markdown(value, extensions=extensions))
 
 
 def html_format(value):

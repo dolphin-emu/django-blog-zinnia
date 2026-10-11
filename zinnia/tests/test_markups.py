@@ -1,12 +1,16 @@
 """Test cases for Zinnia's markups"""
 import builtins
 import warnings
+from unittest.mock import patch
 
+from django.core.cache import cache
 from django.test import TestCase
+from django.test import override_settings
 
 from zinnia import markups
 from zinnia.markups import html_format
 from zinnia.markups import markdown
+from zinnia.models.entry import Entry
 from zinnia.tests.utils import skip_if_lib_not_available
 
 
@@ -22,12 +26,15 @@ class MarkupsTestCase(TestCase):
 
     @skip_if_lib_not_available('markdown')
     def test_markdown_extensions(self):
+        cache.clear()
+        self.addCleanup(cache.clear)
         text = '[TOC]\n\n# Header 1\n\n## Header 2'
         self.assertHTMLEqual(
             markdown(text).strip(),
             '<p>[TOC]</p>\n<h1>Header 1</h1>'
             '\n<h2>Header 2</h2>'
         )
+        cache.clear()
         self.assertHTMLEqual(
             markdown(text, extensions=['markdown.extensions.toc']).strip(),
             '<div class="toc">\n<ul>\n<li><a href="#header-1">'
@@ -38,6 +45,7 @@ class MarkupsTestCase(TestCase):
         )
         from markdown.extensions.toc import TocExtension
         tocext = TocExtension(marker='--TOC--', permalink='PL')
+        cache.clear()
         self.assertHTMLEqual(
             markdown(text, extensions=[tocext]).strip(),
             '<p>[TOC]</p>\n<h1 id="header-1">Header 1'
@@ -107,3 +115,69 @@ class HtmlFormatTestCase(TestCase):
             '\n<ul>\n<li>Item 1</li>\n'
             '<li>Item 2</li>\n</ul>'
         )
+
+
+@override_settings(CACHES={
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'zinnia-markdown-tests',
+    }
+})
+class MarkdownCacheTestCase(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.addCleanup(cache.clear)
+
+    @skip_if_lib_not_available('markdown')
+    def test_render_once_across_instances_and_refresh_after_edit(self):
+        import markdown as renderer
+
+        saved = Entry.objects.create(
+            title='Cached', slug='cached', content='**Content**',
+            excerpt='**Excerpt**', lead='**Lead**')
+        with patch('zinnia.models.entry.MARKUP_LANGUAGE', 'markdown'), \
+                patch('zinnia.markups.MARKUP_LANGUAGE', 'markdown'), \
+                patch('markdown.markdown', wraps=renderer.markdown) as render:
+            for instance in (saved, Entry.objects.get(pk=saved.pk)):
+                self.assertEqual(instance.html_content,
+                                 '<p><strong>Content</strong></p>')
+                self.assertEqual(instance.html_excerpt,
+                                 '<p><strong>Excerpt</strong></p>')
+                self.assertEqual(instance.html_lead,
+                                 '<p><strong>Lead</strong></p>')
+            self.assertEqual(render.call_count, 3)
+
+            saved.content = '*Edited*'
+            self.assertEqual(saved.html_content, '<p><em>Edited</em></p>')
+            saved.save()
+            self.assertEqual(Entry.objects.get(pk=saved.pk).html_content,
+                             '<p><em>Edited</em></p>')
+            self.assertEqual(render.call_count, 4)
+
+    @skip_if_lib_not_available('markdown')
+    def test_extension_changes_require_cache_clear(self):
+        import markdown as renderer
+
+        with patch('markdown.markdown', wraps=renderer.markdown) as render:
+            plain = markdown('# Heading')
+            self.assertEqual(markdown('# Heading', ['toc']), plain)
+            self.assertEqual(render.call_count, 1)
+
+            cache.clear()
+            linked = markdown('# Heading', ['toc'])
+            self.assertNotEqual(plain, linked)
+            self.assertEqual(markdown('# Heading', ['toc']), linked)
+            self.assertEqual(render.call_count, 2)
+
+    @skip_if_lib_not_available('markdown')
+    def test_empty_result_and_eviction(self):
+        import markdown as renderer
+
+        with patch('markdown.markdown', wraps=renderer.markdown) as render:
+            self.assertEqual(markdown(''), '')
+            self.assertEqual(markdown(''), '')
+            self.assertEqual(render.call_count, 1)
+            cache.clear()
+            self.assertEqual(markdown(''), '')
+            self.assertEqual(render.call_count, 2)
