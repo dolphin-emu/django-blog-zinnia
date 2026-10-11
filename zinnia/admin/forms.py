@@ -9,6 +9,7 @@ from zinnia.admin.fields import MPTTModelMultipleChoiceField
 from zinnia.admin.widgets import EtherpadWidget
 from zinnia.admin.widgets import MPTTFilteredSelectMultiple
 from zinnia.admin.widgets import MiniTextarea
+from zinnia.admin.widgets import TagAutoComplete
 from zinnia.models.category import Category
 from zinnia.models.entry import Entry
 from zinnia.settings import ETHERPAD_URL
@@ -86,6 +87,7 @@ class EntryAdminForm(forms.ModelForm):
         model = Entry
         fields = forms.ALL_FIELDS
         widgets = {
+            'tags': TagAutoComplete,
             'lead': MiniTextarea,
             'excerpt': MiniTextarea,
             'image_caption': MiniTextarea,
