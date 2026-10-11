@@ -112,7 +112,8 @@ class TagAutoComplete(widgets.AdminTextInputWidget):
                 'zinnia/admin/select2/%s' % path)
         return Media(
             css={'all': (static('css/select2.css'),)},
-            js=(static('js/select2.js'),)
+            js=('admin/js/jquery.init.js',
+                'zinnia/admin/select2/js/select2.js')
         )
 
 
