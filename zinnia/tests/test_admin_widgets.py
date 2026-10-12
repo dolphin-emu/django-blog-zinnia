@@ -231,7 +231,13 @@ class TagAutoCompleteTestCase(TestCase):
         )
         self.assertEqual(
             medias._js,
-            ['/s/zinnia/admin/select2/js/select2.js']
+            ['admin/js/jquery.init.js',
+             'zinnia/admin/select2/js/select2.js']
+        )
+        self.assertEqual(
+            medias.render_js(),
+            ['<script src="/s/admin/js/jquery.init.js"></script>',
+             '<script src="/s/zinnia/admin/select2/js/select2.js"></script>']
         )
 
 
