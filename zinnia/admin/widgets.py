@@ -10,8 +10,8 @@ from django.utils.safestring import mark_safe
 
 from tagging.models import Tag
 
-from zinnia.settings import ETHERPAD_URL
 from zinnia.models import Entry
+from zinnia.settings import ETHERPAD_URL
 
 
 class MPTTFilteredSelectMultiple(widgets.FilteredSelectMultiple):
